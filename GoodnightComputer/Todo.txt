@@ -1,0 +1,3 @@
+TODO:
+1. Need to install SQLite on this to store their schedule and load it.
+2. Probably need to open a thread for when sleep is happening to not freeze main thread - or do async 
