@@ -1,0 +1,77 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="GoodnightComputer.Schedule"
+             Background="#23272F"
+             Padding="24">
+  <StackPanel Spacing="24">
+    <!-- Header -->
+    <TextBlock Text="Create Sleep Schedule"
+               FontSize="22"
+               FontWeight="Bold"
+               Foreground="#FFFFFF"
+               Margin="0,0,0,8"/>
+    <TextBlock Text="Set the time and select apps to put to sleep."
+               FontSize="14"
+               Foreground="#B0B0B0"
+               Margin="0,0,0,16"/>
+
+    <!-- Time Picker -->
+    <StackPanel Orientation="Horizontal" Spacing="12" VerticalAlignment="Center">
+      <TextBlock Text="Sleep Time:"
+                 FontSize="16"
+                 Foreground="#FFFFFF"
+                 VerticalAlignment="Center"/>
+      <TimePicker Width="120"
+                  MinuteIncrement="5"
+                  Foreground="#FFFFFF"
+                  Background="#2D313A"/>
+    </StackPanel>
+
+    <!-- App Selection -->
+    <StackPanel>
+      <TextBlock Text="Apps to Sleep:"
+                 FontSize="16"
+                 Foreground="#FFFFFF"
+                 Margin="0,16,0,8"/>
+      <Border Background="#2D313A" CornerRadius="8" Padding="12">
+        <StackPanel Spacing="8">
+          <!-- Example: List of selected apps -->
+          <ItemsControl>
+            <ItemsControl.ItemTemplate>
+              <DataTemplate>
+                <StackPanel Orientation="Horizontal" Spacing="8">
+                  <TextBlock Text="{Binding}" Foreground="#FFFFFF" FontSize="14"/>
+                  <Button Content="Remove"
+                          Background="#3A3F4B"
+                          Foreground="#FF6B6B"
+                          Padding="4,0"
+                          FontSize="12"
+                          CornerRadius="4"/>
+                </StackPanel>
+              </DataTemplate>
+            </ItemsControl.ItemTemplate>
+          </ItemsControl>
+          <!-- Add App Button -->
+          <Button Content="Add App"
+                  Background="#3A3F4B"
+                  Foreground="#FFFFFF"
+                  FontSize="14"
+                  Padding="8"
+                  CornerRadius="6"
+                  HorizontalAlignment="Left"
+                  Margin="0,8,0,0"/>
+        </StackPanel>
+      </Border>
+    </StackPanel>
+
+    <!-- Save Button -->
+    <Button Content="Save Schedule"
+            Background="#4F8EF7"
+            Foreground="#FFFFFF"
+            FontSize="16"
+            Padding="12"
+            CornerRadius="8"
+            HorizontalAlignment="Right"
+            Margin="0,24,0,0"/>
+  </StackPanel>
+</UserControl>

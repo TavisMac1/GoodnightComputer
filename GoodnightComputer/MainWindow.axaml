@@ -1,0 +1,76 @@
+
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="GoodnightComputer.MainWindow"
+        Title="Goodnight Computer"
+        Width="1920"
+        Height="1080"
+        Background="#1E1E1E">
+  <Grid>
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="180"/>
+      <ColumnDefinition Width="*"/>
+    </Grid.ColumnDefinitions>
+
+    <!-- Sidebar -->
+    <Border Grid.Column="0" Background="#23272F" CornerRadius="0,12,12,0">
+      <StackPanel VerticalAlignment="Center" Spacing="20" HorizontalAlignment="Stretch">
+        <!-- Sidebar Header -->
+        <TextBlock Text="Goodnight Computer"
+                   Foreground="#FFFFFF"
+                   FontSize="16"
+                   FontWeight="Bold"
+                   HorizontalAlignment="Center"
+                   Margin="0,0,0,24"/>
+        <Button Content="Sleep Now"
+                Background="#2D313A"
+                Foreground="#FFFFFF"
+                FontSize="16"
+                Padding="12"
+                CornerRadius="8"
+                HorizontalAlignment="Stretch"
+                HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center"
+                Margin="12,0"/>
+        <Button x:Name="ScheduleButton"
+                Content="Schedule"
+                Background="#2D313A"
+                Foreground="#FFFFFF"
+                FontSize="16"
+                Padding="12"
+                CornerRadius="8"
+                HorizontalAlignment="Stretch"
+                HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center"
+                Margin="12,0"/>
+        <Button Content="Add Apps"
+                Background="#2D313A"
+                Foreground="#FFFFFF"
+                FontSize="16"
+                Padding="12"
+                CornerRadius="8"
+                HorizontalAlignment="Stretch"
+                HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center"
+                Margin="12,0"/>
+      </StackPanel>
+    </Border>
+
+    <!-- Main Content Area -->
+    <Border Grid.Column="1" Background="#1E1E1E" CornerRadius="12,0,0,12" Margin="0,0,0,0">
+      <ContentControl x:Name="MainContent"/>
+    </Border>
+
+    <!-- Loading Overlay -->
+    <Border x:Name="LoadingOverlay"
+            Grid.ColumnSpan="2"
+            Background="#80000000"
+            IsVisible="False"
+            ZIndex="100">
+      <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+        <ProgressBar IsIndeterminate="True" Width="100" Height="8"/>
+        <TextBlock Text="Loading..." Foreground="White" Margin="0,12,0,0" HorizontalAlignment="Center"/>
+      </StackPanel>
+    </Border>
+  </Grid>
+</Window>
