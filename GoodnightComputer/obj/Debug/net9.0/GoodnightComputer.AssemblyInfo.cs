@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("GoodnightComputer")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f1f2742a68cc3c6012e7c798306d9758b17b9ed4")]
 [assembly: System.Reflection.AssemblyProductAttribute("GoodnightComputer")]
 [assembly: System.Reflection.AssemblyTitleAttribute("GoodnightComputer")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

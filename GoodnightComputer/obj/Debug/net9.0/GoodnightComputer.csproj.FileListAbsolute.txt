@@ -64,3 +64,4 @@ C:\Users\Tavis\source\repos\GoodnightComputer\GoodnightComputer\obj\Debug\net9.0
 C:\Users\Tavis\source\repos\GoodnightComputer\GoodnightComputer\obj\Debug\net9.0\Goodnigh.664C0235.Up2Date
 C:\Users\Tavis\source\repos\GoodnightComputer\GoodnightComputer\obj\Debug\net9.0\GoodnightComputer.genruntimeconfig.cache
 C:\Users\Tavis\source\repos\GoodnightComputer\GoodnightComputer\obj\Debug\net9.0\ref\GoodnightComputer.dll
+C:\Users\Tavis\source\repos\GoodnightComputer\GoodnightComputer\obj\Debug\net9.0\GoodnightComputer.sourcelink.json

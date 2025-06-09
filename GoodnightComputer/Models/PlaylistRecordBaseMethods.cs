@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GoodnightComputer.Models
 {
-    public partial class ScheduleRecord
+    public partial class PlaylistRecord
     {
         public void RemoveApplicationRecord(ApplicationRecord applicationRecord)
         {
