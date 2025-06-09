@@ -9,5 +9,10 @@ namespace GoodnightComputer.Models
     public class ApplicationRecord
     {
         public string Name { get; set; }
+
+        public ApplicationRecord(string name)
+        {
+            Name = name;
+        }
     }
 }

@@ -1,7 +1,9 @@
 using Avalonia.Controls;
 using Avalonia.Interactivity;
+using GoodnightComputer.Controllers;
 using System;
 using System.Collections.Generic;
+using System.Security.Cryptography.X509Certificates;
 
 namespace GoodnightComputer
 {
@@ -9,16 +11,20 @@ namespace GoodnightComputer
     {
         public MainWindow()
         {
+            // Initializes MainWindow and its components.
             InitializeComponent();
-
-            //this.FindControl<ContentControl>("MainContent").Content = new Schedule();
-
-            this.FindControl<Button>("ScheduleButton").Click += ScheduleButton_Click;
         }
 
-        private void ScheduleButton_Click(object? sender, RoutedEventArgs e)
+        private void NewPlaylistView_Click(object? sender, RoutedEventArgs e)
         {
-            this.FindControl<ContentControl>("MainContent").Content = new Schedule();
+            this.FindControl<ContentControl>("MainContent").Content = new CreatePlaylist();
+        }
+
+        private void AddAppButton_Click(object? sender, RoutedEventArgs e)
+        {
+            // Opens the ListAllAppsModal when the Add App button is clicked.
+            var modal = new ListAllAppsModal();
+            this.Content = modal;
         }
     }
 }

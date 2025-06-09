@@ -1,35 +1,36 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             x:Class="GoodnightComputer.Schedule"
+             x:Class="GoodnightComputer.Controllers.CreatePlaylist"
              Background="#23272F"
              Padding="24">
   <StackPanel Spacing="24">
     <!-- Header -->
-    <TextBlock Text="Create Sleep Schedule"
+    <TextBlock Text="Create a New Playlist"
                FontSize="22"
                FontWeight="Bold"
                Foreground="#FFFFFF"
                Margin="0,0,0,8"/>
-    <TextBlock Text="Set the time and select apps to put to sleep."
-               FontSize="14"
-               Foreground="#B0B0B0"
-               Margin="0,0,0,16"/>
-
-    <!-- Time Picker -->
-    <StackPanel Orientation="Horizontal" Spacing="12" VerticalAlignment="Center">
-      <TextBlock Text="Sleep Time:"
-                 FontSize="16"
-                 Foreground="#FFFFFF"
-                 VerticalAlignment="Center"/>
-      <TimePicker Width="120"
-                  MinuteIncrement="5"
-                  Foreground="#FFFFFF"
-                  Background="#2D313A"/>
+    
+    <StackPanel Margin="20">
+       <TextBlock
+          Margin="0 5"
+          x:Name="ErrorMessageTextBlock"
+          Foreground="Red"
+          FontWeight="Bold"
+       >
+      </TextBlock>
+      
+      <TextBlock Margin="0 5">Playlist Name</TextBlock>
+      <TextBox x:Name="PlaylistNameTextBox" Watermark="Enter a name for your Playlist"/>
+      
+      <TextBlock Margin="0 15 0 5" x:Name="PlaylistDescriptionTextBlock">Description</TextBlock>
+      <TextBox x:Name="PlaylistDescriptionTextBox" Watermark="Enter a description for your Playlist"/>
+    
     </StackPanel>
-
+    
     <!-- App Selection -->
     <StackPanel>
-      <TextBlock Text="Apps to Sleep:"
+      <TextBlock Text="Apps for your Playlist to Sleep:"
                  FontSize="16"
                  Foreground="#FFFFFF"
                  Margin="0,16,0,8"/>
@@ -52,7 +53,9 @@
             </ItemsControl.ItemTemplate>
           </ItemsControl>
           <!-- Add App Button -->
-          <Button Content="Add App"
+          <Button 
+                  Click="OpenAppPicker_Click"
+                  Content="Add App"
                   Background="#3A3F4B"
                   Foreground="#FFFFFF"
                   FontSize="14"
@@ -65,7 +68,8 @@
     </StackPanel>
 
     <!-- Save Button -->
-    <Button Content="Save Schedule"
+    <Button Content="Save Playlist"
+            Click="SavePlaylist_Click"
             Background="#4F8EF7"
             Foreground="#FFFFFF"
             FontSize="16"
