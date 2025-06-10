@@ -1,7 +1,7 @@
 ﻿using Avalonia.Controls;
 using Avalonia.Interactivity;
 
-namespace GoodnightComputer.Controllers
+namespace GoodnightComputer.ViewModels
 {
     public partial class ViewPlaylists : UserControl
     {

@@ -2,7 +2,7 @@
 using Avalonia.Interactivity;
 using GoodnightComputer.Utils;
 
-namespace GoodnightComputer.Controllers
+namespace GoodnightComputer.ViewModels
 {
     public partial class ListAllAppsModal : UserControl
     {

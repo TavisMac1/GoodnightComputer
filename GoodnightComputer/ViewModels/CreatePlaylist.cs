@@ -3,14 +3,32 @@ using Avalonia.Interactivity;
 using GoodnightComputer.Models;
 using GoodnightComputer.Utils;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
-namespace GoodnightComputer.Controllers
+namespace GoodnightComputer.ViewModels
 {
     public partial class CreatePlaylist : UserControl
     {
+        public ObservableCollection<ApplicationRecord> AddedApplicationList { get; set; } = new();
+        public ObservableCollection<ApplicationRecord> ApplicationList { get; set; } = new();
+
         public CreatePlaylist()
         {
             InitializeComponent();
+            ApplicationList.Add(new ApplicationRecord("Random Data"));
+            /*
+            foreach (var app in GeneralUtils.ListApplicationNames())
+            {
+                ApplicationList.Add(new ApplicationRecord(app));
+            }
+            */
+
+            applicationsList.ItemsSource = ApplicationList;
+        }
+
+        public void AddAppToPlaylist_Click(object? sender, RoutedEventArgs e)
+        { 
+            
         }
 
         public void OpenAppPicker_Click(object? sender, RoutedEventArgs e)

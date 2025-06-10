@@ -1,6 +1,6 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             x:Class="GoodnightComputer.Controllers.ListAllAppsModal"
+             x:Class="GoodnightComputer.ViewModels.ListAllAppsModal"
              Background="#80000000">
   <Grid>
     <Border Background="#23272F"
