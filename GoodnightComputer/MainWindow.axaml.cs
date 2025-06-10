@@ -1,6 +1,6 @@
 using Avalonia.Controls;
 using Avalonia.Interactivity;
-using GoodnightComputer.Controllers;
+using GoodnightComputer.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Security.Cryptography.X509Certificates;

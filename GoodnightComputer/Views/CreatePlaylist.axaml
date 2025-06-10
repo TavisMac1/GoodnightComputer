@@ -1,8 +1,12 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             x:Class="GoodnightComputer.Controllers.CreatePlaylist"
+             xmlns:ViewModels="clr-namespace:GoodnightComputer.ViewModels"
+             xmlns:Models="clr-namespace:GoodnightComputer.Models"
+             x:Class="GoodnightComputer.ViewModels.CreatePlaylist"
+             x:DataType="ViewModels:CreatePlaylist"
              Background="#23272F"
-             Padding="24">
+             Padding="24"
+             >
   <StackPanel Spacing="24">
     <!-- Header -->
     <TextBlock Text="Create a New Playlist"
@@ -10,24 +14,23 @@
                FontWeight="Bold"
                Foreground="#FFFFFF"
                Margin="0,0,0,8"/>
-    
+
     <StackPanel Margin="20">
-       <TextBlock
-          Margin="0 5"
-          x:Name="ErrorMessageTextBlock"
-          Foreground="Red"
-          FontWeight="Bold"
-       >
+      <TextBlock
+         Margin="0 5"
+         x:Name="ErrorMessageTextBlock"
+         Foreground="Red"
+         FontWeight="Bold">
       </TextBlock>
-      
+
       <TextBlock Margin="0 5">Playlist Name</TextBlock>
       <TextBox x:Name="PlaylistNameTextBox" Watermark="Enter a name for your Playlist"/>
-      
+
       <TextBlock Margin="0 15 0 5" x:Name="PlaylistDescriptionTextBlock">Description</TextBlock>
       <TextBox x:Name="PlaylistDescriptionTextBox" Watermark="Enter a description for your Playlist"/>
-    
+
     </StackPanel>
-    
+
     <!-- App Selection -->
     <StackPanel>
       <TextBlock Text="Apps for your Playlist to Sleep:"
@@ -35,35 +38,22 @@
                  Foreground="#FFFFFF"
                  Margin="0,16,0,8"/>
       <Border Background="#2D313A" CornerRadius="8" Padding="12">
-        <StackPanel Spacing="8">
-          <!-- Example: List of selected apps -->
-          <ItemsControl>
-            <ItemsControl.ItemTemplate>
-              <DataTemplate>
-                <StackPanel Orientation="Horizontal" Spacing="8">
-                  <TextBlock Text="{Binding}" Foreground="#FFFFFF" FontSize="14"/>
-                  <Button Content="Remove"
-                          Background="#3A3F4B"
-                          Foreground="#FF6B6B"
-                          Padding="4,0"
-                          FontSize="12"
-                          CornerRadius="4"/>
-                </StackPanel>
-              </DataTemplate>
-            </ItemsControl.ItemTemplate>
-          </ItemsControl>
-          <!-- Add App Button -->
-          <Button 
-                  Click="OpenAppPicker_Click"
-                  Content="Add App"
-                  Background="#3A3F4B"
-                  Foreground="#FFFFFF"
-                  FontSize="14"
-                  Padding="8"
-                  CornerRadius="6"
-                  HorizontalAlignment="Left"
-                  Margin="0,8,0,0"/>
-        </StackPanel>
+        
+        <ScrollViewer Width="800" Height="300">
+          <StackPanel Spacing="8">
+
+            <ListBox x:Name="applicationsList">
+              <ListBox.ItemTemplate>
+                <DataTemplate  x:DataType="Application">
+                  <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="{Binding Name}"/>
+                  </StackPanel>
+                </DataTemplate>
+              </ListBox.ItemTemplate>
+            </ListBox>
+          </StackPanel>
+        </ScrollViewer>
+        
       </Border>
     </StackPanel>
 
