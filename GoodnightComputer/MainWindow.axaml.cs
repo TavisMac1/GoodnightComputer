@@ -1,9 +1,6 @@
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using GoodnightComputer.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Security.Cryptography.X509Certificates;
 
 namespace GoodnightComputer
 {
@@ -18,13 +15,6 @@ namespace GoodnightComputer
         private void NewPlaylistView_Click(object? sender, RoutedEventArgs e)
         {
             this.FindControl<ContentControl>("MainContent").Content = new CreatePlaylist();
-        }
-
-        private void AddAppButton_Click(object? sender, RoutedEventArgs e)
-        {
-            // Opens the ListAllAppsModal when the Add App button is clicked.
-            var modal = new ListAllAppsModal();
-            this.Content = modal;
         }
     }
 }
