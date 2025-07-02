@@ -37,14 +37,21 @@
                  FontSize="16"
                  Foreground="#FFFFFF"
                  Margin="0,16,0,8"/>
-      <Border Background="#2D313A" CornerRadius="8" Padding="12">
-        
-        <ScrollViewer Width="800" Height="300">
-          <StackPanel Spacing="8">
-
-            <ListBox x:Name="applicationsList">
+      
+  <Border Background="#2D313A" CornerRadius="8" Padding="12">
+    <StackPanel>
+      <ScrollViewer Width="800" Height="300" HorizontalScrollBarVisibility="Auto">
+        <Grid ColumnDefinitions="*,*">
+          <!-- Available Apps -->
+          <StackPanel Grid.Column="0">
+            <TextBlock Text="Available Apps"
+                       FontSize="14"
+                       FontWeight="Bold"
+                       Foreground="#B0B0B0"
+                       Margin="0,0,0,8"/>
+            <ListBox x:Name="AppsListBox" ItemsSource="{Binding ApplicationList}" Height="220">
               <ListBox.ItemTemplate>
-                <DataTemplate  x:DataType="Application">
+                <DataTemplate x:DataType="Models:ApplicationRecord">
                   <StackPanel Orientation="Horizontal">
                     <TextBlock Text="{Binding Name}"/>
                   </StackPanel>
@@ -52,9 +59,39 @@
               </ListBox.ItemTemplate>
             </ListBox>
           </StackPanel>
-        </ScrollViewer>
-        
-      </Border>
+          <!-- Selected Apps -->
+          <StackPanel Grid.Column="1">
+            <TextBlock Text="Selected Apps"
+                       FontSize="14"
+                       FontWeight="Bold"
+                       Foreground="#B0B0B0"
+                       Margin="0,0,0,8"/>
+            <ListBox x:Name="SelectedAppsListBox" ItemsSource="{Binding SelectedApps}" Height="220">
+              <ListBox.ItemTemplate>
+                <DataTemplate x:DataType="Models:ApplicationRecord">
+                  <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="{Binding Name}"/>
+                  </StackPanel>
+                </DataTemplate>
+              </ListBox.ItemTemplate>
+            </ListBox>
+          </StackPanel>
+        </Grid>
+      </ScrollViewer>
+      <TextBlock Text="Select apps to add to your playlist by clicking on them."
+                 Foreground="#FFFFFF"
+                 Margin="0,8,0,0"/>
+    </StackPanel>
+  </Border>
+    <Button Content="Add App to Playlist"
+            Click="AddAppToPlaylist_Click"
+            Background="#4F8EF7"
+            Foreground="#FFFFFF"
+            FontSize="16"
+            Padding="12"
+            CornerRadius="8"
+            HorizontalAlignment="Left"
+            Margin="0,16,0,0"/>
     </StackPanel>
 
     <!-- Save Button -->
