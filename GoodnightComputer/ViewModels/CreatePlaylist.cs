@@ -2,6 +2,7 @@
 using Avalonia.Interactivity;
 using GoodnightComputer.Models;
 using GoodnightComputer.Utils;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -12,20 +13,20 @@ namespace GoodnightComputer.ViewModels
     {
         public ObservableCollection<ApplicationRecord> SelectedApps { get; set; } = new();
         public ObservableCollection<ApplicationRecord> ApplicationList { get; set; } = new();
+        public ObservableCollection<ApplicationRecord> CachedApplicationList { get; set; } = new();
+
+        private TextBox ErrorMessageControl;
+        private TextBox PlaylistNameTextBoxControl;
+        private TextBox PlaylistDescriptionTextBoxControl;
+        private ListBox SelectedAppsListBoxControl;
+        private ListBox AppsListBoxControl;
+        private TextBox SearchTextBoxControl;
 
         public CreatePlaylist()
         {
             InitializeComponent();
             DataContext = this;
             Initialize();
-
-            /*
-            foreach (var app in GeneralUtils.ListApplicationNames())
-            {
-                ApplicationList.Add(new ApplicationRecord(app));
-            }
-            */
-            //applicationsList.ItemsSource = ApplicationList;
         }
 
         private void Initialize()
@@ -34,57 +35,85 @@ namespace GoodnightComputer.ViewModels
             {
                 ApplicationList.Add(new ApplicationRecord(app));
             }
+
+            ErrorMessageControl = this.FindControl<TextBox>("ErrorMessageTextBlock");
+            PlaylistNameTextBoxControl = this.FindControl<TextBox>("PlaylistNameTextBox");
+            PlaylistDescriptionTextBoxControl = this.FindControl<TextBox>("PlaylistDescriptionTextBox");
+            SelectedAppsListBoxControl = this.FindControl<ListBox>("SelectedAppsListBox");
+            AppsListBoxControl = this.FindControl<ListBox>("AppsListBox");
+            SearchTextBoxControl = this.FindControl<TextBox>("SearchTextBox");
+        }
+
+        private void Search(string input)
+        {
+            CachedApplicationList = ApplicationList;
+
+            if (ApplicationList.Count > 0)
+            {
+                ApplicationList = new ObservableCollection<ApplicationRecord>(
+                    ApplicationList.Where(app => app.Name.Contains(input, StringComparison.OrdinalIgnoreCase))
+                );
+            }
+        }
+
+        public void SearchApps_Click(object? sender, RoutedEventArgs e)
+        {
+            var searchText = SearchTextBoxControl.Text;
+
+            if (string.IsNullOrEmpty(searchText))
+            {
+                ErrorMessageControl.Text = "Please enter input in the search box.";
+                return;
+            }
+
+            Search(searchText);
+        }
+
+        public void RemoveApp_Click(object? sender, RoutedEventArgs e)
+        {
+            var listBox = this.FindControl<ListBox>("SelectedAppsListBox");
+            var selectedApp = listBox.SelectedItems?.OfType<ApplicationRecord>().First();
+
+            if (selectedApp != null)
+            { 
+                SelectedApps.Remove(selectedApp);
+            }
         }
 
         public void AddAppToPlaylist_Click(object? sender, RoutedEventArgs e)
         {
-            var errorMessageControl = this.FindControl<TextBlock>("ErrorMessageTextBlock");
-            var listBox = this.FindControl<ListBox>("AppsListBox");
-
-            // For multiple selection (recommended)
-            var selectedApps = listBox.SelectedItems?.OfType<ApplicationRecord>().ToList() ?? new List<ApplicationRecord>();
+            var selectedApps = AppsListBoxControl.SelectedItems?.OfType<ApplicationRecord>().ToList() ?? new List<ApplicationRecord>();
 
             if (selectedApps.Count == 0)
             {
-                errorMessageControl.Text = "Please select at least one application to add.";
+                ErrorMessageControl.Text = "Please select at least one application to add.";
                 return;
             }
 
-            // Add selected apps to SelectedApps collection (avoid duplicates)
             foreach (var app in selectedApps)
             {
                 if (!SelectedApps.Contains(app))
                     SelectedApps.Add(app);
             }
 
-            errorMessageControl.Text = ""; // Clear error on success
+            ErrorMessageControl.Text = string.Empty;
         }
 
         public void SavePlaylist_Click(object? sender, RoutedEventArgs e)
         {
-            var errorMessageControl = this.FindControl<TextBlock>("ErrorMessageTextBlock");
-            var name = this.FindControl<TextBox>("PlaylistNameTextBox").Text;
-            var description = this.FindControl<TextBox>("PlaylistDescriptionTextBox").Text;
-            List<ApplicationRecord> apps = this.FindControl<ListBox>("AppsListBox").SelectedItems as List<ApplicationRecord>;
+            var Playlist = new PlaylistRecord(
+                PlaylistNameTextBoxControl.Text,
+                PlaylistDescriptionTextBoxControl.Text,
+                SelectedAppsListBoxControl.SelectedItems as List<ApplicationRecord> ?? new()
+            );
 
-            var isValid = PlaylistUtils.ValidatePlaylist(name, description, apps);
+            var playListResult = Playlist.Validate();
 
-            if (!isValid)
-            {
-                // Show an error message to the user
-                errorMessageControl.Text = "Please fill in all fields and select at least one application.";
-                return;
-            }
+            if (!playListResult.IsValid) ErrorMessageControl.Text = playListResult.ErrorMessage;
 
-            var PlaylistRecord = new PlaylistRecord
-                (
-                    name,
-                    description,
-                    apps
-                );
-
-            // Save to SQLite 
-            errorMessageControl.Text = "";
+            Playlist.Save();
+               
+            ErrorMessageControl.Text = "";
         }
     }
 }
