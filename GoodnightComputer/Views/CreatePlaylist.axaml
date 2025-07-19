@@ -5,8 +5,7 @@
              x:Class="GoodnightComputer.ViewModels.CreatePlaylist"
              x:DataType="ViewModels:CreatePlaylist"
              Background="#23272F"
-             Padding="24"
-             >
+             Padding="24">
   <StackPanel Spacing="24">
     <!-- Header -->
     <TextBlock Text="Create a New Playlist"
@@ -20,15 +19,11 @@
          Margin="0 5"
          x:Name="ErrorMessageTextBlock"
          Foreground="Red"
-         FontWeight="Bold">
-      </TextBlock>
-
+         FontWeight="Bold"/>
       <TextBlock Margin="0 5">Playlist Name</TextBlock>
       <TextBox x:Name="PlaylistNameTextBox" Watermark="Enter a name for your Playlist"/>
-
       <TextBlock Margin="0 15 0 5" x:Name="PlaylistDescriptionTextBlock">Description</TextBlock>
       <TextBox x:Name="PlaylistDescriptionTextBox" Watermark="Enter a description for your Playlist"/>
-
     </StackPanel>
 
     <!-- App Selection -->
@@ -37,72 +32,104 @@
                  FontSize="16"
                  Foreground="#FFFFFF"
                  Margin="0,16,0,8"/>
-      
-  <Border Background="#2D313A" CornerRadius="8" Padding="12">
-    <StackPanel>
-      <ScrollViewer Width="800" Height="300" HorizontalScrollBarVisibility="Auto">
-        <Grid ColumnDefinitions="*,*">
-          <!-- Available Apps -->
-          <StackPanel Grid.Column="0">
-            <TextBlock Text="Available Apps"
-                       FontSize="14"
-                       FontWeight="Bold"
-                       Foreground="#B0B0B0"
-                       Margin="0,0,0,8"/>
-            <ListBox x:Name="AppsListBox" ItemsSource="{Binding ApplicationList}" Height="220">
-              <ListBox.ItemTemplate>
-                <DataTemplate x:DataType="Models:ApplicationRecord">
-                  <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="{Binding Name}"/>
-                  </StackPanel>
-                </DataTemplate>
-              </ListBox.ItemTemplate>
-            </ListBox>
+      <Border Background="#2D313A" CornerRadius="8" Padding="12">
+        <StackPanel>
+          <!-- Search Bar ABOVE the Grid -->
+          <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,0,0,8">
+            <TextBox x:Name="SearchTextBox"
+                     Width="200"
+                     Watermark="Search applications..." />
+            <Button Content="Search"
+                    Click="SearchApps_Click"
+                    Background="#4F8EF7"
+                    Foreground="#FFFFFF"
+                    Padding="8,0"
+                    MinWidth="80"/>
           </StackPanel>
-          <!-- Selected Apps -->
-          <StackPanel Grid.Column="1">
-            <TextBlock Text="Selected Apps"
-                       FontSize="14"
-                       FontWeight="Bold"
-                       Foreground="#B0B0B0"
-                       Margin="0,0,0,8"/>
-            <ListBox x:Name="SelectedAppsListBox" ItemsSource="{Binding SelectedApps}" Height="220">
-              <ListBox.ItemTemplate>
-                <DataTemplate x:DataType="Models:ApplicationRecord">
-                  <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="{Binding Name}"/>
-                  </StackPanel>
-                </DataTemplate>
-              </ListBox.ItemTemplate>
-            </ListBox>
-          </StackPanel>
-        </Grid>
-      </ScrollViewer>
-      <TextBlock Text="Select apps to add to your playlist by clicking on them."
-                 Foreground="#FFFFFF"
-                 Margin="0,8,0,0"/>
+          <ScrollViewer Width="900" Height="300" HorizontalScrollBarVisibility="Auto">
+            <Grid ColumnDefinitions="*,8,*">
+              <!-- Available Apps -->
+              <StackPanel Grid.Column="0">
+                <TextBlock Text="Available Apps"
+                           FontSize="14"
+                           FontWeight="Bold"
+                           Foreground="#B0B0B0"
+                           Margin="0,0,0,8"/>
+                <ListBox x:Name="AppsListBox" ItemsSource="{Binding ApplicationList}" Height="180">
+                  <ListBox.ItemTemplate>
+                    <DataTemplate x:DataType="Models:ApplicationRecord">
+                      <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding Name}"/>
+                      </StackPanel>
+                    </DataTemplate>
+                  </ListBox.ItemTemplate>
+                </ListBox>
+                <Button Content="Add to Playlist"
+                        Click="AddAppToPlaylist_Click"
+                        Background="#E0E0E0"
+                        Foreground="#23272F"
+                        FontSize="14"
+                        Width="140"
+                        Padding="6"
+                        CornerRadius="8"
+                        HorizontalAlignment="Left"
+                        HorizontalContentAlignment="Center"
+                        VerticalContentAlignment="Center"
+                        Margin="0,8,0,0"/>
+              </StackPanel>
+              <!-- Vertical Separator -->
+              <Border Grid.Column="1"
+                      Width="2"
+                      Margin="12,0"
+                      Background="#444"
+                      HorizontalAlignment="Center"/>
+              <!-- Selected Apps -->
+              <StackPanel Grid.Column="2">
+                <TextBlock Text="Selected Apps"
+                           FontSize="14"
+                           FontWeight="Bold"
+                           Foreground="#B0B0B0"
+                           Margin="0,0,0,8"/>
+                <ListBox x:Name="SelectedAppsListBox" ItemsSource="{Binding SelectedApps}" Height="180">
+                  <ListBox.ItemTemplate>
+                    <DataTemplate x:DataType="Models:ApplicationRecord">
+                      <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding Name}"/>
+                      </StackPanel>
+                    </DataTemplate>
+                  </ListBox.ItemTemplate>
+                </ListBox>
+                <Button Content="Remove App"
+                        Click="RemoveApp_Click"
+                        Background="#781600"
+                        Foreground="#FFFFFF"
+                        FontSize="14"
+                        Width="180"
+                        Padding="6"
+                        CornerRadius="8"
+                        HorizontalAlignment="Left"
+                        HorizontalContentAlignment="Center"
+                        VerticalContentAlignment="Center"
+                        Margin="0,8,0,0"/>
+              </StackPanel>
+            </Grid>
+          </ScrollViewer>
+          <TextBlock Text="Select apps to add to your playlist by clicking on them."
+                     Foreground="#FFFFFF"
+                     Margin="0,8,0,0"/>
+        </StackPanel>
+      </Border>
+      <!-- Save Button below the selection area -->
+      <StackPanel Orientation="Horizontal" Spacing="12" Margin="0,16,0,0">
+        <Button Content="Save Playlist"
+                Click="SavePlaylist_Click"
+                Background="#4F8EF7"
+                Foreground="#FFFFFF"
+                FontSize="16"
+                Padding="12"
+                CornerRadius="8"
+                HorizontalAlignment="Left"/>
+      </StackPanel>
     </StackPanel>
-  </Border>
-    <Button Content="Add App to Playlist"
-            Click="AddAppToPlaylist_Click"
-            Background="#4F8EF7"
-            Foreground="#FFFFFF"
-            FontSize="16"
-            Padding="12"
-            CornerRadius="8"
-            HorizontalAlignment="Left"
-            Margin="0,16,0,0"/>
-    </StackPanel>
-
-    <!-- Save Button -->
-    <Button Content="Save Playlist"
-            Click="SavePlaylist_Click"
-            Background="#4F8EF7"
-            Foreground="#FFFFFF"
-            FontSize="16"
-            Padding="12"
-            CornerRadius="8"
-            HorizontalAlignment="Right"
-            Margin="0,24,0,0"/>
   </StackPanel>
 </UserControl>
