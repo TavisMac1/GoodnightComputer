@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GoodnightComputer.Models;
+using System;
 using System.Collections.Generic;
 
 namespace GoodnightComputer.Utils
@@ -47,6 +48,19 @@ namespace GoodnightComputer.Utils
             // Resume any apps which are asleep
             // Show notification and confirmation message
             Console.WriteLine("Application is exiting. Performing cleanup...");
+        }
+
+        public static string PrepareApplicationRecords(List<ApplicationRecord> applicationRecords)
+        {
+            if (applicationRecords == null) throw new Exception("Application Records was null.");
+
+            if (applicationRecords.Count > 0)
+            {
+                List<string> appNames = new();
+                applicationRecords.ForEach(elem => appNames.Add(elem.Name));
+                return string.Join(",", appNames);
+            }
+            return string.Empty;
         }
     }
 }

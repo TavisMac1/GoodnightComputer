@@ -25,7 +25,7 @@ namespace GoodnightComputer
         private static void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<AppDbContext>(options =>
-                options.UseSqlite("Data Source=app.db"));
+                options.UseSqlite("Data Source=GoodnightComputer.db"));
             // Register other services, viewmodels, etc. here
         }
 

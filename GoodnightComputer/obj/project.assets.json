@@ -1,7 +1,7 @@
 {
   "version": 3,
   "targets": {
-    "net9.0": {
+    "net9.0-windows7.0": {
       "Avalonia/11.2.1": {
         "type": "package",
         "dependencies": {
@@ -1396,10 +1396,10 @@
           "SQLitePCLRaw.core": "2.1.10"
         },
         "compile": {
-          "lib/net6.0/SQLitePCLRaw.provider.e_sqlite3.dll": {}
+          "lib/net6.0-windows7.0/SQLitePCLRaw.provider.e_sqlite3.dll": {}
         },
         "runtime": {
-          "lib/net6.0/SQLitePCLRaw.provider.e_sqlite3.dll": {}
+          "lib/net6.0-windows7.0/SQLitePCLRaw.provider.e_sqlite3.dll": {}
         }
       },
       "System.CodeDom/6.0.0": {
@@ -4474,7 +4474,7 @@
     }
   },
   "projectFileDependencyGroups": {
-    "net9.0": [
+    "net9.0-windows7.0": [
       "Avalonia >= 11.2.1",
       "Avalonia.Controls.ItemsRepeater >= 11.1.5",
       "Avalonia.Desktop >= 11.2.1",
@@ -4494,7 +4494,7 @@
     "version": "1.0.0",
     "restore": {
       "projectUniqueName": "C:\\Users\\Tavis\\source\\repos\\GoodnightComputer\\GoodnightComputer\\GoodnightComputer.csproj",
-      "projectName": "GoodnightComputer",
+      "projectName": "GNC",
       "projectPath": "C:\\Users\\Tavis\\source\\repos\\GoodnightComputer\\GoodnightComputer\\GoodnightComputer.csproj",
       "packagesPath": "C:\\Users\\Tavis\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\Tavis\\source\\repos\\GoodnightComputer\\GoodnightComputer\\obj\\",
@@ -4509,15 +4509,15 @@
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
-        "net9.0"
+        "net9.0-windows"
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
-        "net9.0": {
-          "targetAlias": "net9.0",
+        "net9.0-windows7.0": {
+          "targetAlias": "net9.0-windows",
           "projectReferences": {}
         }
       },
@@ -4531,11 +4531,11 @@
         "auditLevel": "low",
         "auditMode": "direct"
       },
-      "SdkAnalysisLevel": "9.0.100"
+      "SdkAnalysisLevel": "9.0.300"
     },
     "frameworks": {
-      "net9.0": {
-        "targetAlias": "net9.0",
+      "net9.0-windows7.0": {
+        "targetAlias": "net9.0-windows",
         "dependencies": {
           "Avalonia": {
             "target": "Package",
@@ -4588,7 +4588,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.102/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.304/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

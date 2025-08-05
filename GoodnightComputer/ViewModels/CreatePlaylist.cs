@@ -15,7 +15,7 @@ namespace GoodnightComputer.ViewModels
         public ObservableCollection<ApplicationRecord> ApplicationList { get; set; } = new();
         public ObservableCollection<ApplicationRecord> CachedApplicationList { get; set; } = new();
 
-        private TextBox ErrorMessageControl;
+        private TextBlock ErrorMessageControl;
         private TextBox PlaylistNameTextBoxControl;
         private TextBox PlaylistDescriptionTextBoxControl;
         private ListBox SelectedAppsListBoxControl;
@@ -36,7 +36,7 @@ namespace GoodnightComputer.ViewModels
                 ApplicationList.Add(new ApplicationRecord(app));
             }
 
-            ErrorMessageControl = this.FindControl<TextBox>("ErrorMessageTextBlock");
+            ErrorMessageControl = this.FindControl<TextBlock>("ErrorMessageTextBlock");
             PlaylistNameTextBoxControl = this.FindControl<TextBox>("PlaylistNameTextBox");
             PlaylistDescriptionTextBoxControl = this.FindControl<TextBox>("PlaylistDescriptionTextBox");
             SelectedAppsListBoxControl = this.FindControl<ListBox>("SelectedAppsListBox");
@@ -51,7 +51,11 @@ namespace GoodnightComputer.ViewModels
             if (ApplicationList.Count > 0)
             {
                 ApplicationList = new ObservableCollection<ApplicationRecord>(
-                    ApplicationList.Where(app => app.Name.Contains(input, StringComparison.OrdinalIgnoreCase))
+                    ApplicationList.Where(app => app.Name.Contains(
+                            input, 
+                            StringComparison.OrdinalIgnoreCase
+                        )
+                    )
                 );
             }
         }
@@ -104,10 +108,10 @@ namespace GoodnightComputer.ViewModels
             var Playlist = new PlaylistRecord(
                 PlaylistNameTextBoxControl.Text,
                 PlaylistDescriptionTextBoxControl.Text,
-                SelectedAppsListBoxControl.SelectedItems as List<ApplicationRecord> ?? new()
+                GeneralUtils.PrepareApplicationRecords(SelectedApps.ToList())
             );
 
-            var playListResult = Playlist.Validate();
+            var playListResult = Playlist.Validate(SelectedAppsListBoxControl.SelectedItems.Count);
 
             if (!playListResult.IsValid) ErrorMessageControl.Text = playListResult.ErrorMessage;
 
