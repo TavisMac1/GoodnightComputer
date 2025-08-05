@@ -7,6 +7,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace GoodnightComputer.Models
 {
+    [Table("PlaylistEntities")]
     public partial class PlaylistRecord
     {
         [Key]
@@ -17,23 +18,22 @@ namespace GoodnightComputer.Models
 
         public string Descriptor { get; set; }
 
-        public int ApplicationCount { get; set; }
-
         public bool IsActive { get; set; } = false;
 
         public string CreatedOn { get; set; } = DateTime.Now.ToString("yyyy-mm-dd");
 
-        private string Applications { get; set; } = "";
+        public string Applications { get; set; } = "";
+
+        public PlaylistRecord() { }
 
         public PlaylistRecord
         (
             string name,
             string descriptor,
-            List<ApplicationRecord> applicationRecords
+            string applicationRecords
          )
         {
-            Id = Guid.NewGuid();
-            Applications = PrepareApplicationRecords(applicationRecords);
+            Applications = applicationRecords;
             Name = name;
             Descriptor = descriptor;
         }
@@ -44,6 +44,14 @@ namespace GoodnightComputer.Models
             {
                 context.Set<PlaylistRecord>().AddRange(this);
                 context.SaveChanges();
+                /*
+                if (context.Database.CanConnect())
+                {
+                    context.Set<PlaylistRecord>().AddRange(this);
+                    context.SaveChanges();
+                }
+                else throw new Exception("Unable to connect to the Database.");
+                */
             }
         }
 
@@ -52,22 +60,11 @@ namespace GoodnightComputer.Models
             // for deleting records
         }
 
-        private string PrepareApplicationRecords(List<ApplicationRecord> applicationRecords)
-        {
-            if (ApplicationCount > 0)
-            {
-                List<string> appNames = new();
-                applicationRecords.ForEach(elem => appNames.Add(elem.Name));
-                return string.Join(",", appNames);
-            }
-            return string.Empty;
-        }
-
-        public PlaylistResult Validate()
+        public PlaylistResult Validate(int applicationCount)
         {
             if (!string.IsNullOrEmpty(Name)) return new("Name is empty.");
             if (!string.IsNullOrEmpty(Descriptor)) return new("Description is empty");
-            if (ApplicationCount == 0) return new("There are no applications added.");
+            if (applicationCount == 0) return new("There are no applications added.");
 
             return new(true);
         }

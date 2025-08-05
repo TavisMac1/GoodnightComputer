@@ -1,1 +1,4 @@
 .vs/
+/GoodnightComputer/GoodnightComputer.db
+/GoodnightComputer/Migrations/20250731155744_InitialCreate.cs
+/GoodnightComputer/Migrations/AppDbContextModelSnapshot.cs
