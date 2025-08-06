@@ -8,28 +8,30 @@
              Padding="24">
   <StackPanel Spacing="24">
     <!-- Header -->
-    <TextBlock Text="Create a New Playlist"
-               FontSize="22"
+    <TextBlock Text="Create New Playlist"
+               FontSize="18"
                FontWeight="Bold"
                Foreground="#FFFFFF"
                Margin="0,0,0,8"/>
 
     <StackPanel Margin="20">
       <TextBlock
-         Margin="0 5"
-         x:Name="ErrorMessageTextBlock"
-         Foreground="Red"
-         FontWeight="Bold"/>
-      <TextBlock Margin="0 5">Playlist Name</TextBlock>
+          Margin="0 5"
+          x:Name="ErrorMessageTextBlock"
+          Foreground="Red"
+          FontWeight="Bold"
+         >
+        </TextBlock>
+      <TextBlock Margin="0 5" FontSize="12" Foreground="WhiteSmoke">Playlist Name</TextBlock>
       <TextBox x:Name="PlaylistNameTextBox" Watermark="Enter a name for your Playlist"/>
-      <TextBlock Margin="0 15 0 5" x:Name="PlaylistDescriptionTextBlock">Description</TextBlock>
+      <TextBlock  Margin="0 15 0 5" FontSize="12" Foreground="WhiteSmoke">Description</TextBlock>
       <TextBox x:Name="PlaylistDescriptionTextBox" Watermark="Enter a description for your Playlist"/>
     </StackPanel>
 
     <!-- App Selection -->
     <StackPanel>
-      <TextBlock Text="Apps for your Playlist to Sleep:"
-                 FontSize="16"
+      <TextBlock Text="Apps for your Playlist to Sleep"
+                 FontSize="13"
                  Foreground="#FFFFFF"
                  Margin="0,16,0,8"/>
       <Border Background="#2D313A" CornerRadius="8" Padding="12">
@@ -39,12 +41,13 @@
             <TextBox x:Name="SearchTextBox"
                      Width="200"
                      Watermark="Search applications..." />
-            <Button Content="Search"
-                    Click="SearchApps_Click"
+            <Button Click="SearchApps_Click"
                     Background="#4F8EF7"
                     Foreground="#FFFFFF"
-                    Padding="8,0"
-                    MinWidth="80"/>
+                    MinWidth="60"
+                    Height="30">
+              <TextBlock Text="Search" FontSize="14"/>
+              </Button>
           </StackPanel>
           <ScrollViewer Width="900" Height="300" HorizontalScrollBarVisibility="Auto">
             <Grid ColumnDefinitions="*,8,*">
@@ -71,11 +74,12 @@
                         FontSize="14"
                         Width="140"
                         Padding="6"
-                        CornerRadius="8"
+                        CornerRadius=""
                         HorizontalAlignment="Left"
                         HorizontalContentAlignment="Center"
                         VerticalContentAlignment="Center"
-                        Margin="0,8,0,0"/>
+                        Margin="0,8,0,0"
+                        FontWeight="DemiBold"/>
               </StackPanel>
               <!-- Vertical Separator -->
               <Border Grid.Column="1"
@@ -106,16 +110,19 @@
                         FontSize="14"
                         Width="180"
                         Padding="6"
-                        CornerRadius="8"
+                        CornerRadius=""
                         HorizontalAlignment="Left"
                         HorizontalContentAlignment="Center"
                         VerticalContentAlignment="Center"
-                        Margin="0,8,0,0"/>
+                        Margin="0,8,0,0"
+                        FontWeight="DemiBold"/>
               </StackPanel>
             </Grid>
           </ScrollViewer>
           <TextBlock Text="Select apps to add to your playlist by clicking on them."
-                     Foreground="#FFFFFF"
+                     Foreground="Gray"
+                     FontStyle="Italic"
+                     FontSize="12"
                      Margin="0,8,0,0"/>
         </StackPanel>
       </Border>
@@ -127,7 +134,7 @@
                 Foreground="#FFFFFF"
                 FontSize="16"
                 Padding="12"
-                CornerRadius="8"
+                CornerRadius=""
                 HorizontalAlignment="Left"/>
       </StackPanel>
     </StackPanel>
