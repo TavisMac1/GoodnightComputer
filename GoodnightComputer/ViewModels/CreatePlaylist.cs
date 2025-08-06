@@ -18,8 +18,8 @@ namespace GoodnightComputer.ViewModels
         private TextBlock ErrorMessageControl;
         private TextBox PlaylistNameTextBoxControl;
         private TextBox PlaylistDescriptionTextBoxControl;
-        private ListBox SelectedAppsListBoxControl;
         private ListBox AppsListBoxControl;
+        private ListBox SelectedAppsListBoxControl;
         private TextBox SearchTextBoxControl;
 
         public CreatePlaylist()
@@ -39,9 +39,17 @@ namespace GoodnightComputer.ViewModels
             ErrorMessageControl = this.FindControl<TextBlock>("ErrorMessageTextBlock");
             PlaylistNameTextBoxControl = this.FindControl<TextBox>("PlaylistNameTextBox");
             PlaylistDescriptionTextBoxControl = this.FindControl<TextBox>("PlaylistDescriptionTextBox");
-            SelectedAppsListBoxControl = this.FindControl<ListBox>("SelectedAppsListBox");
             AppsListBoxControl = this.FindControl<ListBox>("AppsListBox");
+            SelectedAppsListBoxControl = this.FindControl<ListBox>("SelectedAppsListBox");
             SearchTextBoxControl = this.FindControl<TextBox>("SearchTextBox");
+
+            if (ErrorMessageControl == null) throw new Exception("ErrorMessageTextBlock not found.");
+            if (PlaylistNameTextBoxControl == null) throw new Exception("PlaylistNameTextBox not found.");
+            if (PlaylistDescriptionTextBoxControl == null) throw new Exception("PlaylistDescriptionTextBox not found.");
+            if (AppsListBoxControl == null) throw new Exception("AppsListBox not found.");
+            if (SelectedAppsListBoxControl == null) throw new Exception("SelectedAppsListBox not found.");
+            if (SearchTextBoxControl == null) throw new Exception("SearchTextBox not found.");
+            ErrorMessageControl.Text = string.Empty;
         }
 
         private void Search(string input)
@@ -75,13 +83,15 @@ namespace GoodnightComputer.ViewModels
 
         public void RemoveApp_Click(object? sender, RoutedEventArgs e)
         {
-            var listBox = this.FindControl<ListBox>("SelectedAppsListBox");
-            var selectedApp = listBox.SelectedItems?.OfType<ApplicationRecord>().First();
+            var selectedApp = null as ApplicationRecord;
 
-            if (selectedApp != null)
-            { 
-                SelectedApps.Remove(selectedApp);
-            }
+            if (SelectedAppsListBoxControl.SelectedItem == null && SelectedAppsListBoxControl.SelectedItems.Count == 0) throw new Exception("No application selected to remove.");
+
+            if (SelectedAppsListBoxControl.SelectedItem != null) selectedApp = SelectedAppsListBoxControl.SelectedItem as ApplicationRecord;
+            else if (SelectedAppsListBox.SelectedItems.Count > 0) selectedApp = SelectedAppsListBoxControl.SelectedItems?.OfType<ApplicationRecord>().First();
+
+            if (selectedApp != null) SelectedApps.Remove(selectedApp);
+            else ErrorMessageControl.Text = "This should be an INFO, but: Please select an application to remove.";
         }
 
         public void AddAppToPlaylist_Click(object? sender, RoutedEventArgs e)
@@ -111,9 +121,15 @@ namespace GoodnightComputer.ViewModels
                 GeneralUtils.PrepareApplicationRecords(SelectedApps.ToList())
             );
 
-            var playListResult = Playlist.Validate(SelectedAppsListBoxControl.SelectedItems.Count);
+            var playListResult = Playlist.Validate(
+                    SelectedApps.Count
+                );
 
-            if (!playListResult.IsValid) ErrorMessageControl.Text = playListResult.ErrorMessage;
+            if (!playListResult.IsValid)
+            {
+                ErrorMessageControl.Text = playListResult.ErrorMessage;
+                return;
+            }
 
             Playlist.Save();
                

@@ -12,19 +12,17 @@ namespace GoodnightComputer.Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Guid Id { get; set; }
+        public Guid Id { get; set; } = new Guid();
 
-        public string Name { get; set; }
+        public string Name { get; set; } = null;
 
-        public string Descriptor { get; set; }
+        public string Descriptor { get; set; } = null;
 
         public bool IsActive { get; set; } = false;
 
         public string CreatedOn { get; set; } = DateTime.Now.ToString("yyyy-mm-dd");
 
         public string Applications { get; set; } = "";
-
-        public PlaylistRecord() { }
 
         public PlaylistRecord
         (
@@ -42,16 +40,12 @@ namespace GoodnightComputer.Models
         {
             using (var context = new AppDbContext())
             {
-                context.Set<PlaylistRecord>().AddRange(this);
-                context.SaveChanges();
-                /*
                 if (context.Database.CanConnect())
                 {
                     context.Set<PlaylistRecord>().AddRange(this);
                     context.SaveChanges();
                 }
                 else throw new Exception("Unable to connect to the Database.");
-                */
             }
         }
 
@@ -62,8 +56,11 @@ namespace GoodnightComputer.Models
 
         public PlaylistResult Validate(int applicationCount)
         {
-            if (!string.IsNullOrEmpty(Name)) return new("Name is empty.");
-            if (!string.IsNullOrEmpty(Descriptor)) return new("Description is empty");
+            Console.WriteLine($"Name: {this.Name}");
+            Console.WriteLine($"Descriptor: {this.Descriptor}");
+
+            if (string.IsNullOrEmpty(Name)) return new("Name is empty.");
+            if (string.IsNullOrEmpty(Descriptor)) return new("Description is empty");
             if (applicationCount == 0) return new("There are no applications added.");
 
             return new(true);
