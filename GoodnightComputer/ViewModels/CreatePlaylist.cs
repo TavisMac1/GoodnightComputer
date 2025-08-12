@@ -79,19 +79,26 @@ namespace GoodnightComputer.ViewModels
             }
 
             Search(searchText);
+            ClearErrorState();
         }
 
         public void RemoveApp_Click(object? sender, RoutedEventArgs e)
         {
             var selectedApp = null as ApplicationRecord;
 
-            if (SelectedAppsListBoxControl.SelectedItem == null && SelectedAppsListBoxControl.SelectedItems.Count == 0) throw new Exception("No application selected to remove.");
+            if (SelectedAppsListBoxControl == null) throw new Exception("No application selected to remove.");
+
+            if (SelectedAppsListBoxControl.SelectedItems != null && SelectedAppsListBoxControl.SelectedItems.Count == 0) 
+            {
+                ErrorMessageControl.Text = "Please select an application to remove.";
+                return;
+            }
 
             if (SelectedAppsListBoxControl.SelectedItem != null) selectedApp = SelectedAppsListBoxControl.SelectedItem as ApplicationRecord;
-            else if (SelectedAppsListBox.SelectedItems.Count > 0) selectedApp = SelectedAppsListBoxControl.SelectedItems?.OfType<ApplicationRecord>().First();
+            else if (SelectedAppsListBox.SelectedItems.Count > 0) selectedApp = SelectedAppsListBoxControl.SelectedItems?.OfType<ApplicationRecord>().First(); // this assumes there's multi select - should just disable it
 
-            if (selectedApp != null) SelectedApps.Remove(selectedApp);
-            else ErrorMessageControl.Text = "This should be an INFO, but: Please select an application to remove.";
+            SelectedApps.Remove(selectedApp);
+            ClearErrorState();
         }
 
         public void AddAppToPlaylist_Click(object? sender, RoutedEventArgs e)
@@ -110,7 +117,7 @@ namespace GoodnightComputer.ViewModels
                     SelectedApps.Add(app);
             }
 
-            ErrorMessageControl.Text = string.Empty;
+            ClearErrorState();
         }
 
         public void SavePlaylist_Click(object? sender, RoutedEventArgs e)
@@ -132,8 +139,10 @@ namespace GoodnightComputer.ViewModels
             }
 
             Playlist.Save();
-               
-            ErrorMessageControl.Text = "";
+
+            ClearErrorState();
         }
+
+        private void ClearErrorState() => this.ErrorMessageControl.Text = string.Empty;
     }
 }
