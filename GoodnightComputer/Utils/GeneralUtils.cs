@@ -1,6 +1,8 @@
 ﻿using GoodnightComputer.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Xml.Linq;
 
 namespace GoodnightComputer.Utils
 {
@@ -13,17 +15,9 @@ namespace GoodnightComputer.Utils
             {
                 try
                 {
-                    // Try to get the file description (user-friendly app name)
                     string description = process.MainModule?.FileVersionInfo?.FileDescription;
-                    if (!string.IsNullOrWhiteSpace(description))
-                    {
-                        appNames.Add(description);
-                    }
-                    else
-                    {
-                        // Fallback to process name
-                        appNames.Add(process.ProcessName);
-                    }
+                    if (!string.IsNullOrWhiteSpace(description)) appNames.Add(description);
+                    else appNames.Add(process.ProcessName);
                 }
                 catch
                 {
@@ -33,9 +27,28 @@ namespace GoodnightComputer.Utils
                 }
             }
 
-            if (appNames.Count == 0)
+            if (appNames.Count == 0) appNames.Add("No applications found");
+
+            Constants.Constants.EXCLUSION_APPS.ForEach(app =>
             {
-                appNames.Add("No applications found");
+                appNames.ForEach(appName =>
+                {
+                    if (app == appName) appNames.Remove(appName);
+                });
+            });
+
+            for (int i1 = 0; i1 < appNames.Count; i1++)
+            {
+                int preserveFirstOccurance = 0;
+                for (int i2 = 0; i2 < appNames.Count; i2++)
+                { 
+                    if (preserveFirstOccurance != 1 && appNames[i1] == appNames[i2]) preserveFirstOccurance++;
+                    if (preserveFirstOccurance == 1 && appNames[i1] == appNames[i2])
+                    {
+                        appNames.RemoveAt(i2);
+                        i2--;
+                    }                
+                }
             }
 
             return appNames;
