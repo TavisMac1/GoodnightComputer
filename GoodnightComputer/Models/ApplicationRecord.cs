@@ -1,21 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace GoodnightComputer.Models
+﻿namespace GoodnightComputer.Models;
+public class ApplicationRecord
 {
-    public class ApplicationRecord
-    {
-        public string Name { get; set; }
-        public string? CPUUsage { get; set; }
-        public string? MemoryUsage { get; set; }
-        public string? DiskUsage { get; set; }
+    public string Name { get; set; }
+    public string? CPUUsage { get; set; }
+    public string? MemoryUsage { get; set; }
+    public string? DiskUsage { get; set; }
 
-        public ApplicationRecord(string name)
-        {
-            Name = name;
-        }
+    public ApplicationRecord(string name)
+    {
+        Name = name;
     }
 }

@@ -74,7 +74,7 @@
                         FontSize="14"
                         Width="140"
                         Padding="6"
-                        CornerRadius=""
+                        CornerRadius="1"
                         HorizontalAlignment="Left"
                         HorizontalContentAlignment="Center"
                         VerticalContentAlignment="Center"
@@ -110,7 +110,7 @@
                         FontSize="14"
                         Width="180"
                         Padding="6"
-                        CornerRadius=""
+                        CornerRadius="1"
                         HorizontalAlignment="Left"
                         HorizontalContentAlignment="Center"
                         VerticalContentAlignment="Center"
@@ -134,7 +134,7 @@
                 Foreground="#FFFFFF"
                 FontSize="16"
                 Padding="12"
-                CornerRadius=""
+                CornerRadius="1"
                 HorizontalAlignment="Left"/>
       </StackPanel>
     </StackPanel>

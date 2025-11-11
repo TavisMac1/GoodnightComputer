@@ -1,0 +1,42 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:Models="using:GoodnightComputer.Models"
+             xmlns:viewmodels="clr-namespace:GoodnightComputer.ViewModels"
+             x:Class="GoodnightComputer.Views.SubViewItem"
+             x:DataType="Models:PlaylistRecord"
+             Background="#23272F"
+             Padding="16"
+             Margin="8">
+  <Border Background="#23272F" CornerRadius="8" Padding="16">
+    <StackPanel Spacing="4">
+      <TextBlock Text="{Binding Name}" FontSize="16" FontWeight="Bold" Foreground="#FFFFFF"/>
+      <TextBlock Text="{Binding Descriptor}" FontSize="13" Foreground="#B0B0B0"/>
+      <TextBlock Text="{Binding CreatedOn}" FontSize="11" Foreground="#808080"/>
+      <TextBlock Text="{Binding Id}" FontSize="11" Foreground="#808080"/>
+      <ScrollViewer Width="900" Height="300" HorizontalScrollBarVisibility="Auto">
+        <Grid ColumnDefinitions="*,8,*">
+          <!-- Available Apps -->
+          <StackPanel Grid.Column="0">
+            <TextBlock Text="Available Apps"
+                       FontSize="14"
+                       FontWeight="Bold"
+                       Foreground="#B0B0B0"
+                       Margin="0,0,0,8"/>
+            <ListBox x:Name="AppsListBox" ItemsSource="{Binding ApplicationsList}" Height="180">
+            </ListBox>
+          </StackPanel>
+        </Grid>
+      </ScrollViewer>
+      <!-- Delete Button -->
+      <Button Content="Delete Playlist"
+            Command="{Binding DeleteFromDb}"
+            CommandParameter="{Binding Id}"
+            Background="#B22222"
+            Foreground="White"
+            Margin="0,12,0,0"
+            HorizontalAlignment="Right"
+            Width="140"
+            Height="32"/>
+    </StackPanel>
+  </Border>
+</UserControl>

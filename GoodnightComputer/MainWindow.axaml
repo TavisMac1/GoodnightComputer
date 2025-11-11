@@ -26,6 +26,7 @@
                    />
         
         <Button x:Name="ViewPlaylistsButton"
+                Click="NewViewPlaylistsView_Click"
                 Content="View Playlists"
                 Background="#2D313A"
                 Foreground="#FFFFFF"
@@ -49,6 +50,7 @@
                 VerticalContentAlignment="Center"
                 Margin="12,0"/>
         <Button Content="Discord"
+                Click="OpenDiscord_Click"
                 Background="#2D313A"
                 Foreground="#FFFFFF"
                 FontSize="16"

@@ -1,7 +1,5 @@
-﻿namespace GoodnightComputer.Utils
+﻿namespace GoodnightComputer.Utils;
+public static class SleepUtils
 {
-    public static class SleepUtils
-    {
 
-    }
 }
