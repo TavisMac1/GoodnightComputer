@@ -23,13 +23,31 @@
         <member name="M:GoodnightComputer.Migrations.InitialCreate.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
             <inheritdoc />
         </member>
+        <member name="T:GoodnightComputer.Migrations.AddNewColumnPlayListRecordsList">
+            <inheritdoc />
+        </member>
+        <member name="M:GoodnightComputer.Migrations.AddNewColumnPlayListRecordsList.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:GoodnightComputer.Migrations.AddNewColumnPlayListRecordsList.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:GoodnightComputer.Migrations.AddNewColumnPlayListRecordsList.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
         <member name="M:GoodnightComputer.ViewModels.CreatePlaylist.InitializeComponent(System.Boolean)">
             <summary>
             Wires up the controls and optionally loads XAML markup and attaches dev tools (if Avalonia.Diagnostics package is referenced).
             </summary>
             <param name="loadXaml">Should the XAML be loaded into the component.</param>
         </member>
-        <member name="M:GoodnightComputer.ViewModels.ViewPlaylists.InitializeComponent(System.Boolean)">
+        <member name="M:GoodnightComputer.Views.SubViewItem.InitializeComponent(System.Boolean)">
+            <summary>
+            Wires up the controls and optionally loads XAML markup and attaches dev tools (if Avalonia.Diagnostics package is referenced).
+            </summary>
+            <param name="loadXaml">Should the XAML be loaded into the component.</param>
+        </member>
+        <member name="M:GoodnightComputer.Views.ViewPlaylists.InitializeComponent(System.Boolean)">
             <summary>
             Wires up the controls and optionally loads XAML markup and attaches dev tools (if Avalonia.Diagnostics package is referenced).
             </summary>

@@ -1,2 +1,0 @@
-Xaml event atributes corresponding method headers:
-(object? sender, RoutedEventArgs e)
