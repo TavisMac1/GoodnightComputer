@@ -189,3 +189,4 @@ C:\Users\Tavis\source\repos\GoodnightComputer\GoodnightComputer\bin\Debug\net9.0
 C:\Users\Tavis\source\repos\GoodnightComputer\GoodnightComputer\obj\Debug\net9.0-windows\Goodnigh.664C0235.Up2Date
 C:\Users\Tavis\source\repos\GoodnightComputer\GoodnightComputer\obj\Debug\net9.0-windows\GoodnightComputer.genruntimeconfig.cache
 C:\Users\Tavis\source\repos\GoodnightComputer\GoodnightComputer\obj\Debug\net9.0-windows\ref\GNC.dll
+C:\Users\Tavis\source\repos\GoodnightComputer\GoodnightComputer\bin\Debug\net9.0-windows\AvaloniaToaster.dll

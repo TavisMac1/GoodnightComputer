@@ -353,6 +353,18 @@
           }
         }
       },
+      "AvaloniaToaster/1.1.4": {
+        "type": "package",
+        "dependencies": {
+          "Avalonia": "11.2.1"
+        },
+        "compile": {
+          "lib/net9.0/AvaloniaToaster.dll": {}
+        },
+        "runtime": {
+          "lib/net9.0/AvaloniaToaster.dll": {}
+        }
+      },
       "HarfBuzzSharp/7.3.0.2": {
         "type": "package",
         "dependencies": {
@@ -2104,6 +2116,18 @@
         "lib/net8.0/Avalonia.X11.xml",
         "lib/netstandard2.0/Avalonia.X11.dll",
         "lib/netstandard2.0/Avalonia.X11.xml"
+      ]
+    },
+    "AvaloniaToaster/1.1.4": {
+      "sha512": "RlHMG7CXyFWyrnO8PtqnVhoEhwibJr5tN9bzgRhGSx5+1OgPD9uRuWCE7sNMsHbIRYxyP2EkIo5miQ+xcSYpKQ==",
+      "type": "package",
+      "path": "avaloniatoaster/1.1.4",
+      "files": [
+        ".nupkg.metadata",
+        "README.md",
+        "avaloniatoaster.1.1.4.nupkg.sha512",
+        "avaloniatoaster.nuspec",
+        "lib/net9.0/AvaloniaToaster.dll"
       ]
     },
     "HarfBuzzSharp/7.3.0.2": {
@@ -4481,6 +4505,7 @@
       "Avalonia.Diagnostics >= 11.2.1",
       "Avalonia.Fonts.Inter >= 11.2.1",
       "Avalonia.Themes.Fluent >= 11.2.1",
+      "AvaloniaToaster >= 1.1.4",
       "Microsoft.EntityFrameworkCore.Design >= 9.0.7",
       "Microsoft.EntityFrameworkCore.Sqlite >= 9.0.6"
     ]
@@ -4513,6 +4538,7 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Users\\Tavis\\source\\repos\\AvaloniaToaster\\bin\\Release": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -4560,6 +4586,10 @@
           "Avalonia.Themes.Fluent": {
             "target": "Package",
             "version": "[11.2.1, )"
+          },
+          "AvaloniaToaster": {
+            "target": "Package",
+            "version": "[1.1.4, )"
           },
           "Microsoft.EntityFrameworkCore.Design": {
             "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",

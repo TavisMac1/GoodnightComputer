@@ -1,7 +1,6 @@
 using Avalonia.Controls;
-using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Interactivity;
-using GoodnightComputer.Services;
+using AvaloniaToaster;
 using GoodnightComputer.ViewModels;
 using GoodnightComputer.Views;
 using Microsoft.Extensions.DependencyInjection;

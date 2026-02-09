@@ -1,6 +1,6 @@
 ﻿using Avalonia;
+using AvaloniaToaster;
 using GoodnightComputer.Models;
-using GoodnightComputer.Services;
 using GoodnightComputer.Utils;
 using GoodnightComputer.ViewModels;
 using Microsoft.EntityFrameworkCore;
@@ -35,6 +35,7 @@ public class Program
         services.AddSingleton<PlaylistState>();
         services.AddTransient<CreatePlaylist>();
         services.AddTransient<ViewPlaylistsViewModel>();
+        services.AddSingleton<ToastNotificationService>();
     }
 
     public static AppBuilder BuildAvaloniaApp()
