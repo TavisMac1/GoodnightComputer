@@ -21,7 +21,8 @@ public class PlaylistState
                 {
                     var records = context.Set<PlaylistRecord>().ToList();
 
-                    foreach (var record in records) record.DeleteFromDb = DeleteFromDb;
+                    foreach (var record in records) 
+                        record.DeleteFromDb = new RelayCommand(_ => DeleteFromDb((Guid)record.Id), _ => true);
 
                     return new ObservableCollection<PlaylistRecord>(records);
                 }
@@ -54,7 +55,7 @@ public class PlaylistState
                 try
                 {
                     context.SaveChanges();
-                    record.DeleteFromDb = DeleteFromDb;
+                    record.DeleteFromDb = new RelayCommand((id) => DeleteFromDb((Guid)id), _ => true);
                     GlobalPlaylistRecords.Add(record);
                 }
                 catch (Exception e)
@@ -66,10 +67,7 @@ public class PlaylistState
         }
     }
 
-    private void DeleteFromDb
-    (
-        Guid id
-    )
+    private void DeleteFromDb(Guid id)
     {
         using var context = new AppDbContext();
         if (context.Database.CanConnect())
@@ -81,25 +79,9 @@ public class PlaylistState
 
                 context.Set<PlaylistRecord>().Remove(record);
                 context.SaveChanges();
-                foreach (var app in GlobalPlaylistRecords) if (app.Id == id) GlobalPlaylistRecords.Remove(app);
-            }
-            catch (Exception e)
-            {
-                throw new Exception($"Error deleting playlist: {e.Message}");
-            }
-        }
-        else throw new Exception("Unable to connect to the Database.");
-    }
-
-    private void DeleteFromDb(PlaylistRecord record)
-    {
-        using var context = new AppDbContext();
-        if (context.Database.CanConnect())
-        {
-            context.Set<PlaylistRecord>().Remove(record);
-            try
-            {
-                context.SaveChanges();
+                
+                var recordToRemove = GlobalPlaylistRecords.FirstOrDefault(app => app.Id == id);
+                if (recordToRemove != null) GlobalPlaylistRecords.Remove(recordToRemove);
             }
             catch (Exception e)
             {

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
+using System.Windows.Input;
 
 namespace GoodnightComputer.Models;
 
@@ -29,7 +30,7 @@ public partial class PlaylistRecord
     public List<string> ApplicationsList { get; init; }
 
     [NotMapped]
-    public Action<Guid> DeleteFromDb { get; set; }
+    public ICommand DeleteFromDb { get; set; } = null!;
 
     public PlaylistRecord() {}
 

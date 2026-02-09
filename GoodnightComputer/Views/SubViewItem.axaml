@@ -17,7 +17,7 @@
         <Grid ColumnDefinitions="*,8,*">
           <!-- Available Apps -->
           <StackPanel Grid.Column="0">
-            <TextBlock Text="Available Apps"
+            <TextBlock Text="Apps in Playlist"
                        FontSize="14"
                        FontWeight="Bold"
                        Foreground="#B0B0B0"
@@ -28,10 +28,17 @@
         </Grid>
       </ScrollViewer>
       <!-- Delete Button -->
+       <!-- CommandParameter="{Binding Id}" -->
       <Button Content="Delete Playlist"
             Command="{Binding DeleteFromDb}"
-            CommandParameter="{Binding Id}"
-            Background="#B22222"
+            Background="DarkRed"
+            Foreground="White"
+            Margin="0,12,0,0"
+            HorizontalAlignment="Right"
+            Width="140"
+            Height="32"/>
+        <Button Content="Play Playlist"
+            Background="Blue"
             Foreground="White"
             Margin="0,12,0,0"
             HorizontalAlignment="Right"
