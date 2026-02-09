@@ -1,7 +1,7 @@
 ﻿using Avalonia.Controls;
 using Avalonia.Interactivity;
+using AvaloniaToaster;
 using GoodnightComputer.Models;
-using GoodnightComputer.Services;
 using GoodnightComputer.Utils;
 using System;
 using System.Collections.Generic;
@@ -16,7 +16,7 @@ public partial class CreatePlaylist : UserControl
 
     public ObservableCollection<ApplicationRecord> SelectedApps { get; set; } = new();
     public ObservableCollection<ApplicationRecord> ApplicationList { get; set; } = new();
-    public ObservableCollection<ApplicationRecord> CachedApplicationList { get; set; } = new();
+    public List<ApplicationRecord> DefaultLoadedApps { get; set; } = new();
 
     private TextBlock MessageControl;
     private TextBox PlaylistNameTextBoxControl;
@@ -25,7 +25,12 @@ public partial class CreatePlaylist : UserControl
     private ListBox SelectedAppsListBoxControl;
     private TextBox SearchTextBoxControl;
 
-    public CreatePlaylist(ToastNotificationService toastService, PlaylistState playlistState)
+
+    public CreatePlaylist
+    (
+        ToastNotificationService toastService, 
+        PlaylistState playlistState
+    )
     { 
         _toastService = toastService;
         this._playlistStateSingleton = playlistState;
@@ -56,18 +61,19 @@ public partial class CreatePlaylist : UserControl
 
     private void Search(string input)
     {
-        CachedApplicationList = ApplicationList;
+        DefaultLoadedApps = ApplicationList.ToList();
 
         if (ApplicationList.Count > 0)
         {
-            ApplicationList = new ObservableCollection<ApplicationRecord>(
-                ApplicationList.Where(app => app.Name
-                    .Contains(
-                        input, 
-                        StringComparison.OrdinalIgnoreCase
-                    )
-                )
-            );
+            var filtered = ApplicationList.Where
+            (
+                app => app.Name.Contains(input, StringComparison.OrdinalIgnoreCase)
+            ).ToList();
+
+            ApplicationList.Clear();
+
+            foreach (var app in filtered)
+                ApplicationList.Add(app);
         }
     }
 
@@ -77,7 +83,8 @@ public partial class CreatePlaylist : UserControl
 
         if (string.IsNullOrEmpty(searchText))
         {
-            MessageControl.Text = "Please enter input in the search box.";
+            ApplicationList.Clear();
+            DefaultLoadedApps.ForEach((app) => { ApplicationList.Add(app); });
             return;
         }
 
@@ -123,7 +130,6 @@ public partial class CreatePlaylist : UserControl
         ClearErrorState();
     }
 
-    // Example: Show a toast notification after saving a playlist
     public void SavePlaylist_Click(object? sender, RoutedEventArgs e)
     {
         var Playlist = new PlaylistRecord
