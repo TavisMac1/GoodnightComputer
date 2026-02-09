@@ -1,12 +1,13 @@
 ﻿using GoodnightComputer.Models;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace GoodnightComputer.Utils;
 
 public static class GeneralUtils
 {
-    public static List<string> ListApplicationNames()
+    public static async Task<List<string>> ListApplicationNames()
     {
         var appNames = new List<string>();
         foreach (var process in System.Diagnostics.Process.GetProcesses())
@@ -33,22 +34,6 @@ public static class GeneralUtils
         }
 
         if (appNames.Count == 0) appNames.Add("No applications found");
-
-        /*
-        for (int i1 = 0; i1 < appNames.Count; i1++)
-        {
-            int preserveFirstOccurance = 0;
-            for (int i2 = 0; i2 < appNames.Count; i2++)
-            { 
-                if (preserveFirstOccurance != 1 && appNames[i1] == appNames[i2]) preserveFirstOccurance++;
-                if (preserveFirstOccurance == 1 && appNames[i1] == appNames[i2])
-                {
-                    appNames.RemoveAt(i2);
-                    i2--;
-                }                
-            }
-        }
-        */
 
         return appNames;
     }
