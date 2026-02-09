@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace GoodnightComputer.ViewModels;
 public partial class CreatePlaylist : UserControl
@@ -16,7 +17,6 @@ public partial class CreatePlaylist : UserControl
 
     public ObservableCollection<ApplicationRecord> SelectedApps { get; set; } = new();
     public ObservableCollection<ApplicationRecord> ApplicationList { get; set; } = new();
-    public List<ApplicationRecord> DefaultLoadedApps { get; set; } = new();
 
     private TextBlock MessageControl;
     private TextBox PlaylistNameTextBoxControl;
@@ -24,7 +24,6 @@ public partial class CreatePlaylist : UserControl
     private ListBox AppsListBoxControl;
     private ListBox SelectedAppsListBoxControl;
     private TextBox SearchTextBoxControl;
-
 
     public CreatePlaylist
     (
@@ -39,9 +38,10 @@ public partial class CreatePlaylist : UserControl
         Initialize();
     }
 
-    private void Initialize()
+    private async Task Initialize()
     {
-        foreach (var app in GeneralUtils.ListApplicationNames()) ApplicationList.Add(new ApplicationRecord(app));
+        foreach (var app in State.SystemState.STATIC_APPLICATION_NAMES) 
+            ApplicationList.Add(new ApplicationRecord(app));
         
         MessageControl = this.FindControl<TextBlock>("ErrorMessageTextBlock");
         PlaylistNameTextBoxControl = this.FindControl<TextBox>("PlaylistNameTextBox");
@@ -61,8 +61,6 @@ public partial class CreatePlaylist : UserControl
 
     private void Search(string input)
     {
-        DefaultLoadedApps = ApplicationList.ToList();
-
         if (ApplicationList.Count > 0)
         {
             var filtered = ApplicationList.Where
@@ -84,7 +82,10 @@ public partial class CreatePlaylist : UserControl
         if (string.IsNullOrEmpty(searchText))
         {
             ApplicationList.Clear();
-            DefaultLoadedApps.ForEach((app) => { ApplicationList.Add(app); });
+            State.SystemState.STATIC_APPLICATION_NAMES.ForEach
+            (
+                (app) => { ApplicationList.Add(new ApplicationRecord(app)); }
+            );
             return;
         }
 
