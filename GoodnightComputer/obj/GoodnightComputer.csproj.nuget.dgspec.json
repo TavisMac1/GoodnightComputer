@@ -78,7 +78,7 @@
             },
             "AvaloniaToaster": {
               "target": "Package",
-              "version": "[1.1.4, )"
+              "version": "[1.1.51, )"
             },
             "Microsoft.EntityFrameworkCore.Design": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",

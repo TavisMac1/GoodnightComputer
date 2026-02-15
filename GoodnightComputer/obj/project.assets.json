@@ -353,7 +353,7 @@
           }
         }
       },
-      "AvaloniaToaster/1.1.4": {
+      "AvaloniaToaster/1.1.51": {
         "type": "package",
         "dependencies": {
           "Avalonia": "11.2.1"
@@ -2118,14 +2118,14 @@
         "lib/netstandard2.0/Avalonia.X11.xml"
       ]
     },
-    "AvaloniaToaster/1.1.4": {
-      "sha512": "RlHMG7CXyFWyrnO8PtqnVhoEhwibJr5tN9bzgRhGSx5+1OgPD9uRuWCE7sNMsHbIRYxyP2EkIo5miQ+xcSYpKQ==",
+    "AvaloniaToaster/1.1.51": {
+      "sha512": "jEyioypjM9YlJar9Iu+bcjj6tmEb1XRFGDl8LIGrJN2raoclr2SyIZjOFqBUH4Q0tREOzjed/gmqDgcIbJchGQ==",
       "type": "package",
-      "path": "avaloniatoaster/1.1.4",
+      "path": "avaloniatoaster/1.1.51",
       "files": [
         ".nupkg.metadata",
         "README.md",
-        "avaloniatoaster.1.1.4.nupkg.sha512",
+        "avaloniatoaster.1.1.51.nupkg.sha512",
         "avaloniatoaster.nuspec",
         "lib/net9.0/AvaloniaToaster.dll"
       ]
@@ -4505,7 +4505,7 @@
       "Avalonia.Diagnostics >= 11.2.1",
       "Avalonia.Fonts.Inter >= 11.2.1",
       "Avalonia.Themes.Fluent >= 11.2.1",
-      "AvaloniaToaster >= 1.1.4",
+      "AvaloniaToaster >= 1.1.51",
       "Microsoft.EntityFrameworkCore.Design >= 9.0.7",
       "Microsoft.EntityFrameworkCore.Sqlite >= 9.0.6"
     ]
@@ -4589,7 +4589,7 @@
           },
           "AvaloniaToaster": {
             "target": "Package",
-            "version": "[1.1.4, )"
+            "version": "[1.1.51, )"
           },
           "Microsoft.EntityFrameworkCore.Design": {
             "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
