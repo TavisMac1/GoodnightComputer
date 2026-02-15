@@ -16,4 +16,3 @@ internal class SuccessTheme : IAvaloniaToasterThemes
 
     double? IAvaloniaToasterThemes.BorderRadius => null;
 }
-

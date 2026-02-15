@@ -16,18 +16,15 @@ namespace GoodnightComputer
             // Initializes MainWindow and its components.
             InitializeComponent();
             var toastService = Program.Services.GetRequiredService<ToastNotificationService>();
-            toastService.RegisterMainWindow(this);
+            var toastContainer = this.FindControl<Panel>("ToastContainer");
+            toastService.RegisterMainWindow(toastContainer);
         }
 
-        private void NewPlaylistView_Click(object? sender, RoutedEventArgs e)
-        {
+        private void NewPlaylistView_Click(object? sender, RoutedEventArgs e) =>
             this.FindControl<ContentControl>("MainContent").Content = Program.Services.GetRequiredService<CreatePlaylist>();
-        }
 
-        private void NewViewPlaylistsView_Click(object? sender, RoutedEventArgs e)
-        {
+        private void NewViewPlaylistsView_Click(object? sender, RoutedEventArgs e) =>
             this.FindControl<ContentControl>("MainContent").Content = new ViewPlaylists();
-        }
 
         private void OpenDiscord_Click(object? sender, RoutedEventArgs e)
         {

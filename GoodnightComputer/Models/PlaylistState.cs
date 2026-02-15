@@ -1,4 +1,5 @@
-﻿using GoodnightComputer.Utils;
+﻿using Avalonia.Controls;
+using GoodnightComputer.Utils;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -10,7 +11,7 @@ public class PlaylistState
     public ObservableCollection<PlaylistRecord> GlobalPlaylistRecords { get; set; } = new();
 
     public PlaylistState() => GlobalPlaylistRecords = this.PopulateDataFromDb();
-
+    
     private ObservableCollection<PlaylistRecord> PopulateDataFromDb()
     {
         using (var context = new AppDbContext())
@@ -42,10 +43,7 @@ public class PlaylistState
 
     public void Delete (Guid id) => DeleteFromDb(id);
 
-    private void AddToDb
-    (
-        PlaylistRecord record
-    )
+    private void AddToDb(PlaylistRecord record)
     {
         using (var context = new AppDbContext())
         {
