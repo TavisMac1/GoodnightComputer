@@ -43,12 +43,12 @@ public partial class CreatePlaylist : UserControl
         foreach (var app in State.SystemState.STATIC_APPLICATION_NAMES) 
             ApplicationList.Add(new ApplicationRecord(app));
         
-        MessageControl = this.FindControl<TextBlock>("ErrorMessageTextBlock");
-        PlaylistNameTextBoxControl = this.FindControl<TextBox>("PlaylistNameTextBox");
-        PlaylistDescriptionTextBoxControl = this.FindControl<TextBox>("PlaylistDescriptionTextBox");
-        AppsListBoxControl = this.FindControl<ListBox>("AppsListBox");
-        SelectedAppsListBoxControl = this.FindControl<ListBox>("SelectedAppsListBox");
-        SearchTextBoxControl = this.FindControl<TextBox>("SearchTextBox");
+        MessageControl = this.FindControl<TextBlock>("ErrorMessageTextBlock")!;
+        PlaylistNameTextBoxControl = this.FindControl<TextBox>("PlaylistNameTextBox")!;
+        PlaylistDescriptionTextBoxControl = this.FindControl<TextBox>("PlaylistDescriptionTextBox")!;
+        AppsListBoxControl = this.FindControl<ListBox>("AppsListBox")!;
+        SelectedAppsListBoxControl = this.FindControl<ListBox>("SelectedAppsListBox")!;
+        SearchTextBoxControl = this.FindControl<TextBox>("SearchTextBox")!;
 
         if (MessageControl == null) throw new Exception("ErrorMessageTextBlock not found.");
         if (PlaylistNameTextBoxControl == null) throw new Exception("PlaylistNameTextBox not found.");
@@ -65,7 +65,9 @@ public partial class CreatePlaylist : UserControl
         {
             var filtered = ApplicationList.Where
             (
-                app => app.Name.Contains(input, StringComparison.OrdinalIgnoreCase)
+                app =>
+                FuzzySharp.Fuzz
+                    .PartialTokenSetRatio(app.Name, input) > Constants.Constants.SCORE_THRESHOLD-1
             ).ToList();
 
             ApplicationList.Clear();
@@ -105,10 +107,12 @@ public partial class CreatePlaylist : UserControl
             return;
         }
 
-        if (SelectedAppsListBoxControl.SelectedItem != null) selectedApp = SelectedAppsListBoxControl.SelectedItem as ApplicationRecord;
-        else if (SelectedAppsListBox.SelectedItems.Count > 0) selectedApp = SelectedAppsListBoxControl.SelectedItems?.OfType<ApplicationRecord>().First(); // this assumes there's multi select - should just disable it
+        if (SelectedAppsListBoxControl.SelectedItem != null) 
+            selectedApp = SelectedAppsListBoxControl.SelectedItem as ApplicationRecord;
+        else if (SelectedAppsListBox.SelectedItems?.Count > 0) 
+            selectedApp = SelectedAppsListBoxControl.SelectedItems?.OfType<ApplicationRecord>().First(); // this assumes there's multi select - should just disable it
 
-        SelectedApps.Remove(selectedApp);
+        SelectedApps.Remove(selectedApp!);
         ClearErrorState();
     }
 
@@ -135,8 +139,8 @@ public partial class CreatePlaylist : UserControl
     {
         var Playlist = new PlaylistRecord
         (
-            PlaylistNameTextBoxControl.Text,
-            PlaylistDescriptionTextBoxControl.Text,
+            PlaylistNameTextBoxControl.Text!,
+            PlaylistDescriptionTextBoxControl.Text!,
             GeneralUtils.PrepareApplicationRecords(SelectedApps.ToList())
         );
 

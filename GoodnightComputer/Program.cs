@@ -13,7 +13,7 @@ namespace GoodnightComputer;
 
 public class Program
 {
-    public static IServiceProvider Services { get; private set; }
+    public static IServiceProvider Services { get; private set; } = null!;
 
     [STAThread]
     public static void Main(string[] args)

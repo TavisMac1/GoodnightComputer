@@ -1,5 +1,4 @@
-﻿using Avalonia.Controls;
-using GoodnightComputer.Utils;
+﻿using GoodnightComputer.Utils;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
