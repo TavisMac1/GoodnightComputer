@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace GoodnightComputer.Utils;
 
@@ -14,16 +15,20 @@ public static class GeneralUtils
         {
             try
             {
-                bool move = false;
-                string description = process.MainModule?.FileVersionInfo?.FileDescription;
+                string processNameLower = process.ProcessName.ToLower();
+                
+                // Skip if process is in exclusion list
+                if (Constants.Constants.EXCLUSION_APPS.Contains(processNameLower))
+                    continue;
+
+                string description = process.MainModule?.FileVersionInfo?.FileDescription!;
 
                 Console.WriteLine(process.ProcessName);
-                foreach (var restrictedApp in Constants.Constants.EXCLUSION_APPS) if (process.ProcessName.ToLower() == restrictedApp) move = true;
-                
-                if (move) continue;
 
-                if (!string.IsNullOrWhiteSpace(description)) appNames.Add(description);
-                else appNames.Add(process.ProcessName);
+                if (!string.IsNullOrWhiteSpace(description)) 
+                    appNames.Add(description);
+                else 
+                    appNames.Add(process.ProcessName);
             }
             catch
             {
@@ -35,7 +40,7 @@ public static class GeneralUtils
 
         if (appNames.Count == 0) appNames.Add("No applications found");
 
-        return appNames;
+        return appNames.Distinct(StringComparer.OrdinalIgnoreCase).ToList();
     }
 
     public static void OnApplicationExit()
@@ -46,7 +51,7 @@ public static class GeneralUtils
         // Show notification and confirmation message
         Console.WriteLine("Application is exiting. Performing cleanup...");
     }
-
+    
     public static string PrepareApplicationRecords(List<ApplicationRecord> applicationRecords)
     {
         if (applicationRecords == null) throw new Exception("Application Records was null.");

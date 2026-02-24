@@ -53,4 +53,6 @@ public static class Constants
         "dllhost",             // COM Surrogate
         "wmiprvse"             // WMI Provider Host
     };
+
+    public static int SCORE_THRESHOLD = 70;
 }

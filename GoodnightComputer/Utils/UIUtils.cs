@@ -1,5 +1,6 @@
 ﻿using Avalonia.Controls;
 namespace GoodnightComputer.Utils;
+
 public static class UIUtils
 {
     public static void FreezeUi(Avalonia.Controls.Window window)

@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "dKOXoX6dGtQ=",
+  "dgSpecHash": "Q7mHbU43fgY=",
   "success": true,
   "projectFilePath": "C:\\Users\\Tavis\\source\\repos\\GoodnightComputer\\GoodnightComputer\\GoodnightComputer.csproj",
   "expectedPackageFiles": [
@@ -22,6 +22,7 @@
     "C:\\Users\\Tavis\\.nuget\\packages\\avalonia.win32\\11.2.1\\avalonia.win32.11.2.1.nupkg.sha512",
     "C:\\Users\\Tavis\\.nuget\\packages\\avalonia.x11\\11.2.1\\avalonia.x11.11.2.1.nupkg.sha512",
     "C:\\Users\\Tavis\\.nuget\\packages\\avaloniatoaster\\1.1.51\\avaloniatoaster.1.1.51.nupkg.sha512",
+    "C:\\Users\\Tavis\\.nuget\\packages\\fuzzysharp\\2.0.2\\fuzzysharp.2.0.2.nupkg.sha512",
     "C:\\Users\\Tavis\\.nuget\\packages\\harfbuzzsharp\\7.3.0.2\\harfbuzzsharp.7.3.0.2.nupkg.sha512",
     "C:\\Users\\Tavis\\.nuget\\packages\\harfbuzzsharp.nativeassets.linux\\7.3.0.2\\harfbuzzsharp.nativeassets.linux.7.3.0.2.nupkg.sha512",
     "C:\\Users\\Tavis\\.nuget\\packages\\harfbuzzsharp.nativeassets.macos\\7.3.0.2\\harfbuzzsharp.nativeassets.macos.7.3.0.2.nupkg.sha512",

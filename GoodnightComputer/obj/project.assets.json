@@ -365,6 +365,15 @@
           "lib/net9.0/AvaloniaToaster.dll": {}
         }
       },
+      "FuzzySharp/2.0.2": {
+        "type": "package",
+        "compile": {
+          "lib/netcoreapp2.1/FuzzySharp.dll": {}
+        },
+        "runtime": {
+          "lib/netcoreapp2.1/FuzzySharp.dll": {}
+        }
+      },
       "HarfBuzzSharp/7.3.0.2": {
         "type": "package",
         "dependencies": {
@@ -2128,6 +2137,26 @@
         "avaloniatoaster.1.1.51.nupkg.sha512",
         "avaloniatoaster.nuspec",
         "lib/net9.0/AvaloniaToaster.dll"
+      ]
+    },
+    "FuzzySharp/2.0.2": {
+      "sha512": "sBKqWxw3g//peYxDZ8JipRlyPbIyBtgzqBVA5GqwHVeqtIrw75maGXAllztf+1aJhchD+drcQIgf2mFho8ZV8A==",
+      "type": "package",
+      "path": "fuzzysharp/2.0.2",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "README.md",
+        "fuzzysharp.2.0.2.nupkg.sha512",
+        "fuzzysharp.nuspec",
+        "lib/net45/FuzzySharp.dll",
+        "lib/net46/FuzzySharp.dll",
+        "lib/net461/FuzzySharp.dll",
+        "lib/netcoreapp2.0/FuzzySharp.dll",
+        "lib/netcoreapp2.1/FuzzySharp.dll",
+        "lib/netstandard1.6/FuzzySharp.dll",
+        "lib/netstandard2.0/FuzzySharp.dll",
+        "lib/netstandard2.1/FuzzySharp.dll"
       ]
     },
     "HarfBuzzSharp/7.3.0.2": {
@@ -4506,6 +4535,7 @@
       "Avalonia.Fonts.Inter >= 11.2.1",
       "Avalonia.Themes.Fluent >= 11.2.1",
       "AvaloniaToaster >= 1.1.51",
+      "FuzzySharp >= 2.0.2",
       "Microsoft.EntityFrameworkCore.Design >= 9.0.7",
       "Microsoft.EntityFrameworkCore.Sqlite >= 9.0.6"
     ]
@@ -4590,6 +4620,10 @@
           "AvaloniaToaster": {
             "target": "Package",
             "version": "[1.1.51, )"
+          },
+          "FuzzySharp": {
+            "target": "Package",
+            "version": "[2.0.2, )"
           },
           "Microsoft.EntityFrameworkCore.Design": {
             "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
