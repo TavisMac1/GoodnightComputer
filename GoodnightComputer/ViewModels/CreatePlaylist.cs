@@ -67,7 +67,7 @@ public partial class CreatePlaylist : UserControl
             (
                 app =>
                 FuzzySharp.Fuzz
-                    .PartialTokenSetRatio(app.Name, input) > Constants.Constants.SCORE_THRESHOLD-1
+                    .PartialTokenSetRatio(app.Name, input) >= Constants.Constants.SCORE_THRESHOLD
             ).ToList();
 
             ApplicationList.Clear();
