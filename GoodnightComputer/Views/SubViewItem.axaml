@@ -37,7 +37,7 @@
             HorizontalAlignment="Right"
             Width="140"
             Height="32"/>
-        <Button Content="Play Playlist"
+        <Button Content="Sleep Apps"
             Background="Blue"
             Foreground="White"
             Margin="0,12,0,0"
