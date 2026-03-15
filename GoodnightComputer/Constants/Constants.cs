@@ -51,7 +51,9 @@ public static class Constants
         // System Utilities
         "conhost",             // Console Window Host
         "dllhost",             // COM Surrogate
-        "wmiprvse"             // WMI Provider Host
+        "wmiprvse",             // WMI Provider Host,
+         
+        "GNC" // this application
     };
 
     public static int SCORE_THRESHOLD = 70;
