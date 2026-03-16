@@ -13,11 +13,13 @@ namespace GoodnightComputer
     {
         public MainWindow()
         {
-            // Initializes MainWindow and its components.
             InitializeComponent();
-            var toastService = Program.Services.GetRequiredService<ToastNotificationService>();
+            
+            WindowState = WindowState.Maximized;
+            
+            this._toastNotificationService = Program.Services.GetRequiredService<ToastNotificationService>();
             var toastContainer = this.FindControl<Panel>("ToastContainer");
-            toastService.RegisterMainWindow(toastContainer);
+            this._toastNotificationService.RegisterMainWindow(toastContainer);
         }
 
         private void NewPlaylistView_Click(object? sender, RoutedEventArgs e) =>
@@ -25,6 +27,8 @@ namespace GoodnightComputer
 
         private void NewViewPlaylistsView_Click(object? sender, RoutedEventArgs e) =>
             this.FindControl<ContentControl>("MainContent").Content = new ViewPlaylists();
+
+        private ToastNotificationService _toastNotificationService { get; init; }
 
         private void OpenDiscord_Click(object? sender, RoutedEventArgs e)
         {
@@ -39,7 +43,7 @@ namespace GoodnightComputer
             }
             catch (Exception ex)
             {
-                // Optionally handle errors (e.g., show a message to the user)
+                this._toastNotificationService.Show(ex.Message);
             }
         }
     }
