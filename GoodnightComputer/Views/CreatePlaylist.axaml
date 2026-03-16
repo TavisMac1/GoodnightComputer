@@ -61,7 +61,7 @@
               <TextBlock Text="Search" FontSize="14"/>
               </Button>
           </StackPanel>
-          <ScrollViewer Width="900" Height="300" HorizontalScrollBarVisibility="Auto">
+          <ScrollViewer Width="900" Height="500" HorizontalScrollBarVisibility="Auto">
             <Grid ColumnDefinitions="*,8,*">
               <!-- Available Apps -->
               <StackPanel Grid.Column="0">
@@ -70,7 +70,7 @@
                            FontWeight="Bold"
                            Foreground="#B0B0B0"
                            Margin="0,0,0,8"/>
-                <ListBox x:Name="AppsListBox" ItemsSource="{Binding ApplicationList}" Height="180">
+                <ListBox x:Name="AppsListBox" ItemsSource="{Binding ApplicationList}" Height="380">
                   <ListBox.ItemTemplate>
                     <DataTemplate x:DataType="Models:ApplicationRecord">
                       <StackPanel Orientation="Horizontal">
@@ -106,7 +106,7 @@
                            FontWeight="Bold"
                            Foreground="#B0B0B0"
                            Margin="0,0,0,8"/>
-                <ListBox x:Name="SelectedAppsListBox" ItemsSource="{Binding SelectedApps}" Height="180">
+                <ListBox x:Name="SelectedAppsListBox" ItemsSource="{Binding SelectedApps}" Height="380">
                   <ListBox.ItemTemplate>
                     <DataTemplate x:DataType="Models:ApplicationRecord">
                       <StackPanel Orientation="Horizontal">

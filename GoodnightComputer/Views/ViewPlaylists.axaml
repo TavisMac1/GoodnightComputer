@@ -28,7 +28,7 @@
                        Margin="0,0,0,8"/>
 
             <Border Background="#2D313A" CornerRadius="8" Padding="12" Margin="0,8,0,0">
-                <ScrollViewer Height="600" VerticalScrollBarVisibility="Auto">
+                <ScrollViewer Height="1000" VerticalScrollBarVisibility="Auto">
                     <ListBox ItemsSource="{Binding PlaylistRecords}"
                              BorderThickness="0"
                              Background="Transparent">
