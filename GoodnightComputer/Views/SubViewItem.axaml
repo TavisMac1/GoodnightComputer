@@ -28,20 +28,23 @@
         </Grid>
       </ScrollViewer>
       <!-- Delete Button -->
-       <!-- CommandParameter="{Binding Id}" -->
       <Button Content="Delete Playlist"
             Command="{Binding DeleteFromDb}"
             Background="DarkRed"
             Foreground="White"
             Margin="0,12,0,0"
             HorizontalAlignment="Right"
+            HorizontalContentAlignment="Center"
+            VerticalContentAlignment="Center"
             Width="140"
             Height="32"/>
-        <Button Content="Sleep Apps"
+      <Button Content="Sleep Apps"
             Background="Blue"
             Foreground="White"
             Margin="0,12,0,0"
             HorizontalAlignment="Right"
+            HorizontalContentAlignment="Center"
+            VerticalContentAlignment="Center"
             Width="140"
             Height="32"/>
     </StackPanel>
