@@ -32,6 +32,9 @@ public partial class PlaylistRecord
     [NotMapped]
     public ICommand DeleteFromDb { get; set; } = null!;
 
+    [NotMapped]
+    public ICommand SleepPlaylistApplications { get; set; } = null!;
+
     public PlaylistRecord() {}
 
     public PlaylistRecord
