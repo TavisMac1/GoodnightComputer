@@ -1,0 +1,40 @@
+# Build results
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+[Ww][Ii][Nn]32/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+bld/
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+
+# Visual Studio cache/options
+.vs/
+
+# Database files
+*.db
+*.db-shm
+*.db-wal
+
+# Avalonia specific
+**/obj/**/Avalonia/
+**/bin/**/Avalonia/
+
+# Assembly info
+**/obj/**/*.AssemblyInfo.cs
+**/obj/**/*.AssemblyInfoInputs.cache
+**/obj/**/apphost.exe
+
+# Other build outputs
+*.dll
+*.exe
+*.pdb
+*.sourcelink.json
+**/obj/**/ref/
+**/obj/**/refint/
