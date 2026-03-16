@@ -12,15 +12,20 @@
       <TextBlock Text="{Binding Name}" FontSize="16" FontWeight="Bold" Foreground="#FFFFFF"/>
       <TextBlock Text="{Binding Descriptor}" FontSize="13" Foreground="#B0B0B0"/>
       <TextBlock Text="{Binding CreatedOn}" FontSize="11" Foreground="#808080"/>
-      <TextBlock Text="{Binding Id}" FontSize="11" Foreground="#808080"/>
-      <ScrollViewer Width="900" Height="300" HorizontalScrollBarVisibility="Auto">
+      <!-- <TextBlock Text="{Binding Id}" FontSize="11" Foreground="#808080"/> -->
+
+      <Border Height="16"/>
+      <Separator/>
+      <Border Height="16"/>
+
+      <ScrollViewer Width="900" Height="400" HorizontalScrollBarVisibility="Auto" HorizontalAlignment="Left">
         <Grid ColumnDefinitions="*,8,*">
           <!-- Available Apps -->
           <StackPanel Grid.Column="0">
             <TextBlock Text="Apps in Playlist"
                        FontSize="14"
                        FontWeight="Bold"
-                       Foreground="#B0B0B0"
+                       Foreground="MediumSpringGreen"
                        Margin="0,0,0,8"/>
             <ListBox x:Name="AppsListBox" ItemsSource="{Binding ApplicationsList}" Height="180">
             </ListBox>
@@ -30,23 +35,26 @@
       <!-- Delete Button -->
       <Button Content="Delete Playlist"
             Command="{Binding DeleteFromDb}"
-            Background="DarkRed"
+            Background="PaleVioletRed"
             Foreground="White"
             Margin="0,12,0,0"
             HorizontalAlignment="Right"
             HorizontalContentAlignment="Center"
             VerticalContentAlignment="Center"
             Width="140"
-            Height="32"/>
+            Height="32"
+            FontWeight="Bold"/>
       <Button Content="Sleep Apps"
-            Background="Blue"
-            Foreground="White"
+            Command="{Binding SleepPlaylistApplications}"
+            Background="MediumSpringGreen"
+            Foreground="Black"
             Margin="0,12,0,0"
             HorizontalAlignment="Right"
             HorizontalContentAlignment="Center"
             VerticalContentAlignment="Center"
             Width="140"
-            Height="32"/>
+            Height="32"
+            FontWeight="Bold"/>
     </StackPanel>
   </Border>
 </UserControl>

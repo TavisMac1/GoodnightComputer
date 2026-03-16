@@ -10,7 +10,7 @@ namespace GoodnightComputer.Utils;
 
 public static class GeneralUtils
 {
-    public static async Task<List<string>> ListApplicationNames()
+    public static List<string> ListApplicationNames()
     {
         var appNames = new List<string>();
         foreach (var process in System.Diagnostics.Process.GetProcesses())
@@ -45,7 +45,7 @@ public static class GeneralUtils
         return appNames.Distinct(StringComparer.OrdinalIgnoreCase).ToList();
     }
 
-    public static void PausePlaylistApplications(PlaylistRecord playlist)
+    public static void SleepPlaylistApplications(PlaylistRecord playlist)
     {
         if (playlist?.ApplicationsList == null || playlist.ApplicationsList.Count == 0)
         {
@@ -109,7 +109,7 @@ public static class GeneralUtils
         }
     }
 
-    private static void SuspendProcess(Process process)
+    public static void SuspendProcess(Process process)
     {
         foreach (ProcessThread pT in process.Threads)
         {
