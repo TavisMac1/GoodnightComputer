@@ -8,25 +8,38 @@
              Background="#23272F"
              Padding="24">
 
-    <StackPanel Spacing="24">
-        <TextBlock Text="Your Playlists"
-                   FontSize="22"
-                   FontWeight="Bold"
-                   Foreground="#FFFFFF"
-                   Margin="0,0,0,8"/>
+    <Grid>
+        <!-- Background Image -->
+        <Image Source="avares://GNC/Assets/gcfinal.png"
+               Stretch="None"
+               HorizontalAlignment="Right"
+               VerticalAlignment="Bottom"
+               Margin="0,0,24,24"
+               Opacity="0.3"
+               Width="300"
+               Height="300"/>
+        
+        <!-- Main Content -->
+        <StackPanel Spacing="24">
+            <TextBlock Text="Your Playlists"
+                       FontSize="22"
+                       FontWeight="Bold"
+                       Foreground="#FFFFFF"
+                       Margin="0,0,0,8"/>
 
-        <Border Background="#2D313A" CornerRadius="8" Padding="12" Margin="0,8,0,0">
-            <ScrollViewer Height="600" VerticalScrollBarVisibility="Auto">
-                <ListBox ItemsSource="{Binding PlaylistRecords}"
-                         BorderThickness="0"
-                         Background="Transparent">
-                    <ListBox.ItemTemplate>
-                        <DataTemplate x:DataType="models:PlaylistRecord">
-                            <views:SubViewItem/>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
-            </ScrollViewer>
-        </Border>
-    </StackPanel>
+            <Border Background="#2D313A" CornerRadius="8" Padding="12" Margin="0,8,0,0">
+                <ScrollViewer Height="600" VerticalScrollBarVisibility="Auto">
+                    <ListBox ItemsSource="{Binding PlaylistRecords}"
+                             BorderThickness="0"
+                             Background="Transparent">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate x:DataType="models:PlaylistRecord">
+                                <views:SubViewItem/>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </ScrollViewer>
+            </Border>
+        </StackPanel>
+    </Grid>
 </UserControl>
