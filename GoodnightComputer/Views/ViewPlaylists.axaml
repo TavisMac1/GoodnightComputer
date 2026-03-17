@@ -5,7 +5,7 @@
              xmlns:viewmodels="clr-namespace:GoodnightComputer.ViewModels"
              x:Class="GoodnightComputer.Views.ViewPlaylists"
              x:DataType="viewmodels:ViewPlaylistsViewModel"
-             Background="#23272F"
+             Background="PaleVioletRed"
              Padding="24">
 
     <Grid>
@@ -23,15 +23,19 @@
         <StackPanel Spacing="24">
             <TextBlock Text="Your Playlists"
                        FontSize="22"
-                       FontWeight="Bold"
-                       Foreground="#FFFFFF"
+                       Foreground="MediumSpringGreen"
                        Margin="0,0,0,8"/>
 
-            <Border Background="#2D313A" CornerRadius="8" Padding="12" Margin="0,8,0,0">
-                <ScrollViewer Height="1000" VerticalScrollBarVisibility="Auto">
+            <Border Background="#2D313A" 
+                    BorderBrush="#2D313A"
+                    BorderThickness="3"
+                    CornerRadius="8" 
+                    Padding="12" 
+                    Margin="0,8,0,0">
+                <ScrollViewer Height="1000" VerticalScrollBarVisibility="Auto" Background="#2D313A">
                     <ListBox ItemsSource="{Binding PlaylistRecords}"
                              BorderThickness="0"
-                             Background="Transparent">
+                             Background="#2D313A">
                         <ListBox.ItemTemplate>
                             <DataTemplate x:DataType="models:PlaylistRecord">
                                 <views:SubViewItem/>

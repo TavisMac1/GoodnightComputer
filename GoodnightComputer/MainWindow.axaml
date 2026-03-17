@@ -4,7 +4,7 @@
         Title="Goodnight Computer"
         Width="1920"
         Height="1080"
-        Background="#1E1E1E">
+        Background="PaleVioletRed">
   <Grid>
     <Grid.ColumnDefinitions>
       <ColumnDefinition Width="180"/>
@@ -24,12 +24,17 @@
            Height="300"/>
 
     <!-- Sidebar -->
-    <Border Grid.Column="0" Background="#23272F" CornerRadius=""  Padding="0,24,0,0">
+    <Border Grid.Column="0" 
+            Background="#2D313A" 
+            BorderBrush="MediumSpringGreen"
+            BorderThickness="0,0,3,0"
+            CornerRadius=""  
+            Padding="0,24,0,0">
       <StackPanel VerticalAlignment="Top" Spacing="20" HorizontalAlignment="Stretch">
         <!-- Sidebar Header -->
-        <TextBlock Text="Goodnight Computer"
-                   Foreground="#FFFFFF"
-                   FontSize="16"
+        <TextBlock Text=""
+                   Foreground="MediumSpringGreen"
+                   FontSize="14"
                    FontWeight="Bold"
                    HorizontalAlignment="Center"
                    Margin="0,0,0,24"
@@ -38,9 +43,10 @@
         <Button x:Name="ViewPlaylistsButton"
                 Click="NewViewPlaylistsView_Click"
                 Content="View Playlists"
-                Background="#2D313A"
-                Foreground="#FFFFFF"
+                Background="SlateGray"
+                Foreground="MediumSpringGreen"
                 FontSize="16"
+                FontWeight="Bold"
                 Padding="12"
                 CornerRadius="8"
                 HorizontalAlignment="Stretch"
@@ -50,9 +56,10 @@
         <Button x:Name="PlaylistButton"
                 Click="NewPlaylistView_Click"
                 Content="Create Playlist"
-                Background="#2D313A"
-                Foreground="#FFFFFF"
+                Background="SlateGray"
+                Foreground="MediumSpringGreen"
                 FontSize="16"
+                FontWeight="Bold"
                 Padding="12"
                 CornerRadius="8"
                 HorizontalAlignment="Stretch"
@@ -61,9 +68,10 @@
                 Margin="12,0"/>
         <Button Content="Discord"
                 Click="OpenDiscord_Click"
-                Background="#2D313A"
-                Foreground="#FFFFFF"
+                Background="SlateGray"
+                Foreground="MediumSpringGreen"
                 FontSize="16"
+                FontWeight="Bold"
                 Padding="12"
                 CornerRadius="8"
                 HorizontalAlignment="Stretch"
@@ -86,7 +94,11 @@
             ZIndex="100">
       <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
         <ProgressBar IsIndeterminate="True" Width="100" Height="8"/>
-        <TextBlock Text="Loading..." Foreground="White" Margin="0,12,0,0" HorizontalAlignment="Center"/>
+        <TextBlock Text="Loading..." 
+                   Foreground="MediumSpringGreen" 
+                   FontWeight="Bold"
+                   Margin="0,12,0,0" 
+                   HorizontalAlignment="Center"/>
       </StackPanel>
     </Border>
 

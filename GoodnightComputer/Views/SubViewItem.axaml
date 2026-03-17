@@ -4,21 +4,25 @@
              xmlns:viewmodels="clr-namespace:GoodnightComputer.ViewModels"
              x:Class="GoodnightComputer.Views.SubViewItem"
              x:DataType="Models:PlaylistRecord"
-             Background="#23272F"
+             Background="#2D313A"
              Padding="16"
              Margin="8">
-  <Border Background="#23272F" CornerRadius="8" Padding="16">
-    <StackPanel Spacing="4">
-      <TextBlock Text="{Binding Name}" FontSize="16" FontWeight="Bold" Foreground="#FFFFFF"/>
-      <TextBlock Text="{Binding Descriptor}" FontSize="13" Foreground="#B0B0B0"/>
-      <TextBlock Text="{Binding CreatedOn}" FontSize="11" Foreground="#808080"/>
+  <Border Background="#2D313A" 
+          BorderBrush="MediumSpringGreen"
+          BorderThickness="4"
+          CornerRadius="8" 
+          Padding="16">
+    <StackPanel Spacing="4" Background="#2D313A">
+      <TextBlock Text="{Binding Name}" FontSize="16" FontWeight="Bold" Foreground="MediumSpringGreen"/>
+      <TextBlock Text="{Binding Descriptor}" FontSize="13" FontWeight="Bold" Foreground="CornflowerBlue"/>
+      <TextBlock Text="{Binding CreatedOn}" FontSize="11" FontWeight="Bold" Foreground="CornflowerBlue"/>
       <!-- <TextBlock Text="{Binding Id}" FontSize="11" Foreground="#808080"/> -->
 
       <Border Height="16"/>
-      <Separator/>
+      <Separator Background="#2D313A" Height="2"/>
       <Border Height="16"/>
 
-      <ScrollViewer Width="900" Height="400" HorizontalScrollBarVisibility="Auto" HorizontalAlignment="Left">
+      <ScrollViewer Width="900" Height="400" HorizontalScrollBarVisibility="Auto" HorizontalAlignment="Left" Background="#2D313A">
         <Grid ColumnDefinitions="*,8,*">
           <!-- Available Apps -->
           <StackPanel Grid.Column="0">
@@ -35,7 +39,7 @@
       <!-- Delete Button -->
       <Button Content="Delete Playlist"
             Command="{Binding DeleteFromDb}"
-            Background="PaleVioletRed"
+            Background="DarkRed"
             Foreground="White"
             Margin="0,12,0,0"
             HorizontalAlignment="Right"
