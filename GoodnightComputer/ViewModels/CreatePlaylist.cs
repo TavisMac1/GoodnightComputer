@@ -1,6 +1,7 @@
 ﻿using Avalonia.Controls;
 using Avalonia.Interactivity;
 using AvaloniaToaster;
+using AvaloniaToaster.Themes;
 using GoodnightComputer.Models;
 using GoodnightComputer.Utils;
 using System;
@@ -18,7 +19,6 @@ public partial class CreatePlaylist : UserControl
     public ObservableCollection<ApplicationRecord> SelectedApps { get; set; } = new();
     public ObservableCollection<ApplicationRecord> ApplicationList { get; set; } = new();
 
-    private TextBlock MessageControl;
     private TextBox PlaylistNameTextBoxControl;
     private TextBox PlaylistDescriptionTextBoxControl;
     private ListBox AppsListBoxControl;
@@ -43,20 +43,17 @@ public partial class CreatePlaylist : UserControl
         foreach (var app in State.SystemState.STATIC_APPLICATION_NAMES) 
             ApplicationList.Add(new ApplicationRecord(app));
         
-        MessageControl = this.FindControl<TextBlock>("ErrorMessageTextBlock")!;
         PlaylistNameTextBoxControl = this.FindControl<TextBox>("PlaylistNameTextBox")!;
         PlaylistDescriptionTextBoxControl = this.FindControl<TextBox>("PlaylistDescriptionTextBox")!;
         AppsListBoxControl = this.FindControl<ListBox>("AppsListBox")!;
         SelectedAppsListBoxControl = this.FindControl<ListBox>("SelectedAppsListBox")!;
         SearchTextBoxControl = this.FindControl<TextBox>("SearchTextBox")!;
 
-        if (MessageControl == null) throw new Exception("ErrorMessageTextBlock not found.");
         if (PlaylistNameTextBoxControl == null) throw new Exception("PlaylistNameTextBox not found.");
         if (PlaylistDescriptionTextBoxControl == null) throw new Exception("PlaylistDescriptionTextBox not found.");
         if (AppsListBoxControl == null) throw new Exception("AppsListBox not found.");
         if (SelectedAppsListBoxControl == null) throw new Exception("SelectedAppsListBox not found.");
         if (SearchTextBoxControl == null) throw new Exception("SearchTextBox not found.");
-        MessageControl.Text = string.Empty;
     }
 
     private void Search(string input)
@@ -92,7 +89,6 @@ public partial class CreatePlaylist : UserControl
         }
 
         Search(searchText);
-        ClearErrorState();
     }
 
     public void RemoveApp_Click(object? sender, RoutedEventArgs e)
@@ -103,7 +99,7 @@ public partial class CreatePlaylist : UserControl
 
         if (SelectedAppsListBoxControl.SelectedItems != null && SelectedAppsListBoxControl.SelectedItems.Count == 0) 
         {
-            MessageControl.Text = "Please select an application to remove.";
+            _toastService.Show("Please select an application to remove.", 3000, new AvaloniaToasterErrorTheme());
             return;
         }
 
@@ -113,7 +109,6 @@ public partial class CreatePlaylist : UserControl
             selectedApp = SelectedAppsListBoxControl.SelectedItems?.OfType<ApplicationRecord>().First(); // this assumes there's multi select - should just disable it
 
         SelectedApps.Remove(selectedApp!);
-        ClearErrorState();
     }
 
     public void AddAppToPlaylist_Click(object? sender, RoutedEventArgs e)
@@ -122,7 +117,7 @@ public partial class CreatePlaylist : UserControl
 
         if (selectedApps.Count == 0)
         {
-            MessageControl.Text = "Please select at least one application to add.";
+            _toastService.Show("Please select at least one application to add.", 3000, new AvaloniaToasterErrorTheme());
             return;
         }
 
@@ -131,8 +126,6 @@ public partial class CreatePlaylist : UserControl
             if (!SelectedApps.Contains(app))
                 SelectedApps.Add(app);
         }
-
-        ClearErrorState();
     }
 
     public void SavePlaylist_Click(object? sender, RoutedEventArgs e)
@@ -151,14 +144,11 @@ public partial class CreatePlaylist : UserControl
 
         if (!playListResult.IsValid)
         {
-            MessageControl.Text = playListResult.ErrorMessage;
+            _toastService.Show(playListResult.ErrorMessage, 3000, new AvaloniaToasterErrorTheme());
             return;
         }
 
         _playlistStateSingleton.Insert(Playlist);
         _toastService.Show("Playlist saved!");
-        ClearErrorState();
     }
-
-    private void ClearErrorState() => this.MessageControl.Text = string.Empty;
 }
