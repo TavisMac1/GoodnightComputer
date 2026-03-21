@@ -123,7 +123,7 @@ public static class GeneralUtils
         }
     }
 
-    private static void ResumeProcess(Process process)
+    public static void ResumeProcess(Process process)
     {
         foreach (ProcessThread pT in process.Threads)
         {

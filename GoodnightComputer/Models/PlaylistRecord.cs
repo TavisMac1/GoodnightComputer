@@ -1,14 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Windows.Input;
 
 namespace GoodnightComputer.Models;
 
 [Table("PlaylistEntities")]
-public partial class PlaylistRecord
+public partial class PlaylistRecord : INotifyPropertyChanged
 {
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -20,7 +22,19 @@ public partial class PlaylistRecord
     [Required]
     public string Descriptor { get; init; } = string.Empty;
 
-    public bool IsActive { get; set; } = false;
+    private bool _isActive = false;
+    public bool IsActive 
+    { 
+        get => _isActive;
+        set
+        {
+            if (_isActive != value)
+            {
+                _isActive = value;
+                OnPropertyChanged();
+            }
+        }
+    }
 
     public string CreatedOn { get; set; } = DateTime.Now.ToString("yyyy-MM-dd");
 
@@ -34,6 +48,9 @@ public partial class PlaylistRecord
 
     [NotMapped]
     public ICommand SleepPlaylistApplications { get; set; } = null!;
+
+    [NotMapped]
+    public ICommand ResumePlaylistApplications { get; set; } = null!;
 
     public PlaylistRecord() {}
 
@@ -60,6 +77,13 @@ public partial class PlaylistRecord
         if (applicationCount == 0) return new("There are no applications added.");
 
         return new(true);
+    }
+
+    public event PropertyChangedEventHandler? PropertyChanged;
+
+    protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 }
 public class PlaylistResult
