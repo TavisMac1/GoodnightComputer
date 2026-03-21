@@ -27,6 +27,7 @@ public class PlaylistState
                     {
                         record.DeleteFromDb = new RelayCommand(_ => DeleteFromDb((Guid)record.Id), _ => true);
                         record.SleepPlaylistApplications = new RelayCommand(_ => SleepPlaylistApplications(record), _ => true);
+                        record.ResumePlaylistApplications = new RelayCommand(_ => ResumePlaylistApplications(record), _ => true);
                     }
 
                     return new ObservableCollection<PlaylistRecord>(records);
@@ -59,6 +60,7 @@ public class PlaylistState
                     context.SaveChanges();
                     record.DeleteFromDb = new RelayCommand((id) => DeleteFromDb((Guid)id), _ => true);
                     record.SleepPlaylistApplications = new RelayCommand(_ => SleepPlaylistApplications(record), _ => true);
+                    record.ResumePlaylistApplications = new RelayCommand(_ => ResumePlaylistApplications(record), _ => true);
                     GlobalPlaylistRecords.Add(record);
                 }
                 catch (Exception e)
@@ -147,5 +149,50 @@ public class PlaylistState
                 }
             }
         }
+
+        playlist.IsActive = true;
+    }
+
+    public static void ResumePlaylistApplications(PlaylistRecord playlist)
+    {
+        if (playlist?.ApplicationsList == null || playlist.ApplicationsList.Count == 0)
+        {
+            Console.WriteLine("No applications in playlist to resume.");
+            return;
+        }
+
+        Process[] runningProcesses;
+        
+        try
+        {
+            runningProcesses = Process.GetProcesses();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Unable to access Process.GetProcesses: {ex.Message}");
+            return;
+        }
+
+        foreach (var appName in playlist.ApplicationsList)
+        {
+            var matchingProcesses = runningProcesses
+                .Where(p => IsProcessAccessible(p, appName))
+                .ToList();
+
+            foreach (var process in matchingProcesses)
+            {
+                try
+                {
+                    GeneralUtils.ResumeProcess(process);
+                    Console.WriteLine($"Resumed: {process.ProcessName}");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Failed to resume {appName}: {ex.Message}");
+                }
+            }
+        }
+
+        playlist.IsActive = false;
     }
 }

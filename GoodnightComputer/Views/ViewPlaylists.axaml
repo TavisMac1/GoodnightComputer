@@ -23,6 +23,7 @@
         <StackPanel Spacing="24">
             <TextBlock Text="Your Playlists"
                        FontSize="22"
+                       FontWeight="Bold"
                        Foreground="MediumSpringGreen"
                        Margin="0,0,0,8"/>
 
@@ -45,5 +46,54 @@
                 </ScrollViewer>
             </Border>
         </StackPanel>
+
+        <!-- Overlay when any playlist is active -->
+        <Border Background="#DD000000"
+                CornerRadius="0"
+                IsVisible="{Binding IsAnyPlaylistActive}"
+                ZIndex="1000">
+            <StackPanel VerticalAlignment="Center" 
+                        HorizontalAlignment="Center"
+                        Spacing="24">
+                <!-- Icon -->
+                <Image Source="avares://GNC/Assets/gcfinal.png"
+                       Width="200"
+                       Height="200"
+                       Stretch="Uniform"
+                       HorizontalAlignment="Center"/>
+                
+                <!-- Message -->
+                <TextBlock Text="Your applications are currently napping. . ."
+                           FontSize="24"
+                           FontWeight="Bold"
+                           Foreground="MediumSpringGreen"
+                           HorizontalAlignment="Center"
+                           TextAlignment="Center"
+                           TextWrapping="Wrap"
+                           MaxWidth="500"/>
+                
+                <!-- Playlist Name -->
+                <TextBlock Text="{Binding ActivePlaylist.Name, StringFormat='Playlist: {0}'}"
+                           FontSize="18"
+                           FontWeight="Bold"
+                           Foreground="CornflowerBlue"
+                           HorizontalAlignment="Center"
+                           TextAlignment="Center"/>
+                
+                <!-- Resume Button -->
+                <Button Content="Resume Applications"
+                        Command="{Binding ActivePlaylist.ResumePlaylistApplications}"
+                        Background="MediumSpringGreen"
+                        Foreground="Black"
+                        FontSize="18"
+                        Padding="20,14"
+                        CornerRadius="8"
+                        HorizontalAlignment="Center"
+                        HorizontalContentAlignment="Center"
+                        VerticalContentAlignment="Center"
+                        FontWeight="Bold"
+                        MinWidth="250"/>
+            </StackPanel>
+        </Border>
     </Grid>
 </UserControl>
