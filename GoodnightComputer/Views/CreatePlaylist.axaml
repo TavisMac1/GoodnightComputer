@@ -27,13 +27,6 @@
                  Margin="0,0,0,8"/>
 
     <StackPanel Margin="20">
-      <TextBlock
-          Margin="0 5"
-          x:Name="ErrorMessageTextBlock"
-          Foreground="Red"
-          FontWeight="Bold"
-         >
-        </TextBlock>
       <TextBlock Margin="0 5" FontSize="14" FontWeight="Bold" Foreground="SteelBlue">Playlist Name</TextBlock>
       <TextBox x:Name="PlaylistNameTextBox" Watermark="Enter a name for your Playlist"/>
       <TextBlock  Margin="0 15 0 5" FontSize="14" FontWeight="Bold" Foreground="SteelBlue">Description</TextBlock>
