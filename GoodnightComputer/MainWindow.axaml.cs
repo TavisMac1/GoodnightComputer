@@ -1,4 +1,4 @@
-using Avalonia.Controls;
+﻿using Avalonia.Controls;
 using Avalonia.Interactivity;
 using AvaloniaToaster;
 using GoodnightComputer.ViewModels;
@@ -11,6 +11,8 @@ namespace GoodnightComputer
 {
     public partial class MainWindow : Window
     {
+        private bool _isSidebarCollapsed = false;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -45,6 +47,32 @@ namespace GoodnightComputer
             catch (Exception ex)
             {
                 this._toastNotificationService.Show(ex.Message);
+            }
+        }
+
+        private void ToggleSidebar_Click(object? sender, RoutedEventArgs e)
+        {
+            var sidebar = this.FindControl<Border>("Sidebar");
+            var toggleButton = this.FindControl<Button>("ToggleSidebarButton");
+
+            if (sidebar == null || toggleButton == null)
+                return;
+
+            _isSidebarCollapsed = !_isSidebarCollapsed;
+
+            if (_isSidebarCollapsed)
+            {
+                // Collapse sidebar
+                sidebar.Width = 10;
+                toggleButton.Content = "▶";
+                toggleButton.CornerRadius = new Avalonia.CornerRadius(12, 0, 0, 12);
+            }
+            else
+            {
+                // Expand sidebar
+                sidebar.Width = 180;
+                toggleButton.Content = "◀";
+                toggleButton.CornerRadius = new Avalonia.CornerRadius(0, 12, 12, 0);
             }
         }
     }
