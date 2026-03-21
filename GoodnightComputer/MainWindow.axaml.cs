@@ -20,6 +20,7 @@ namespace GoodnightComputer
             this._toastNotificationService = Program.Services.GetRequiredService<ToastNotificationService>();
             var toastContainer = this.FindControl<Panel>("ToastContainer");
             this._toastNotificationService.RegisterMainWindow(toastContainer);
+            this.FindControl<ContentControl>("MainContent")!.Content = new ViewPlaylists();
         }
 
         private void NewPlaylistView_Click(object? sender, RoutedEventArgs e) =>
