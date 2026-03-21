@@ -23,10 +23,10 @@ namespace GoodnightComputer
         }
 
         private void NewPlaylistView_Click(object? sender, RoutedEventArgs e) =>
-            this.FindControl<ContentControl>("MainContent").Content = Program.Services.GetRequiredService<CreatePlaylist>();
+            this.FindControl<ContentControl>("MainContent")!.Content = Program.Services.GetRequiredService<CreatePlaylist>();
 
         private void NewViewPlaylistsView_Click(object? sender, RoutedEventArgs e) =>
-            this.FindControl<ContentControl>("MainContent").Content = new ViewPlaylists();
+            this.FindControl<ContentControl>("MainContent")!.Content = new ViewPlaylists();
 
         private ToastNotificationService _toastNotificationService { get; init; }
 
