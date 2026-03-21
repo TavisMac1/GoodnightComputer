@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyCopyrightAttribute("Copyright Fennec Branta, 2025")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+84b37f57ba3586643c43c3cdc4f256a53874d7a7")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d4dce04e7c20b263ba6ee2ff8acb54c07e6e2970")]
 [assembly: System.Reflection.AssemblyProductAttribute("GNC")]
 [assembly: System.Reflection.AssemblyTitleAttribute("GNC")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
