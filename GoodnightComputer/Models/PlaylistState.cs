@@ -7,13 +7,17 @@ using System.Linq;
 
 namespace GoodnightComputer.Models;
 
-public class PlaylistState
+public static class PlaylistState
 {
-    public ObservableCollection<PlaylistRecord> GlobalPlaylistRecords { get; set; } = new();
+    public static ObservableCollection<PlaylistRecord> GlobalPlaylistRecords { get; set; } = PopulateDataFromDb();
 
-    public PlaylistState() => GlobalPlaylistRecords = this.PopulateDataFromDb();
+    private static bool _isCurrentlyProcessingDelete = false;
+
+    public static bool GetIsCurrentlyProcessingDelete() => _isCurrentlyProcessingDelete;
     
-    private ObservableCollection<PlaylistRecord> PopulateDataFromDb()
+    public static bool SetIsCurrentlyProcessingDelete(bool value) => _isCurrentlyProcessingDelete = value;
+
+    private static ObservableCollection<PlaylistRecord> PopulateDataFromDb()
     {
         using (var context = new AppDbContext())
         {
@@ -44,11 +48,26 @@ public class PlaylistState
         }
     }
 
-    public void Insert (PlaylistRecord record) => AddToDb(record);
+    private static Queue<Guid> _deleteQue = new();
 
-    public void Delete (Guid id) => DeleteFromDb(id);
+    public static void Insert (PlaylistRecord record) => AddToDb(record);
 
-    private void AddToDb(PlaylistRecord record)
+    public static void Delete(Guid id)
+    {
+        if (GetIsCurrentlyProcessingDelete())
+        {
+            if (!_deleteQue.Contains(id))
+                _deleteQue.Enqueue(id);
+            return;
+        }
+
+        DeleteFromDb(id);
+
+        if (_deleteQue.Count > 0)
+            Delete(_deleteQue.Dequeue());
+    }
+
+    private static void AddToDb(PlaylistRecord record)
     {
         using (var context = new AppDbContext())
         {
@@ -65,18 +84,24 @@ public class PlaylistState
                 }
                 catch (Exception e)
                 {
-                    throw new Exception($"Error saving playlist: {e.Message}");
+                    throw new Exception
+                    (
+                        $"Error saving playlist. Message: {e.Message}. " +
+                        $"Error: {e.InnerException}"
+                    );
                 }
             }
             else throw new Exception("Unable to connect to the Database.");
         }
     }
 
-    private void DeleteFromDb(Guid id)
+    private static void DeleteFromDb(Guid id)
     {
         using var context = new AppDbContext();
         if (context.Database.CanConnect())
         {
+            SetIsCurrentlyProcessingDelete(true);
+
             try
             {
                 var record = context.Set<PlaylistRecord>().Find(id);
@@ -84,13 +109,17 @@ public class PlaylistState
 
                 context.Set<PlaylistRecord>().Remove(record);
                 context.SaveChanges();
-                
+
                 var recordToRemove = GlobalPlaylistRecords.FirstOrDefault(app => app.Id == id);
                 if (recordToRemove != null) GlobalPlaylistRecords.Remove(recordToRemove);
             }
             catch (Exception e)
             {
                 throw new Exception($"Error deleting playlist: {e.Message}");
+            }
+            finally
+            {
+                SetIsCurrentlyProcessingDelete(false);
             }
         }
         else throw new Exception("Unable to connect to the Database.");

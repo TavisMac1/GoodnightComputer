@@ -13,7 +13,6 @@ using System.Threading.Tasks;
 namespace GoodnightComputer.ViewModels;
 public partial class CreatePlaylist : UserControl
 {
-    private readonly PlaylistState _playlistStateSingleton;
     private readonly ToastNotificationService _toastService;
 
     public ObservableCollection<ApplicationRecord> SelectedApps { get; set; } = new();
@@ -27,15 +26,13 @@ public partial class CreatePlaylist : UserControl
 
     public CreatePlaylist
     (
-        ToastNotificationService toastService, 
-        PlaylistState playlistState
+        ToastNotificationService toastService
     )
     { 
         _toastService = toastService;
-        this._playlistStateSingleton = playlistState;
         InitializeComponent();
         DataContext = this;
-        Initialize();
+        _ = Initialize();
     }
 
     private async Task Initialize()
@@ -148,7 +145,7 @@ public partial class CreatePlaylist : UserControl
             return;
         }
 
-        _playlistStateSingleton.Insert(Playlist);
+        PlaylistState.Insert(Playlist);
         _toastService.Show("Playlist saved!");
     }
 }

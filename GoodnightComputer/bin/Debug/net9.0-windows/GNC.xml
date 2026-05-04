@@ -35,6 +35,18 @@
         <member name="M:GoodnightComputer.Migrations.AddNewColumnPlayListRecordsList.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
             <inheritdoc />
         </member>
+        <member name="T:GoodnightComputer.Migrations.makedescriptornullable">
+            <inheritdoc />
+        </member>
+        <member name="M:GoodnightComputer.Migrations.makedescriptornullable.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:GoodnightComputer.Migrations.makedescriptornullable.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:GoodnightComputer.Migrations.makedescriptornullable.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
         <member name="M:GoodnightComputer.ViewModels.CreatePlaylist.InitializeComponent(System.Boolean)">
             <summary>
             Wires up the controls and optionally loads XAML markup and attaches dev tools (if Avalonia.Diagnostics package is referenced).
