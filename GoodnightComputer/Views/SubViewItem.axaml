@@ -12,7 +12,7 @@
           BorderThickness="4"
           CornerRadius="8" 
           Padding="16">
-    <StackPanel Spacing="4" Background="#2D313A">
+    <StackPanel Spacing="1" Background="#2D313A">
       <TextBlock Text="{Binding Name}" FontSize="16" FontWeight="Bold" Foreground="MediumSpringGreen"/>
       <TextBlock Text="{Binding Descriptor}" FontSize="13" FontWeight="Bold" Foreground="CornflowerBlue"/>
       <TextBlock Text="{Binding CreatedOn}" FontSize="11" FontWeight="Bold" Foreground="CornflowerBlue"/>
@@ -22,7 +22,7 @@
       <Separator Background="#2D313A" Height="2"/>
       <Border Height="16"/>
 
-      <ScrollViewer Width="900" Height="400" HorizontalScrollBarVisibility="Auto" HorizontalAlignment="Left" Background="#2D313A">
+      <ScrollViewer Width="800" Height="200" HorizontalScrollBarVisibility="Auto" HorizontalAlignment="Left" Background="#2D313A">
         <Grid ColumnDefinitions="*,8,*">
           <!-- Available Apps -->
           <StackPanel Grid.Column="0">
