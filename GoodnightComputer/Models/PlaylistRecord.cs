@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
 using System.Windows.Input;
 
 namespace GoodnightComputer.Models;
@@ -18,9 +19,8 @@ public partial class PlaylistRecord : INotifyPropertyChanged
 
     [Required]
     public string Name { get; init; } = string.Empty;
-    
-    [Required]
-    public string Descriptor { get; init; } = string.Empty;
+
+    public string? Descriptor { get; init; } = string.Empty;
 
     private bool _isActive = false;
     public bool IsActive 
@@ -73,7 +73,6 @@ public partial class PlaylistRecord : INotifyPropertyChanged
         Console.WriteLine($"Descriptor: {this.Descriptor}");
 
         if (string.IsNullOrEmpty(Name)) return new("Name is empty.");
-        if (string.IsNullOrEmpty(Descriptor)) return new("Description is empty");
         if (applicationCount == 0) return new("There are no applications added.");
 
         return new(true);

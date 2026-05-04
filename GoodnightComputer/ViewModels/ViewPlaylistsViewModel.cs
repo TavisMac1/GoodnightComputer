@@ -27,9 +27,9 @@ public class ViewPlaylistsViewModel : INotifyPropertyChanged
 
     public bool IsAnyPlaylistActive => ActivePlaylist != null;
 
-    public ViewPlaylistsViewModel(PlaylistState playlistStateSingleton)
+    public ViewPlaylistsViewModel()
     {
-        this.PlaylistRecords = playlistStateSingleton.GlobalPlaylistRecords;
+        this.PlaylistRecords = PlaylistState.GlobalPlaylistRecords;
         
         // Subscribe to property changes on all playlist records
         foreach (var record in PlaylistRecords)
