@@ -26,13 +26,6 @@
                  Foreground="MediumSpringGreen"
                  Margin="0,0,0,8"/>
 
-    <StackPanel Margin="20">
-      <TextBlock Margin="0 5" FontSize="14" FontWeight="Bold" Foreground="SteelBlue">Playlist Name</TextBlock>
-      <TextBox x:Name="PlaylistNameTextBox" Watermark="Enter a name for your Playlist"/>
-      <TextBlock  Margin="0 15 0 5" FontSize="14" FontWeight="Bold" Foreground="SteelBlue">Description</TextBlock>
-      <TextBox x:Name="PlaylistDescriptionTextBox" Watermark="Enter a description for your Playlist"/>
-    </StackPanel>
-
     <!-- App Selection -->
     <StackPanel>
       <TextBlock Text="Apps for your Playlist to Sleep"
@@ -45,6 +38,15 @@
               CornerRadius="8" 
               Padding="12">
         <StackPanel  Background="#2D313A">
+
+        <StackPanel Margin="0,0,0,8">
+          <TextBlock Margin="0 5" FontSize="14" FontWeight="Bold" Foreground="SteelBlue">Playlist Name</TextBlock>
+          <TextBox x:Name="PlaylistNameTextBox" Watermark="Enter a name for your Playlist"/>
+          <TextBlock  Margin="0 15 0 5" FontSize="14" FontWeight="Bold" Foreground="SteelBlue">Description</TextBlock>
+          <TextBox x:Name="PlaylistDescriptionTextBox" Watermark="Enter a description for your Playlist"/>
+        </StackPanel>
+
+        <Separator Margin="20"/>
           <!-- Search Bar ABOVE the Grid -->
           <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,0,0,8" Background="#2D313A">
             <TextBox x:Name="SearchTextBox"
@@ -58,7 +60,7 @@
               <TextBlock Text="Search" FontSize="14" FontWeight="Bold"/>
               </Button>
           </StackPanel>
-          <ScrollViewer Width="900" Height="500" HorizontalScrollBarVisibility="Auto" Background="#2D313A">
+          <ScrollViewer Width="1000" Height="500" HorizontalScrollBarVisibility="Auto" Background="#2D313A">
             <Grid ColumnDefinitions="*,8,*">
               <!-- Available Apps -->
               <StackPanel Grid.Column="0">
