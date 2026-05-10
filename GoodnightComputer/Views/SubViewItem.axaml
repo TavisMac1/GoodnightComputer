@@ -31,7 +31,20 @@
                        FontWeight="Bold"
                        Foreground="MediumSpringGreen"
                        Margin="0,0,0,8"/>
-            <ListBox x:Name="AppsListBox" ItemsSource="{Binding ApplicationsList}" Height="180">
+            <ListBox x:Name="AppsListBox" ItemsSource="{Binding ApplicationsList}" Height="180"
+                     SelectionMode="Single"
+                     ScrollViewer.VerticalScrollBarVisibility="Auto">
+              <ListBox.Styles>
+                <Style Selector="ListBoxItem:selected /template/ ContentPresenter">
+                  <Setter Property="Background" Value="Transparent"/>
+                </Style>
+                <Style Selector="ListBoxItem:pointerover /template/ ContentPresenter">
+                  <Setter Property="Background" Value="Transparent"/>
+                </Style>
+                <Style Selector="ListBoxItem">
+                  <Setter Property="IsEnabled" Value="False"/>
+                </Style>
+              </ListBox.Styles>
             </ListBox>
           </StackPanel>
         </Grid>
