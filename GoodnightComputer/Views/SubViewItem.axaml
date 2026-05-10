@@ -19,7 +19,7 @@
       <!-- <TextBlock Text="{Binding Id}" FontSize="11" Foreground="#808080"/> -->
 
       <Border Height="16"/>
-      <Separator Background="#2D313A" Height="2"/>
+      <Separator Height="2"/>
       <Border Height="16"/>
 
       <ScrollViewer Width="800" Height="200" HorizontalScrollBarVisibility="Auto" HorizontalAlignment="Left" Background="#2D313A">

@@ -5,7 +5,7 @@
              xmlns:viewmodels="clr-namespace:GoodnightComputer.ViewModels"
              x:Class="GoodnightComputer.Views.ViewPlaylists"
              x:DataType="viewmodels:ViewPlaylistsViewModel"
-             Background="PaleVioletRed"
+             Background="Transparent"
              Padding="24">
 
     <Grid>
