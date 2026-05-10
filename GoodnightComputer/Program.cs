@@ -39,6 +39,7 @@ public class Program
         services.AddSingleton<ToastNotificationService>();
         services.AddTransient<CreatePlaylist>();
         services.AddTransient<ViewPlaylistsViewModel>();
+        services.AddTransient<SignInViewModel>();
         services.AddSingleton<ToastNotificationService>();
     }
 
