@@ -1,0 +1,49 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:viewmodels="clr-namespace:GoodnightComputer.ViewModels"
+             x:Class="GoodnightComputer.ViewModels.SignInViewModel"
+             x:DataType="viewmodels:SignInViewModel"
+             Background="PaleVioletRed">
+  <Grid>
+    <Image Source="avares://GNC/Assets/gcfinal.png"
+           Stretch="None"
+           HorizontalAlignment="Right"
+           VerticalAlignment="Bottom"
+           Margin="0,0,24,24"
+           Opacity="0.3"
+           Width="300"
+           Height="300"/>
+
+    <Border Background="#2D313A"
+            BorderBrush="#2D313A"
+            BorderThickness="3"
+            CornerRadius="12"
+            Padding="32"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Width="480">
+      <StackPanel Spacing="16">
+        <TextBlock Text="Sign in required"
+                   FontSize="22"
+                   FontWeight="Bold"
+                   Foreground="MediumSpringGreen"
+                   HorizontalAlignment="Center"/>
+        <TextBlock Text="Please sign in with your Microsoft account to use the app."
+                   FontSize="14"
+                   Foreground="CornflowerBlue"
+                   TextWrapping="Wrap"
+                   TextAlignment="Center"/>
+        <Button Content="Sign in"
+                Click="SignIn_Click"
+                Background="MediumSpringGreen"
+                Foreground="Black"
+                FontSize="16"
+                Padding="12"
+                CornerRadius="8"
+                FontWeight="Bold"
+                HorizontalAlignment="Center"
+                Width="200"/>
+      </StackPanel>
+    </Border>
+  </Grid>
+</UserControl>

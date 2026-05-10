@@ -1,6 +1,7 @@
 ﻿using Avalonia.Controls;
 using Avalonia.Interactivity;
 using AvaloniaToaster;
+using GoodnightComputer.State;
 using GoodnightComputer.ViewModels;
 using GoodnightComputer.Views;
 using Microsoft.Extensions.DependencyInjection;
@@ -18,18 +19,21 @@ namespace GoodnightComputer
             InitializeComponent();
             
             WindowState = WindowState.Maximized;
+            SystemState.SetSignedIn(false);
             
             this._toastNotificationService = Program.Services.GetRequiredService<ToastNotificationService>();
             var toastContainer = this.FindControl<Panel>("ToastContainer");
             this._toastNotificationService.RegisterMainWindow(toastContainer);
-            this.FindControl<ContentControl>("MainContent")!.Content = new ViewPlaylists();
+            SystemState.SignedInChanged += OnSignedInChanged;
+
+            UpdateMainContent();
         }
 
         private void NewPlaylistView_Click(object? sender, RoutedEventArgs e) =>
-            this.FindControl<ContentControl>("MainContent")!.Content = Program.Services.GetRequiredService<CreatePlaylist>();
+            UpdateMainContent(Program.Services.GetRequiredService<CreatePlaylist>());
 
         private void NewViewPlaylistsView_Click(object? sender, RoutedEventArgs e) =>
-            this.FindControl<ContentControl>("MainContent")!.Content = new ViewPlaylists();
+            UpdateMainContent(new ViewPlaylists());
 
         private ToastNotificationService _toastNotificationService { get; init; }
 
@@ -37,6 +41,12 @@ namespace GoodnightComputer
         {
             try
             {
+                if (!SystemState.IsSignedIn)
+                {
+                    UpdateMainContent();
+                    return;
+                }
+
                 ProcessStartInfo psi = new ProcessStartInfo
                 {
                     FileName = Constants.Constants.DISCORD_URL,
@@ -52,6 +62,12 @@ namespace GoodnightComputer
 
         private void ToggleSidebar_Click(object? sender, RoutedEventArgs e)
         {
+            if (!SystemState.IsSignedIn)
+            {
+                UpdateMainContent();
+                return;
+            }
+
             var sidebar = this.FindControl<Border>("Sidebar");
             var toggleButton = this.FindControl<Button>("ToggleSidebarButton");
 
@@ -74,6 +90,23 @@ namespace GoodnightComputer
                 toggleButton.Content = "◀";
                 toggleButton.CornerRadius = new Avalonia.CornerRadius(0, 12, 12, 0);
             }
+        }
+
+        private void OnSignedInChanged(bool isSignedIn) => UpdateMainContent();
+
+        private void UpdateMainContent(UserControl? requested = null)
+        {
+            var mainContent = this.FindControl<ContentControl>("MainContent");
+            if (mainContent == null)
+                return;
+
+            if (!SystemState.IsSignedIn)
+            {
+                mainContent.Content = Program.Services.GetRequiredService<SignInViewModel>();
+                return;
+            }
+
+            mainContent.Content = requested ?? new ViewPlaylists();
         }
     }
 }
