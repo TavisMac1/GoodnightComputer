@@ -8,12 +8,14 @@
     <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
     <StartupObject>GoodnightComputer.Program</StartupObject>
     <AssemblyName>GNC</AssemblyName>
+    <ApplicationIcon>Assets\favicon.ico</ApplicationIcon>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
     <Copyright>Copyright Fennec Branta, 2025</Copyright>
   </PropertyGroup>
 
   <ItemGroup>
     <AvaloniaResource Include="Assets\gcfinal.png" />
+    <AvaloniaResource Include="Assets\favicon.ico" />
   </ItemGroup>
 
   <ItemGroup>

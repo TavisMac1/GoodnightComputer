@@ -34,6 +34,11 @@ public partial class SignInViewModel : UserControl
 
     public async void SignIn_Click(object? sender, RoutedEventArgs e)
     {
+#if DEBUG
+        SystemState.SetSignedIn(true);
+        _toastService.Show("Debug: Skipping sign-in.", 3000);
+        return;
+#endif
         try
         {
             var result = await AcquireTokenAsync();

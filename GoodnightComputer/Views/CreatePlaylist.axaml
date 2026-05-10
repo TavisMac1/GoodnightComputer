@@ -4,7 +4,7 @@
              xmlns:Models="clr-namespace:GoodnightComputer.Models"
              x:Class="GoodnightComputer.ViewModels.CreatePlaylist"
              x:DataType="ViewModels:CreatePlaylist"
-             Background="PaleVioletRed"
+             Background="Transparent"
              Padding="24">
   <Grid>
     <!-- Background Image -->
@@ -24,8 +24,9 @@
                  FontSize="18"
                  FontWeight="Bold"
                  Foreground="MediumSpringGreen"
-                 Margin="0,0,0,8"/>
+                 Margin="20,0,0,0"/>
 
+    <Separator/>
     <!-- App Selection -->
     <StackPanel>
       <TextBlock Text="Apps for your Playlist to Sleep"

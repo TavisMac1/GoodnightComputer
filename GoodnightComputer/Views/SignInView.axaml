@@ -3,7 +3,7 @@
              xmlns:viewmodels="clr-namespace:GoodnightComputer.ViewModels"
              x:Class="GoodnightComputer.ViewModels.SignInViewModel"
              x:DataType="viewmodels:SignInViewModel"
-             Background="PaleVioletRed">
+            Background="Transparent">
   <Grid>
     <Image Source="avares://GNC/Assets/gcfinal.png"
            Stretch="None"
@@ -33,6 +33,7 @@
                    Foreground="CornflowerBlue"
                    TextWrapping="Wrap"
                    TextAlignment="Center"/>
+        <Separator/>
         <Button Content="Sign in"
                 Click="SignIn_Click"
                 Background="MediumSpringGreen"
@@ -42,6 +43,7 @@
                 CornerRadius="8"
                 FontWeight="Bold"
                 HorizontalAlignment="Center"
+                HorizontalContentAlignment="Center"
                 Width="200"/>
       </StackPanel>
     </Border>
