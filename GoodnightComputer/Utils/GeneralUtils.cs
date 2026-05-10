@@ -23,6 +23,10 @@ public static class GeneralUtils
                 if (Constants.Constants.EXCLUSION_APPS.Contains(processNameLower))
                     continue;
 
+                // Skip if process is in user-defined exclusion list
+                if (UserExclusionState.Contains(processNameLower))
+                    continue;
+
                 string description = process.MainModule?.FileVersionInfo?.FileDescription!;
 
                 Console.WriteLine(process.ProcessName);

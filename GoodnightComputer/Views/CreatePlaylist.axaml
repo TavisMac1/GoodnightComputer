@@ -59,7 +59,15 @@
                     MinWidth="60"
                     Height="30">
               <TextBlock Text="Search" FontSize="14" FontWeight="Bold"/>
-              </Button>
+            </Button>
+            <Button Click="Refresh_Click"
+                    Background="SlateGray"
+                    Foreground="MediumSpringGreen"
+                    MinWidth="60"
+                    Height="30"
+                    ToolTip.Tip="Refresh app list (applies exclusion changes)">
+              <TextBlock Text="↻ Refresh" FontSize="14" FontWeight="Bold"/>
+            </Button>
           </StackPanel>
           <ScrollViewer Width="1000" Height="500" HorizontalScrollBarVisibility="Auto" Background="#2D313A">
             <Grid ColumnDefinitions="*,8,*">

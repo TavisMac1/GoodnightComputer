@@ -88,6 +88,19 @@ public partial class CreatePlaylist : UserControl
         Search(searchText);
     }
 
+    public async void Refresh_Click(object? sender, RoutedEventArgs e)
+    {
+        var freshNames = await Task.Run(GeneralUtils.ListApplicationNames);
+        State.SystemState.STATIC_APPLICATION_NAMES = freshNames;
+
+        ApplicationList.Clear();
+        foreach (var app in freshNames)
+            ApplicationList.Add(new ApplicationRecord(app));
+
+        if (SearchTextBoxControl != null)
+            SearchTextBoxControl.Text = string.Empty;
+    }
+
     public void RemoveApp_Click(object? sender, RoutedEventArgs e)
     {
         var selectedApp = null as ApplicationRecord;

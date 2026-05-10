@@ -71,6 +71,18 @@
                 HorizontalContentAlignment="Center"
                 VerticalContentAlignment="Center"
                 Margin="12,0"/>
+        <Button Content="Settings"
+                Click="OpenSettings_Click"
+                Background="SlateGray"
+                Foreground="MediumSpringGreen"
+                FontSize="16"
+                FontWeight="Bold"
+                Padding="12"
+                CornerRadius="8"
+                HorizontalAlignment="Stretch"
+                HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center"
+                Margin="12,0"/>
       </StackPanel>
     </Border>
 

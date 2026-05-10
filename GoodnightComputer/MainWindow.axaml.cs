@@ -35,6 +35,9 @@ namespace GoodnightComputer
         private void NewViewPlaylistsView_Click(object? sender, RoutedEventArgs e) =>
             UpdateMainContent(new ViewPlaylists());
 
+        private void OpenSettings_Click(object? sender, RoutedEventArgs e) =>
+            UpdateMainContent(new GoodnightComputer.ViewModels.SettingsViewModel());
+
         private ToastNotificationService _toastNotificationService { get; init; }
 
         private void OpenDiscord_Click(object? sender, RoutedEventArgs e)
