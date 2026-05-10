@@ -32,8 +32,13 @@ public class Program
 
     private static void ConfigureServices(IServiceCollection services)
     {
+        var dbPath = System.IO.Path.Combine(
+            Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
+            "GoodnightComputer",
+            Constants.Constants.DB_NAME);
+        System.IO.Directory.CreateDirectory(System.IO.Path.GetDirectoryName(dbPath)!);
         services.AddDbContext<AppDbContext>(options =>
-            options.UseSqlite($"Data Source={Constants.Constants.DB_NAME}")
+            options.UseSqlite($"Data Source={dbPath}")
         );
 
         services.AddSingleton<ToastNotificationService>();
