@@ -21,29 +21,24 @@ public static class PlaylistState
     {
         using (var context = new AppDbContext())
         {
-            if (context.Database.CanConnect())
+            try
             {
-                try
-                {
-                    var records = context.Set<PlaylistRecord>().ToList();
+                context.Database.EnsureCreated();
 
-                    foreach (var record in records)
-                    {
-                        record.DeleteFromDb = new RelayCommand(_ => DeleteFromDb((Guid)record.Id), _ => true);
-                        record.SleepPlaylistApplications = new RelayCommand(_ => SleepPlaylistApplications(record), _ => true);
-                        record.ResumePlaylistApplications = new RelayCommand(_ => ResumePlaylistApplications(record), _ => true);
-                    }
+                var records = context.Set<PlaylistRecord>().ToList();
 
-                    return new ObservableCollection<PlaylistRecord>(records);
-                }
-                catch (Exception e)
+                foreach (var record in records)
                 {
-                    throw new Exception($"Error fetching playlists: {e.Message}");
+                    record.DeleteFromDb = new RelayCommand(_ => DeleteFromDb((Guid)record.Id), _ => true);
+                    record.SleepPlaylistApplications = new RelayCommand(_ => SleepPlaylistApplications(record), _ => true);
+                    record.ResumePlaylistApplications = new RelayCommand(_ => ResumePlaylistApplications(record), _ => true);
                 }
+
+                return new ObservableCollection<PlaylistRecord>(records);
             }
-            else
+            catch (Exception e)
             {
-                throw new Exception("Unable to connect to the Database.");
+                throw new Exception($"Error fetching playlists: {e.Message}");
             }
         }
     }

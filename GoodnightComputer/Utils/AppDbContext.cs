@@ -15,7 +15,11 @@ public class AppDbContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        var dbPath = Path.Combine(AppContext.BaseDirectory, "GoodnightComputer.db");
+        var dbPath = Path.Combine(
+            Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
+            "GoodnightComputer",
+            "GoodnightComputer.db");
+        Directory.CreateDirectory(Path.GetDirectoryName(dbPath)!);
         Console.WriteLine($"Database Path: {dbPath}");
         if (!optionsBuilder.IsConfigured)
         {
