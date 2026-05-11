@@ -18,6 +18,14 @@ public class Program
     [STAThread]
     public static void Main(string[] args)
     {
+        // Ensure native libs (e.g. e_sqlite3.dll) extract to a stable location
+        // so single-file publish works reliably on any machine
+        var extractDir = System.IO.Path.Combine(
+            Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
+            "GoodnightComputer", "runtime");
+        System.IO.Directory.CreateDirectory(extractDir);
+        Environment.SetEnvironmentVariable("DOTNET_BUNDLE_EXTRACT_BASE_DIR", extractDir);
+
         // Configure DI
         var serviceCollection = new ServiceCollection();
         ConfigureServices(serviceCollection);
