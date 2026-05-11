@@ -69,7 +69,7 @@
               <TextBlock Text="↻ Refresh" FontSize="14" FontWeight="Bold"/>
             </Button>
           </StackPanel>
-          <ScrollViewer Width="1000" Height="500" HorizontalScrollBarVisibility="Auto" Background="#2D313A">
+          <ScrollViewer Width="1000" Height="500" HorizontalScrollBarVisibility="Auto" Background="#2D313A" HorizontalAlignment="Left" Margin="16,10,0,0">
             <Grid ColumnDefinitions="*,8,*">
               <!-- Available Apps -->
               <StackPanel Grid.Column="0">
