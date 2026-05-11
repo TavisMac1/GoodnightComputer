@@ -10,80 +10,106 @@
   <Grid>
     <Grid.ColumnDefinitions>
       <ColumnDefinition Width="Auto"/>
-      <ColumnDefinition Width="1"/>
+      <ColumnDefinition Width="20"/>
       <ColumnDefinition Width="*"/>
     </Grid.ColumnDefinitions>
 
     <!-- Sidebar -->
     <Border Grid.Column="0" 
             x:Name="Sidebar"
-            Width="180"
-            Background="#2D313A" 
-            BorderBrush="MediumSpringGreen"
-            BorderThickness="0,0,3,0"
-            CornerRadius=""  
-            Padding="0,24,0,0">
-      <StackPanel VerticalAlignment="Top" Spacing="20" HorizontalAlignment="Stretch">
-        <!-- Sidebar Header -->
-        <TextBlock Text=""
-                   Foreground="MediumSpringGreen"
-                   FontSize="14"
-                   FontWeight="Bold"
-                   HorizontalAlignment="Center"
-                   Margin="0,0,0,24"
-                   />
-        
-        <Button x:Name="ViewPlaylistsButton"
-                Click="NewViewPlaylistsView_Click"
-                Content="View Playlists"
-                Background="SlateGray"
-                Foreground="MediumSpringGreen"
-                FontSize="16"
-                FontWeight="Bold"
-                Padding="12"
-                CornerRadius="8"
-                HorizontalAlignment="Stretch"
-                HorizontalContentAlignment="Center"
-                VerticalContentAlignment="Center"
-                Margin="12,0"/>
-        <Button x:Name="PlaylistButton"
-                Click="NewPlaylistView_Click"
-                Content="Create Playlist"
-                Background="SlateGray"
-                Foreground="MediumSpringGreen"
-                FontSize="16"
-                FontWeight="Bold"
-                Padding="12"
-                CornerRadius="8"
-                HorizontalAlignment="Stretch"
-                HorizontalContentAlignment="Center"
-                VerticalContentAlignment="Center"
-                Margin="12,0"/>
-        <Button Content="Discord"
-                Click="OpenDiscord_Click"
-                Background="SlateGray"
-                Foreground="MediumSpringGreen"
-                FontSize="16"
-                FontWeight="Bold"
-                Padding="12"
-                CornerRadius="8"
-                HorizontalAlignment="Stretch"
-                HorizontalContentAlignment="Center"
-                VerticalContentAlignment="Center"
-                Margin="12,0"/>
-        <Button Content="Settings"
-                Click="OpenSettings_Click"
-                Background="SlateGray"
-                Foreground="MediumSpringGreen"
-                FontSize="16"
-                FontWeight="Bold"
-                Padding="12"
-                CornerRadius="8"
-                HorizontalAlignment="Stretch"
-                HorizontalContentAlignment="Center"
-                VerticalContentAlignment="Center"
-                Margin="12,0"/>
-      </StackPanel>
+            Width="220"
+            Background="#1E2128"
+            BorderBrush="#3AFD7A22"
+            BorderThickness="0,0,1,0"
+            Padding="0,16,0,16">
+      <DockPanel>
+        <StackPanel DockPanel.Dock="Top" Spacing="4" HorizontalAlignment="Stretch">
+
+          <!-- App Title -->
+          <Border Padding="16,8,16,20">
+            <StackPanel Spacing="2">
+              <TextBlock Text="Goodnight"
+                         Foreground="MediumSpringGreen"
+                         FontSize="18"
+                         FontWeight="Bold"/>
+              <TextBlock Text="Computer"
+                         Foreground="MediumSpringGreen"
+                         Opacity="0.6"
+                         FontSize="12"/>
+            </StackPanel>
+          </Border>
+
+          <Separator Margin="16,0,16,8" Background="#3AFFFFFF"/>
+
+          <Button x:Name="ViewPlaylistsButton"
+                  Click="NewViewPlaylistsView_Click"
+                  Content="View Playlists"
+                  Background="SlateGray"
+                  Foreground="MediumSpringGreen"
+                  FontSize="16"
+                  FontWeight="Bold"
+                  Padding="12"
+                  CornerRadius="8"
+                  HorizontalAlignment="Stretch"
+                  HorizontalContentAlignment="Center"
+                  VerticalContentAlignment="Center"
+                  Margin="12,0"/>
+
+          <Button x:Name="PlaylistButton"
+                  Click="NewPlaylistView_Click"
+                  Content="Create Playlist"
+                  Background="SlateGray"
+                  Foreground="MediumSpringGreen"
+                  FontSize="16"
+                  FontWeight="Bold"
+                  Padding="12"
+                  CornerRadius="8"
+                  HorizontalAlignment="Stretch"
+                  HorizontalContentAlignment="Center"
+                  VerticalContentAlignment="Center"
+                  Margin="12,0"/>
+
+          </StackPanel>
+
+        <!-- Settings pinned to bottom -->
+        <StackPanel DockPanel.Dock="Bottom" Spacing="4" HorizontalAlignment="Stretch">
+          <Separator Margin="16,0,16,8" Background="#3AFFFFFF"/>
+          <Button Click="OpenSettings_Click"
+                  Background="Transparent"
+                  Foreground="White"
+                  FontSize="14"
+                  FontWeight="SemiBold"
+                  Padding="16,14"
+                  CornerRadius="8"
+                  HorizontalAlignment="Stretch"
+                  HorizontalContentAlignment="Left"
+                  VerticalContentAlignment="Center"
+                  Margin="8,0">
+            <StackPanel Orientation="Horizontal" Spacing="12">
+              <TextBlock Text="⚙️" FontSize="16" VerticalAlignment="Center"/>
+              <TextBlock Text="Settings" VerticalAlignment="Center"/>
+            </StackPanel>
+          </Button>
+          <Button Click="OpenDiscord_Click"
+                  Background="Transparent"
+                  Foreground="White"
+                  FontSize="14"
+                  FontWeight="SemiBold"
+                  Padding="16,14"
+                  CornerRadius="8"
+                  HorizontalAlignment="Stretch"
+                  HorizontalContentAlignment="Left"
+                  VerticalContentAlignment="Center"
+                  Margin="8,0">
+            <StackPanel Orientation="Horizontal" Spacing="12">
+              <TextBlock Text="💬" FontSize="16" VerticalAlignment="Center"/>
+              <TextBlock Text="Discord" VerticalAlignment="Center"/>
+            </StackPanel>
+          </Button>
+        </StackPanel>
+
+        <Border/>
+      </DockPanel>
     </Border>
 
     <!-- Toggle Button on Divider -->
@@ -92,14 +118,14 @@
             Click="ToggleSidebar_Click"
             Background="MediumSpringGreen"
             Foreground="Black"
-            Width="24"
-            Height="60"
+            Width="20"
+            Height="120"
             VerticalAlignment="Center"
             HorizontalAlignment="Center"
             CornerRadius="0,12,12,0"
             Padding="0"
             FontWeight="Bold"
-            FontSize="16"
+            FontSize="14"
             Content="◀"
             ToolTip.Tip="Toggle Sidebar"/>
 
