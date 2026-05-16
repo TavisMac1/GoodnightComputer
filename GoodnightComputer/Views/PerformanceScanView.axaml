@@ -1,0 +1,50 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:viewmodels="clr-namespace:GoodnightComputer.ViewModels"
+             xmlns:models="clr-namespace:GoodnightComputer.Models"
+             x:Class="GoodnightComputer.ViewModels.PerformanceScanViewModel"
+             x:DataType="viewmodels:PerformanceScanViewModel"
+             Background="Transparent">
+  <ScrollViewer>
+    <StackPanel Spacing="24" Margin="32">
+      <StackPanel Spacing="4">
+        <TextBlock Text="Performance Scanner" FontSize="26" FontWeight="Bold" Foreground="MediumSpringGreen"/>
+        <TextBlock Text="Measures average CPU and memory usage of running apps over a 5-second window." FontSize="13" Foreground="CornflowerBlue" TextWrapping="Wrap"/>
+      </StackPanel>
+      <StackPanel Orientation="Horizontal" Spacing="16" VerticalAlignment="Center">
+        <Button x:Name="ScanButton" Content="&#x25B6;  Start Scan" Click="StartScan_Click" Background="MediumSpringGreen" Foreground="Black" FontWeight="Bold" FontSize="14" Padding="18,10" CornerRadius="8" HorizontalContentAlignment="Center"/>
+        <ProgressBar x:Name="ScanProgress" IsIndeterminate="True" IsVisible="False" Width="160" Height="8" VerticalAlignment="Center"/>
+        <TextBlock x:Name="StatusText" Text="Press Start Scan to begin." FontSize="13" Foreground="#A0A8B0" VerticalAlignment="Center"/>
+      </StackPanel>
+      <Border Background="#2D313A" BorderBrush="MediumSpringGreen" BorderThickness="2" CornerRadius="10" Padding="0">
+        <StackPanel>
+          <Border Background="#1E2128" CornerRadius="8,8,0,0" Padding="16,10">
+            <Grid ColumnDefinitions="*,160,160">
+              <TextBlock Grid.Column="0" Text="Application" FontWeight="Bold" FontSize="13" Foreground="MediumSpringGreen"/>
+              <TextBlock Grid.Column="1" Text="Avg CPU %" FontWeight="Bold" FontSize="13" Foreground="MediumSpringGreen" HorizontalAlignment="Right"/>
+              <TextBlock Grid.Column="2" Text="Avg Memory" FontWeight="Bold" FontSize="13" Foreground="MediumSpringGreen" HorizontalAlignment="Right"/>
+            </Grid>
+          </Border>
+          <ListBox ItemsSource="{Binding Results}" Background="Transparent" MaxHeight="520" ScrollViewer.VerticalScrollBarVisibility="Auto">
+            <ListBox.Styles>
+              <Style Selector="ListBoxItem"><Setter Property="Padding" Value="0"/><Setter Property="Background" Value="Transparent"/></Style>
+              <Style Selector="ListBoxItem:nth-child(odd) /template/ ContentPresenter"><Setter Property="Background" Value="#262A32"/></Style>
+              <Style Selector="ListBoxItem:nth-child(even) /template/ ContentPresenter"><Setter Property="Background" Value="#2D313A"/></Style>
+              <Style Selector="ListBoxItem:pointerover /template/ ContentPresenter"><Setter Property="Background" Value="#3A4050"/></Style>
+              <Style Selector="ListBoxItem:selected /template/ ContentPresenter"><Setter Property="Background" Value="#3A4050"/></Style>
+            </ListBox.Styles>
+            <ListBox.ItemTemplate>
+              <DataTemplate x:DataType="models:ApplicationRecord">
+                <Grid ColumnDefinitions="*,160,160" Margin="16,8">
+                  <TextBlock Grid.Column="0" Text="{Binding Name}" FontSize="13" Foreground="White" VerticalAlignment="Center" TextTrimming="CharacterEllipsis"/>
+                  <TextBlock Grid.Column="1" Text="{Binding CPUUsage}" FontSize="13" Foreground="#FFA040" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                  <TextBlock Grid.Column="2" Text="{Binding MemoryUsage}" FontSize="13" Foreground="CornflowerBlue" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                </Grid>
+              </DataTemplate>
+            </ListBox.ItemTemplate>
+          </ListBox>
+        </StackPanel>
+      </Border>
+    </StackPanel>
+  </ScrollViewer>
+</UserControl>

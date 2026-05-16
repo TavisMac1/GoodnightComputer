@@ -38,6 +38,9 @@ namespace GoodnightComputer
         private void OpenSettings_Click(object? sender, RoutedEventArgs e) =>
             UpdateMainContent(new GoodnightComputer.ViewModels.SettingsViewModel());
 
+        private void OpenPerformanceScan_Click(object? sender, RoutedEventArgs e) =>
+            UpdateMainContent(new GoodnightComputer.ViewModels.PerformanceScanViewModel());
+
         private ToastNotificationService _toastNotificationService { get; init; }
 
         private void OpenDiscord_Click(object? sender, RoutedEventArgs e)
