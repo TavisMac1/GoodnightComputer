@@ -16,11 +16,20 @@ public static class PerformanceScanner
     /// (polling every <paramref name="intervalMs"/> ms) and returns averaged CPU % and memory (MB)
     /// for each app, sorted by descending average CPU then memory.
     /// </summary>
-    public static async Task<List<ApplicationRecord>> ScanAsync(
+    public static Task<List<ApplicationRecord>> ScanAsync(
         int durationSeconds = 5,
         int intervalMs = 500,
         IProgress<string>? progress = null,
         CancellationToken cancellationToken = default)
+    {
+        return Task.Run(() => RunScanAsync(durationSeconds, intervalMs, progress, cancellationToken), cancellationToken);
+    }
+
+    private static async Task<List<ApplicationRecord>> RunScanAsync(
+        int durationSeconds,
+        int intervalMs,
+        IProgress<string>? progress,
+        CancellationToken cancellationToken)
     {
         // pid -> (displayName, List<cpuSample>, List<memorySample>)
         var data = new Dictionary<int, (string Name, List<double> Cpu, List<double> Mem)>();
