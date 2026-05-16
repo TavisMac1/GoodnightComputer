@@ -20,7 +20,7 @@ public static class GeneralUtils
                 string processNameLower = process.ProcessName.ToLower();
                 
                 // Skip if process is in exclusion list
-                if (Constants.Constants.EXCLUSION_APPS.Contains(processNameLower))
+                if (Constants.Constants.EXCLUSION_APPS.Contains(process.ProcessName, StringComparer.OrdinalIgnoreCase))
                     continue;
 
                 // Skip if process is in user-defined exclusion list

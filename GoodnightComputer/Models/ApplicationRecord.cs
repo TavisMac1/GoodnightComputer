@@ -6,6 +6,9 @@ public class ApplicationRecord
     public string? MemoryUsage { get; set; }
     public string? DiskUsage { get; set; }
 
+    public double CpuPercent { get; set; }
+    public double MemoryMB { get; set; }
+
     public ApplicationRecord(string name)
     {
         Name = name;

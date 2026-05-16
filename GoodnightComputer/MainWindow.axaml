@@ -69,6 +69,20 @@
                   VerticalContentAlignment="Center"
                   Margin="12,0"/>
 
+          <Button x:Name="PerformanceScanButton"
+                  Click="OpenPerformanceScan_Click"
+                  Content="Performance Scan"
+                  Background="SlateGray"
+                  Foreground="MediumSpringGreen"
+                  FontSize="16"
+                  FontWeight="Bold"
+                  Padding="12"
+                  CornerRadius="8"
+                  HorizontalAlignment="Stretch"
+                  HorizontalContentAlignment="Center"
+                  VerticalContentAlignment="Center"
+                  Margin="12,0"/>
+
           </StackPanel>
 
         <!-- Settings pinned to bottom -->
