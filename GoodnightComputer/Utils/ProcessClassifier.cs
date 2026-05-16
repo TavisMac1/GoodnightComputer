@@ -27,11 +27,11 @@ public static class ProcessClassifier
         "synaptics",
         "elan microelectronics",
         "wacom",
-        "logitech",
-        "corsair",
-        "razer",
-        "steelseries",
-        "asus",
+        //"logitech",
+        //"corsair",
+        //"razer",
+        //"steelseries",
+        //"asus",
         "gigabyte",
     };
 

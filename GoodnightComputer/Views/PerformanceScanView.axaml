@@ -13,7 +13,7 @@
       </StackPanel>
       <StackPanel Orientation="Horizontal" Spacing="16" VerticalAlignment="Center">
         <Button x:Name="ScanButton" Content="&#x25B6;  Start Scan" Click="StartScan_Click" Background="MediumSpringGreen" Foreground="Black" FontWeight="Bold" FontSize="14" Padding="18,10" CornerRadius="8" HorizontalContentAlignment="Center"/>
-        <ProgressBar x:Name="ScanProgress" IsIndeterminate="True" IsVisible="False" Width="160" Height="8" VerticalAlignment="Center"/>
+        <ProgressBar x:Name="ScanProgress" IsIndeterminate="True" IsVisible="False" Width="200" Height="14" VerticalAlignment="Center" Foreground="MediumSpringGreen" Background="#3A3F4A" CornerRadius="7"/>
         <TextBlock x:Name="StatusText" Text="Press Start Scan to begin." FontSize="13" Foreground="#A0A8B0" VerticalAlignment="Center"/>
       </StackPanel>
       <Border Background="#2D313A" BorderBrush="MediumSpringGreen" BorderThickness="2" CornerRadius="10" Padding="0">
