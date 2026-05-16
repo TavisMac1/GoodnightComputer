@@ -27,6 +27,10 @@ public static class GeneralUtils
                 if (UserExclusionState.Contains(processNameLower))
                     continue;
 
+                // Skip OS and hardware-driver processes
+                if (ProcessClassifier.IsSystemOrHardwareProcess(process))
+                    continue;
+
                 string description = process.MainModule?.FileVersionInfo?.FileDescription!;
 
                 Console.WriteLine(process.ProcessName);

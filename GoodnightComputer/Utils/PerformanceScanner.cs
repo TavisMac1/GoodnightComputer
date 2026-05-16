@@ -124,7 +124,8 @@ public static class PerformanceScanner
         {
             string name = p.ProcessName;
             return !Constants.Constants.EXCLUSION_APPS.Contains(name, StringComparer.OrdinalIgnoreCase)
-                && !UserExclusionState.Contains(name.ToLower());
+                && !UserExclusionState.Contains(name.ToLower())
+                && !ProcessClassifier.IsSystemOrHardwareProcess(p);
         });
     }
 
