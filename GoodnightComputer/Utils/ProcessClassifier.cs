@@ -56,10 +56,6 @@ public static class ProcessClassifier
             {
                 string company = (fvi.CompanyName ?? string.Empty).Trim().ToLowerInvariant();
 
-                // Microsoft-published processes are OS infrastructure.
-                if (company.Contains("microsoft"))
-                    return true;
-
                 // Hardware-vendor processes (drivers, control panels, etc.).
                 foreach (var vendor in HardwareVendors)
                 {
