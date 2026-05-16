@@ -2,9 +2,11 @@ using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Threading;
 using GoodnightComputer.Models;
+using GoodnightComputer.State;
 using GoodnightComputer.Utils;
 using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -80,5 +82,32 @@ public partial class PerformanceScanViewModel : UserControl
             if (btn != null) btn.IsEnabled = !scanning;
             if (spinner != null) spinner.IsVisible = scanning;
         });
+    }
+
+    private void CreatePlaylistFromScan_Click(object? sender, RoutedEventArgs e)
+    {
+        double threshold = ScannerSettings.CpuThreshold;
+
+        var qualifying = Results
+            .Where(r => r.CpuPercent > threshold)
+            .ToList();
+
+        if (qualifying.Count == 0)
+        {
+            SetStatus($"No apps exceeded the {threshold}% CPU threshold. Try lowering it in Settings.");
+            return;
+        }
+
+        var appNames = qualifying.Select(r => r.Name).ToList();
+        var applications = string.Join(",", appNames);
+
+        var playlist = new PlaylistRecord(
+            $"Scan Playlist — {DateTime.Now:HH:mm:ss}",
+            $"Auto-created from performance scan. CPU threshold: {threshold}%",
+            applications);
+
+        PlaylistState.Insert(playlist);
+
+        SetStatus($"Playlist created with {qualifying.Count} app(s) above {threshold}% CPU.");
     }
 }

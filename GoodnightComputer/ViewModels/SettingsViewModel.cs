@@ -13,6 +13,22 @@ public partial class SettingsViewModel : UserControl
     {
         InitializeComponent();
         DataContext = this;
+
+        if (ScannerSettings.IsUserDefined)
+        {
+            var input = this.FindControl<TextBox>("ThresholdInput");
+            if (input != null)
+                input.Text = ScannerSettings.CpuThreshold.ToString();
+        }
+    }
+
+    private void SaveThreshold_Click(object? sender, RoutedEventArgs e)
+    {
+        var input = this.FindControl<TextBox>("ThresholdInput");
+        if (input == null || string.IsNullOrWhiteSpace(input.Text)) return;
+
+        if (double.TryParse(input.Text.Trim(), out double value) && value >= 0 && value <= 100)
+            ScannerSettings.CpuThreshold = value;
     }
 
     private void AddExclusion_Click(object? sender, RoutedEventArgs e)
