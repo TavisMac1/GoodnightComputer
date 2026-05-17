@@ -30,7 +30,7 @@ public static class PlaylistState
                 foreach (var record in records)
                 {
                     record.DeleteFromDb = new RelayCommand(_ => DeleteFromDb((Guid)record.Id), _ => true);
-                    record.SleepPlaylistApplications = new RelayCommand(_ => SleepPlaylistApplications(record), _ => true);
+                    record.SleepPlaylistApplications = new RelayCommand(_ => SleepPlaylistApplications(record), _ => !GlobalPlaylistRecords.Any(p => p.IsActive));
                     record.ResumePlaylistApplications = new RelayCommand(_ => ResumePlaylistApplications(record), _ => true);
                 }
 
@@ -73,7 +73,7 @@ public static class PlaylistState
                 {
                     context.SaveChanges();
                     record.DeleteFromDb = new RelayCommand((id) => DeleteFromDb((Guid)id), _ => true);
-                    record.SleepPlaylistApplications = new RelayCommand(_ => SleepPlaylistApplications(record), _ => true);
+                    record.SleepPlaylistApplications = new RelayCommand(_ => SleepPlaylistApplications(record), _ => !GlobalPlaylistRecords.Any(p => p.IsActive));
                     record.ResumePlaylistApplications = new RelayCommand(_ => ResumePlaylistApplications(record), _ => true);
                     GlobalPlaylistRecords.Add(record);
                 }
@@ -175,6 +175,7 @@ public static class PlaylistState
         }
 
         playlist.IsActive = true;
+        RefreshSleepCommands();
     }
 
     public static void ResumePlaylistApplications(PlaylistRecord playlist)
@@ -218,5 +219,15 @@ public static class PlaylistState
         }
 
         playlist.IsActive = false;
+        RefreshSleepCommands();
+    }
+
+    private static void RefreshSleepCommands()
+    {
+        foreach (var record in GlobalPlaylistRecords)
+        {
+            if (record.SleepPlaylistApplications is RelayCommand cmd)
+                cmd.RaiseCanExecuteChanged();
+        }
     }
 }
