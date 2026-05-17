@@ -13,7 +13,16 @@
           CornerRadius="8" 
           Padding="16">
     <StackPanel Spacing="1" Background="#2D313A">
-      <TextBlock Text="{Binding Name}" FontSize="16" FontWeight="Bold" Foreground="MediumSpringGreen"/>
+      <StackPanel Orientation="Horizontal" Spacing="10" VerticalAlignment="Center">
+        <TextBlock Text="{Binding Name}" FontSize="16" FontWeight="Bold" Foreground="MediumSpringGreen" VerticalAlignment="Center"/>
+        <Border Background="MediumSpringGreen"
+                CornerRadius="4"
+                Padding="8,2"
+                IsVisible="{Binding IsActive}"
+                VerticalAlignment="Center">
+          <TextBlock Text="● Running" FontSize="11" FontWeight="Bold" Foreground="Black"/>
+        </Border>
+      </StackPanel>
       <TextBlock Text="{Binding Descriptor}" FontSize="13" FontWeight="Bold" Foreground="CornflowerBlue"/>
       <TextBlock Text="{Binding CreatedOn}" FontSize="11" FontWeight="Bold" Foreground="CornflowerBlue"/>
       <!-- <TextBlock Text="{Binding Id}" FontSize="11" Foreground="#808080"/> -->
