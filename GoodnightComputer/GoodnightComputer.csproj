@@ -20,6 +20,7 @@
   <ItemGroup>
     <AvaloniaResource Include="Assets\gcfinal.png" />
     <AvaloniaResource Include="Assets\favicon.ico" />
+    <AvaloniaResource Include="Assets\gnc_art_cropped.PNG" />
   </ItemGroup>
 
   <ItemGroup>
