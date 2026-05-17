@@ -28,9 +28,9 @@
         <Border x:Name="GameRunningPanel" Background="#2D313A" BorderBrush="MediumSpringGreen" BorderThickness="2" CornerRadius="10" Padding="24" IsVisible="False">
           <StackPanel Spacing="6">
             <StackPanel Orientation="Horizontal" Spacing="10">
-              <TextBlock Text="" FontSize="20" VerticalAlignment="Center"/>
-              <TextBlock Text="Game Running" FontSize="18" FontWeight="Bold" Foreground="MediumSpringGreen" VerticalAlignment="Center"/>
+              <TextBlock Text="Application Running" FontSize="18" FontWeight="Bold" Foreground="MediumSpringGreen" VerticalAlignment="Center"/>
             </StackPanel>
+
             <TextBlock x:Name="RunningGameText" FontSize="15" Foreground="White" TextWrapping="Wrap"/>
           </StackPanel>
         </Border>
@@ -38,9 +38,9 @@
         <!-- Downloading status -->
         <Border x:Name="DownloadingPanel" Background="#2D313A" BorderBrush="CornflowerBlue" BorderThickness="2" CornerRadius="10" Padding="24" IsVisible="False">
           <StackPanel Spacing="10">
-            <StackPanel Orientation="Horizontal" Spacing="10">
-              <TextBlock Text="" FontSize="20" VerticalAlignment="Center"/>
-              <TextBlock Text="Downloading" FontSize="18" FontWeight="Bold" Foreground="CornflowerBlue" VerticalAlignment="Center"/>
+            <StackPanel  Spacing="0">
+              
+              <TextBlock Text="Downloading" FontSize="18" FontWeight="Bold" Foreground="CornflowerBlue"/>
             </StackPanel>
             <TextBlock x:Name="DownloadingGameText" FontSize="15" Foreground="White" TextWrapping="Wrap"/>
             <ProgressBar x:Name="DownloadBar" Height="14" CornerRadius="7" Foreground="CornflowerBlue" Background="#3A3F4A"/>
@@ -94,7 +94,7 @@
         <Border Background="#2D313A" BorderBrush="#3A4050" BorderThickness="2" CornerRadius="10" Padding="24">
           <StackPanel Spacing="12">
             <StackPanel Spacing="4">
-              <TextBlock Text="Download Active - Playlist Trigger" FontSize="16" FontWeight="Bold" Foreground="CornflowerBlue"/>
+              <TextBlock Text="Download Active - Playlist Trigger" FontSize="16" FontWeight="Bold" Foreground="MediumSpringGreen"/>
               <TextBlock Text="The selected playlist will be automatically activated when a Steam download starts, and deactivated when it completes." FontSize="13" Foreground="CornflowerBlue" TextWrapping="Wrap"/>
             </StackPanel>
             <TextBlock x:Name="DownloadTriggerLabel" FontSize="13" Foreground="#A0A8B0"/>
