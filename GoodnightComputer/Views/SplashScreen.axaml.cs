@@ -1,6 +1,7 @@
 using Avalonia.Animation;
 using Avalonia.Animation.Easings;
 using Avalonia.Controls;
+using Avalonia.Input;
 using Avalonia.Media;
 using Avalonia.Media.Transformation;
 using Avalonia.Styling;
@@ -15,68 +16,84 @@ namespace GoodnightComputer.Views
     {
         public event Action? AnimationComplete;
 
+        private readonly CancellationTokenSource _skipCts = new();
+
         public SplashScreen()
         {
             InitializeComponent();
             Opened += OnOpened;
+            KeyDown      += (_, _) => _skipCts.Cancel();
+            PointerPressed += (_, _) => _skipCts.Cancel();
         }
 
         private async void OnOpened(object? sender, EventArgs e)
         {
-            var logoBorder  = this.FindControl<Border>("LogoBorder")!;
-            var titleText   = this.FindControl<TextBlock>("TitleText")!;
+            var logoBorder   = this.FindControl<Border>("LogoBorder")!;
+            var titleText    = this.FindControl<TextBlock>("TitleText")!;
             var subtitleText = this.FindControl<TextBlock>("SubtitleText")!;
+            var skip         = _skipCts.Token;
 
             // ── Initial state ────────────────────────────────────────────────
             Opacity = 0;
             logoBorder.RenderTransformOrigin = new Avalonia.RelativePoint(0.5, 0.5, Avalonia.RelativeUnit.Relative);
             logoBorder.RenderTransform = new ScaleTransform(0.55, 0.55);
-
-            // Text starts 28px below final position
             SetSlideTransform(titleText,    28);
             SetSlideTransform(subtitleText, 28);
 
-            // ── Phase 1: fade-in window + scale+fade logo (0.8s) ─────────────
-            var fadeIn = MakeOpacityAnimation(0, 1, 0.8, new CubicEaseOut());
+            try
+            {
+                // ── Phase 1: fade-in window + scale+fade logo (0.8s) ─────────
+                var fadeIn  = MakeOpacityAnimation(0, 1, 0.8, new CubicEaseOut());
+                var scaleTcs = new TaskCompletionSource();
+                RunScaleTimer(logoBorder, from: 0.55, to: 1.0, durationSec: 0.8, easePow: 3, tcs: scaleTcs);
 
-            var scaleTcs = new TaskCompletionSource();
-            RunScaleTimer(logoBorder, from: 0.55, to: 1.0, durationSec: 0.8, easePow: 3, tcs: scaleTcs);
+                await Task.WhenAll(fadeIn.RunAsync(this, skip), scaleTcs.Task.WaitAsync(skip));
 
-            await Task.WhenAll(fadeIn.RunAsync(this, CancellationToken.None), scaleTcs.Task);
+                // ── Phase 2: title slides up + fades in (0.45s) ──────────────
+                await Task.WhenAll(
+                    MakeOpacityAnimation(0, 1, 0.45, new CubicEaseOut()).RunAsync(titleText, skip),
+                    RunSlideTimer(titleText, fromY: 28, toY: 0, durationSec: 0.45, easePow: 3).WaitAsync(skip)
+                );
 
-            // ── Phase 2: title slides up + fades in (0.45s) ──────────────────
-            await Task.WhenAll(
-                MakeOpacityAnimation(0, 1, 0.45, new CubicEaseOut()).RunAsync(titleText, CancellationToken.None),
-                RunSlideTimer(titleText, fromY: 28, toY: 0, durationSec: 0.45, easePow: 3)
-            );
+                // ── Phase 3: subtitle fades + slides in (0.35s) ──────────────
+                await Task.Delay(60, skip);
+                await Task.WhenAll(
+                    MakeOpacityAnimation(0, 1, 0.35, new CubicEaseOut()).RunAsync(subtitleText, skip),
+                    RunSlideTimer(subtitleText, fromY: 28, toY: 0, durationSec: 0.35, easePow: 3).WaitAsync(skip)
+                );
 
-            // ── Phase 3: subtitle fades + slides in (0.35s, slight delay) ────
-            await Task.Delay(60);
-            await Task.WhenAll(
-                MakeOpacityAnimation(0, 1, 0.35, new CubicEaseOut()).RunAsync(subtitleText, CancellationToken.None),
-                RunSlideTimer(subtitleText, fromY: 28, toY: 0, durationSec: 0.35, easePow: 3)
-            );
+                // ── Hold ──────────────────────────────────────────────────────
+                await Task.Delay(TimeSpan.FromSeconds(0.9), skip);
+            }
+            catch (OperationCanceledException)
+            {
+                // User skipped — snap everything to final visible state instantly
+                Opacity = 1;
+                ((ScaleTransform)logoBorder.RenderTransform).ScaleX = 1;
+                ((ScaleTransform)logoBorder.RenderTransform).ScaleY = 1;
+                titleText.Opacity    = 1;
+                subtitleText.Opacity = 1;
+                ((TranslateTransform)titleText.RenderTransform!).Y    = 0;
+                ((TranslateTransform)subtitleText.RenderTransform!).Y = 0;
+            }
 
-            // ── Hold ──────────────────────────────────────────────────────────
-            await Task.Delay(TimeSpan.FromSeconds(0.9));
-
-            // ── Phase 4: fade out everything (0.6s) ──────────────────────────
-            var fadeOut = MakeOpacityAnimation(1, 0, 0.6, new CubicEaseIn());
+            // ── Phase 4: fade out (quick when skipped) ────────────────────────
+            var fadeOut = MakeOpacityAnimation(1, 0, 0.35, new CubicEaseIn());
             await fadeOut.RunAsync(this, CancellationToken.None);
 
             AnimationComplete?.Invoke();
             Close();
         }
 
-        // ── Helpers ─────────────────────────────────────────────────────────
+        // ── Helpers ──────────────────────────────────────────────────────────
 
         private static Animation MakeOpacityAnimation(double from, double to, double seconds, Easing easing)
             => new Animation
             {
-                Duration  = TimeSpan.FromSeconds(seconds),
-                FillMode  = FillMode.Forward,
-                Easing    = easing,
-                Children  =
+                Duration = TimeSpan.FromSeconds(seconds),
+                FillMode = FillMode.Forward,
+                Easing   = easing,
+                Children =
                 {
                     new KeyFrame { Cue = new Cue(0d), Setters = { new Setter(OpacityProperty, from) } },
                     new KeyFrame { Cue = new Cue(1d), Setters = { new Setter(OpacityProperty, to)   } },
@@ -97,9 +114,9 @@ namespace GoodnightComputer.Views
 
             DispatcherTimer.Run(() =>
             {
-                var t      = Math.Clamp((DateTime.UtcNow - startTime).TotalSeconds / duration.TotalSeconds, 0, 1);
-                var eased  = 1.0 - Math.Pow(1.0 - t, easePow);
-                var y      = fromY + (toY - fromY) * eased;
+                var t     = Math.Clamp((DateTime.UtcNow - startTime).TotalSeconds / duration.TotalSeconds, 0, 1);
+                var eased = 1.0 - Math.Pow(1.0 - t, easePow);
+                var y     = fromY + (toY - fromY) * eased;
 
                 ((TranslateTransform)control.RenderTransform!).Y = y;
 
