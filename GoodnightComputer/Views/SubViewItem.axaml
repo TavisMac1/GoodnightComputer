@@ -70,6 +70,17 @@
             Width="140"
             Height="32"
             FontWeight="Bold"/>
+      <Button Content="Edit Playlist"
+            Command="{Binding EditPlaylist}"
+            Background="SteelBlue"
+            Foreground="White"
+            Margin="0,4,0,0"
+            HorizontalAlignment="Right"
+            HorizontalContentAlignment="Center"
+            VerticalContentAlignment="Center"
+            Width="140"
+            Height="32"
+            FontWeight="Bold"/>
       <Button Content="Sleep Apps"
             Command="{Binding SleepPlaylistApplications}"
             Background="MediumSpringGreen"

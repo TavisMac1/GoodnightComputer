@@ -11,6 +11,8 @@ public static class PlaylistState
 {
     public static ObservableCollection<PlaylistRecord> GlobalPlaylistRecords { get; set; } = PopulateDataFromDb();
 
+    public static Action<PlaylistRecord>? OpenEditModalAction { get; set; }
+
     private static bool _isCurrentlyProcessingDelete = false;
 
     public static bool GetIsCurrentlyProcessingDelete() => _isCurrentlyProcessingDelete;
@@ -29,9 +31,12 @@ public static class PlaylistState
 
                 foreach (var record in records)
                 {
+                    record.ApplicationsList = new System.Collections.ObjectModel.ObservableCollection<string>(
+                        record.Applications.Split(',', StringSplitOptions.RemoveEmptyEntries));
                     record.DeleteFromDb = new RelayCommand(_ => DeleteFromDb((Guid)record.Id), _ => true);
                     record.SleepPlaylistApplications = new RelayCommand(_ => SleepPlaylistApplications(record), _ => !GlobalPlaylistRecords.Any(p => p.IsActive));
                     record.ResumePlaylistApplications = new RelayCommand(_ => ResumePlaylistApplications(record), _ => true);
+                    record.EditPlaylist = new RelayCommand(_ => OpenEditModalAction?.Invoke(record), _ => true);
                 }
 
                 return new ObservableCollection<PlaylistRecord>(records);
@@ -45,7 +50,30 @@ public static class PlaylistState
 
     private static Queue<Guid> _deleteQue = new();
 
-    public static void Insert (PlaylistRecord record) => AddToDb(record);
+    public static void Insert(PlaylistRecord record) => AddToDb(record);
+
+    public static void UpdateApplications(Guid id, List<string> newApplicationsList)
+    {
+        var newApplications = string.Join(",", newApplicationsList);
+
+        using (var context = new AppDbContext())
+        {
+            if (!context.Database.CanConnect()) throw new Exception("Unable to connect to the Database.");
+
+            var record = context.Set<PlaylistRecord>().Find(id);
+            if (record is null) throw new Exception("Playlist record not found.");
+
+            record.Applications = newApplications;
+            context.SaveChanges();
+        }
+
+        var inMemory = GlobalPlaylistRecords.FirstOrDefault(p => p.Id == id);
+        if (inMemory != null)
+        {
+            inMemory.Applications = newApplications;
+            inMemory.ApplicationsList = new System.Collections.ObjectModel.ObservableCollection<string>(newApplicationsList);
+        }
+    }
 
     public static void Delete(Guid id)
     {
@@ -75,6 +103,7 @@ public static class PlaylistState
                     record.DeleteFromDb = new RelayCommand((id) => DeleteFromDb((Guid)id), _ => true);
                     record.SleepPlaylistApplications = new RelayCommand(_ => SleepPlaylistApplications(record), _ => !GlobalPlaylistRecords.Any(p => p.IsActive));
                     record.ResumePlaylistApplications = new RelayCommand(_ => ResumePlaylistApplications(record), _ => true);
+                    record.EditPlaylist = new RelayCommand(_ => OpenEditModalAction?.Invoke(record), _ => true);
                     GlobalPlaylistRecords.Add(record);
                 }
                 catch (Exception e)
