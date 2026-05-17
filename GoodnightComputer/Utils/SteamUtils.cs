@@ -73,7 +73,7 @@ public static class SteamUtils
             if (!Directory.Exists(steamapps)) continue;
             foreach (var file in Directory.GetFiles(steamapps, "appmanifest_*.acf"))
             {
-                var info = ParseManifest(file);
+                var info = ParseManifest(file, steamapps);
                 if (info != null)
                     result[info.AppId] = info;
             }
@@ -100,7 +100,7 @@ public static class SteamUtils
         return folders;
     }
 
-    private static ManifestInfo? ParseManifest(string path)
+    private static ManifestInfo? ParseManifest(string path, string steamappsDir)
     {
         try
         {
@@ -116,6 +116,16 @@ public static class SteamUtils
             // StateFlags bit 1024 = actively downloading
             bool isDownloading = (stateFlags & 1024) != 0 && bytesToDownload > 0;
 
+            // When actively downloading, Steam only flushes BytesDownloaded to the
+            // manifest on pause/stop. For live progress, measure the downloading
+            // folder size — Steam writes chunks there in real time.
+            if (isDownloading)
+            {
+                long liveBytes = GetLiveDownloadedBytes(steamappsDir, appId);
+                if (liveBytes > bytesDownloaded)
+                    bytesDownloaded = liveBytes;
+            }
+
             return new ManifestInfo
             {
                 AppId           = appId,
@@ -126,6 +136,28 @@ public static class SteamUtils
             };
         }
         catch { return null; }
+    }
+
+    /// <summary>
+    /// Sums the size of all files in steamapps\downloading\{appId}\ to get
+    /// the real-time downloaded byte count while a download is active.
+    /// </summary>
+    private static long GetLiveDownloadedBytes(string steamappsDir, int appId)
+    {
+        try
+        {
+            var downloadDir = Path.Combine(steamappsDir, "downloading", appId.ToString());
+            if (!Directory.Exists(downloadDir)) return 0;
+
+            return Directory
+                .EnumerateFiles(downloadDir, "*", SearchOption.AllDirectories)
+                .Sum(f =>
+                {
+                    try { return new FileInfo(f).Length; }
+                    catch { return 0L; }
+                });
+        }
+        catch { return 0; }
     }
 
     private static string? ParseStringField(string content, string key)

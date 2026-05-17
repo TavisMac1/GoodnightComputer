@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -39,9 +40,19 @@ public partial class PlaylistRecord : INotifyPropertyChanged
     public string CreatedOn { get; set; } = DateTime.Now.ToString("yyyy-MM-dd");
 
     [Required]
-    public string Applications { get; init; } = string.Empty;
+    public string Applications { get; set; } = string.Empty;
 
-    public List<string> ApplicationsList { get; init; }
+    private ObservableCollection<string> _applicationsList = new();
+    [NotMapped]
+    public ObservableCollection<string> ApplicationsList
+    {
+        get => _applicationsList;
+        set
+        {
+            _applicationsList = value;
+            OnPropertyChanged();
+        }
+    }
 
     [NotMapped]
     public ICommand DeleteFromDb { get; set; } = null!;
@@ -51,6 +62,9 @@ public partial class PlaylistRecord : INotifyPropertyChanged
 
     [NotMapped]
     public ICommand ResumePlaylistApplications { get; set; } = null!;
+
+    [NotMapped]
+    public ICommand EditPlaylist { get; set; } = null!;
 
     public PlaylistRecord() {}
 
@@ -64,7 +78,7 @@ public partial class PlaylistRecord : INotifyPropertyChanged
         Applications = applicationRecords;
         Name = name;
         Descriptor = descriptor;
-        ApplicationsList = applicationRecords.Split(new char[] { ',' }).ToList();
+        ApplicationsList = new ObservableCollection<string>(applicationRecords.Split(new char[] { ',' }));
     }
 
     public PlaylistResult Validate(int applicationCount)

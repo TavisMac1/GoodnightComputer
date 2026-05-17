@@ -47,6 +47,143 @@
             </Border>
         </StackPanel>
 
+        <!-- Edit Playlist Modal -->
+        <Border Background="#DD000000"
+                CornerRadius="0"
+                IsVisible="{Binding IsEditModalOpen}"
+                ZIndex="2000">
+            <Border Background="#2D313A"
+                    BorderBrush="SteelBlue"
+                    BorderThickness="3"
+                    CornerRadius="12"
+                    Padding="24"
+                    MaxWidth="750"
+                    MaxHeight="640"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center">
+                <StackPanel Spacing="12">
+                    <TextBlock Text="Edit Playlist"
+                               FontSize="20"
+                               FontWeight="Bold"
+                               Foreground="MediumSpringGreen"/>
+                    <TextBlock Text="{Binding EditingPlaylist.Name}"
+                               FontSize="14"
+                               Foreground="CornflowerBlue"
+                               FontWeight="Bold"/>
+                    <Separator/>
+
+                    <!-- Search Bar -->
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <TextBox x:Name="EditSearchTextBox"
+                                 Width="220"
+                                 Watermark="Search applications..."/>
+                        <Button x:Name="EditSearchButton"
+                                Background="MediumSpringGreen"
+                                Foreground="Black"
+                                MinWidth="60"
+                                Height="30"
+                                FontWeight="Bold"
+                                Content="Search"/>
+                        <Button x:Name="EditRefreshButton"
+                                Background="SlateGray"
+                                Foreground="MediumSpringGreen"
+                                MinWidth="60"
+                                Height="30"
+                                FontWeight="Bold"
+                                Content="↻ Refresh"/>
+                    </StackPanel>
+
+                    <!-- Two-column app lists -->
+                    <Grid ColumnDefinitions="*,8,*" Height="320">
+                        <!-- Available Apps -->
+                        <StackPanel Grid.Column="0">
+                            <TextBlock Text="Available Apps"
+                                       FontSize="13"
+                                       FontWeight="Bold"
+                                       Foreground="MediumSpringGreen"
+                                       Margin="0,0,0,4"/>
+                            <ListBox x:Name="EditAvailableAppsListBox"
+                                     ItemsSource="{Binding ModalAvailableApps}"
+                                     Height="260"
+                                     SelectionMode="Multiple">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate x:DataType="models:ApplicationRecord">
+                                        <TextBlock Text="{Binding Name}" FontWeight="Bold"/>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                            <Button x:Name="EditAddAppButton"
+                                    Content="Add"
+                                    Background="MediumSpringGreen"
+                                    Foreground="Black"
+                                    FontWeight="Bold"
+                                    HorizontalAlignment="Left"
+                                    Margin="0,4,0,0"
+                                    Width="100"
+                                    Height="28"
+                                    HorizontalContentAlignment="Center"
+                                    VerticalContentAlignment="Center"/>
+                        </StackPanel>
+
+                        <!-- Selected Apps -->
+                        <StackPanel Grid.Column="2">
+                            <TextBlock Text="Apps in Playlist"
+                                       FontSize="13"
+                                       FontWeight="Bold"
+                                       Foreground="MediumSpringGreen"
+                                       Margin="0,0,0,4"/>
+                            <ListBox x:Name="EditSelectedAppsListBox"
+                                     ItemsSource="{Binding ModalSelectedApps}"
+                                     Height="260"
+                                     SelectionMode="Single">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate x:DataType="models:ApplicationRecord">
+                                        <TextBlock Text="{Binding Name}" FontWeight="Bold"/>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                            <Button x:Name="EditRemoveAppButton"
+                                    Content="Remove"
+                                    Background="DarkRed"
+                                    Foreground="White"
+                                    FontWeight="Bold"
+                                    HorizontalAlignment="Right"
+                                    Margin="0,4,0,0"
+                                    Width="100"
+                                    Height="28"
+                                    HorizontalContentAlignment="Center"
+                                    VerticalContentAlignment="Center"/>
+                        </StackPanel>
+                    </Grid>
+
+                    <Separator/>
+
+                    <!-- Action Buttons -->
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Spacing="10">
+                        <Button x:Name="EditCancelButton"
+                                Content="Cancel"
+                                Command="{Binding CloseEditModalCommand}"
+                                Background="SlateGray"
+                                Foreground="White"
+                                FontWeight="Bold"
+                                Width="100"
+                                Height="34"
+                                HorizontalContentAlignment="Center"
+                                VerticalContentAlignment="Center"/>
+                        <Button x:Name="EditSaveButton"
+                                Content="Save"
+                                Background="MediumSpringGreen"
+                                Foreground="Black"
+                                FontWeight="Bold"
+                                Width="140"
+                                Height="34"
+                                HorizontalContentAlignment="Center"
+                                VerticalContentAlignment="Center"/>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+        </Border>
+
         <!-- Overlay when any playlist is active -->
         <Border Background="#DD000000"
                 CornerRadius="0"
