@@ -2,6 +2,7 @@ using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using GoodnightComputer.Models;
+using GoodnightComputer.Views;
 using System.Linq;
 
 namespace GoodnightComputer
@@ -17,8 +18,19 @@ namespace GoodnightComputer
         {
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
-                desktop.MainWindow = new MainWindow();
                 desktop.ShutdownRequested += OnShutdownRequested;
+
+                var splash = new SplashScreen();
+                desktop.MainWindow = splash;
+
+                splash.AnimationComplete += () =>
+                {
+                    var mainWindow = new MainWindow();
+                    desktop.MainWindow = mainWindow;
+                    mainWindow.Show();
+                };
+
+                splash.Show();
             }
 
             base.OnFrameworkInitializationCompleted();

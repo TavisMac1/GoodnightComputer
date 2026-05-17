@@ -1,0 +1,62 @@
+<Window xmlns="https://github.com/avaloniaui"
+		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		x:Class="GoodnightComputer.Views.SplashScreen"
+		Title="Goodnight Computer"
+		Width="620"
+		Height="500"
+		WindowStartupLocation="CenterScreen"
+		SystemDecorations="None"
+		Background="Transparent"
+		TransparencyLevelHint="Transparent"
+		CanResize="False"
+		Topmost="True">
+
+  <Border Background="#1A1D24" CornerRadius="16" ClipToBounds="True">
+	<Grid>
+	  <Grid.RowDefinitions>
+		<RowDefinition Height="*"/>
+		<RowDefinition Height="Auto"/>
+		<RowDefinition Height="Auto"/>
+		<RowDefinition Height="40"/>
+	  </Grid.RowDefinitions>
+
+	  <!-- Logo -->
+	  <Border Grid.Row="0"
+			  x:Name="LogoBorder"
+			  HorizontalAlignment="Center"
+			  VerticalAlignment="Center"
+			  Padding="48,48,48,24">
+		<Image Source="avares://GNC/Assets/gnc_art_cropped.PNG"
+			   Stretch="Uniform"
+			   Width="380"/>
+	  </Border>
+
+	  <!-- Main title -->
+	  <TextBlock Grid.Row="1"
+				 x:Name="TitleText"
+				 Text="Goodnight Computer"
+				 FontFamily="Segoe UI"
+				 FontWeight="Light"
+				 FontStyle="Italic"
+				 FontSize="34"
+				 Foreground="#3AFFD6"
+				 LetterSpacing="4"
+				 HorizontalAlignment="Center"
+				 Opacity="0"/>
+
+	  <!-- Subtitle -->
+	  <TextBlock Grid.Row="2"
+				 x:Name="SubtitleText"
+				 Text="sleep well"
+				 FontFamily="Segoe UI"
+				 FontWeight="Light"
+				 FontStyle="Italic"
+				 FontSize="15"
+				 Foreground="#557A8A"
+				 LetterSpacing="6"
+				 HorizontalAlignment="Center"
+				 Margin="0,6,0,0"
+				 Opacity="0"/>
+	</Grid>
+  </Border>
+</Window>
