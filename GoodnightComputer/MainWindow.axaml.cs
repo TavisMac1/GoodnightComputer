@@ -95,7 +95,7 @@ namespace GoodnightComputer
             else
             {
                 // Expand sidebar
-                sidebar.Width = 180;
+                sidebar.Width = 220;
                 toggleButton.Content = "◀";
                 toggleButton.CornerRadius = new Avalonia.CornerRadius(0, 12, 12, 0);
             }
