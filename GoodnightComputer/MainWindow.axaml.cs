@@ -41,6 +41,9 @@ namespace GoodnightComputer
         private void OpenPerformanceScan_Click(object? sender, RoutedEventArgs e) =>
             UpdateMainContent(new GoodnightComputer.ViewModels.PerformanceScanViewModel());
 
+        private void OpenSteamStatus_Click(object? sender, RoutedEventArgs e) =>
+            UpdateMainContent(new GoodnightComputer.ViewModels.SteamStatusViewModel());
+
         private ToastNotificationService _toastNotificationService { get; init; }
 
         private void OpenDiscord_Click(object? sender, RoutedEventArgs e)
