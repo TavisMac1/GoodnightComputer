@@ -52,7 +52,7 @@
         <Border x:Name="IdlePanel" Background="#2D313A" BorderBrush="#3A3F4A" BorderThickness="2" CornerRadius="10" Padding="24" IsVisible="False">
           <StackPanel Orientation="Horizontal" Spacing="10">
             <TextBlock Text="" FontSize="20" VerticalAlignment="Center"/>
-            <TextBlock Text="Steam is idle — no game running and no active downloads." FontSize="14" Foreground="#A0A8B0" VerticalAlignment="Center" TextWrapping="Wrap"/>
+            <TextBlock Text="Steam is idle - no game running and no active downloads." FontSize="14" Foreground="#A0A8B0" VerticalAlignment="Center" TextWrapping="Wrap"/>
           </StackPanel>
         </Border>
 
