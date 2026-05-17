@@ -1,0 +1,130 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:viewmodels="clr-namespace:GoodnightComputer.ViewModels"
+             xmlns:models="clr-namespace:GoodnightComputer.Models"
+             x:Class="GoodnightComputer.ViewModels.SteamStatusViewModel"
+             x:DataType="viewmodels:SteamStatusViewModel"
+             Background="Transparent">
+  <ScrollViewer>
+    <StackPanel Spacing="24" Margin="32">
+
+      <!-- Header -->
+      <StackPanel Spacing="4">
+        <TextBlock Text="Steam" FontSize="26" FontWeight="Bold" Foreground="MediumSpringGreen"/>
+        <TextBlock Text="Live view of your Steam activity. Assign playlists below to automatically suspend apps when a game launches or a download starts - they will be resumed when the activity ends." FontSize="13" Foreground="CornflowerBlue" TextWrapping="Wrap"/>
+      </StackPanel>
+
+      <!-- Not installed -->
+      <StackPanel x:Name="NotInstalledPanel" IsVisible="False">
+        <Border Background="#2D313A" BorderBrush="IndianRed" BorderThickness="2" CornerRadius="10" Padding="24">
+          <TextBlock Text="Steam does not appear to be installed on this machine." FontSize="14" Foreground="IndianRed" TextWrapping="Wrap"/>
+        </Border>
+      </StackPanel>
+
+      <!-- Status + triggers -->
+      <StackPanel x:Name="StatusPanel" IsVisible="False" Spacing="16">
+
+        <!-- Game running status -->
+        <Border x:Name="GameRunningPanel" Background="#2D313A" BorderBrush="MediumSpringGreen" BorderThickness="2" CornerRadius="10" Padding="24" IsVisible="False">
+          <StackPanel Spacing="6">
+            <StackPanel Orientation="Horizontal" Spacing="10">
+              <TextBlock Text="" FontSize="20" VerticalAlignment="Center"/>
+              <TextBlock Text="Game Running" FontSize="18" FontWeight="Bold" Foreground="MediumSpringGreen" VerticalAlignment="Center"/>
+            </StackPanel>
+            <TextBlock x:Name="RunningGameText" FontSize="15" Foreground="White" TextWrapping="Wrap"/>
+          </StackPanel>
+        </Border>
+
+        <!-- Downloading status -->
+        <Border x:Name="DownloadingPanel" Background="#2D313A" BorderBrush="CornflowerBlue" BorderThickness="2" CornerRadius="10" Padding="24" IsVisible="False">
+          <StackPanel Spacing="10">
+            <StackPanel Orientation="Horizontal" Spacing="10">
+              <TextBlock Text="" FontSize="20" VerticalAlignment="Center"/>
+              <TextBlock Text="Downloading" FontSize="18" FontWeight="Bold" Foreground="CornflowerBlue" VerticalAlignment="Center"/>
+            </StackPanel>
+            <TextBlock x:Name="DownloadingGameText" FontSize="15" Foreground="White" TextWrapping="Wrap"/>
+            <ProgressBar x:Name="DownloadBar" Height="14" CornerRadius="7" Foreground="CornflowerBlue" Background="#3A3F4A"/>
+            <TextBlock x:Name="DownloadProgressText" FontSize="13" Foreground="#A0A8B0"/>
+          </StackPanel>
+        </Border>
+
+        <!-- Idle -->
+        <Border x:Name="IdlePanel" Background="#2D313A" BorderBrush="#3A3F4A" BorderThickness="2" CornerRadius="10" Padding="24" IsVisible="False">
+          <StackPanel Orientation="Horizontal" Spacing="10">
+            <TextBlock Text="" FontSize="20" VerticalAlignment="Center"/>
+            <TextBlock Text="Steam is idle — no game running and no active downloads." FontSize="14" Foreground="#A0A8B0" VerticalAlignment="Center" TextWrapping="Wrap"/>
+          </StackPanel>
+        </Border>
+
+        <!-- Trigger: Game Running -->
+        <Border Background="#2D313A" BorderBrush="#3A4050" BorderThickness="2" CornerRadius="10" Padding="24">
+          <StackPanel Spacing="12">
+            <StackPanel Spacing="4">
+              <TextBlock Text="Game Running - Playlist Trigger" FontSize="16" FontWeight="Bold" Foreground="MediumSpringGreen"/>
+              <TextBlock Text="The selected playlist will be automatically activated when a Steam game launches, and deactivated when you quit." FontSize="13" Foreground="CornflowerBlue" TextWrapping="Wrap"/>
+            </StackPanel>
+            <TextBlock x:Name="GameTriggerLabel" FontSize="13" Foreground="#A0A8B0"/>
+            <Grid ColumnDefinitions="*,12,Auto,8,Auto">
+              <ComboBox x:Name="GamePlaylistCombo"
+                        Grid.Column="0"
+                        ItemsSource="{Binding Playlists}"
+                        Background="#3A3F4A"
+                        Foreground="White"
+                        BorderBrush="MediumSpringGreen"
+                        BorderThickness="1"
+                        CornerRadius="6"
+                        Padding="10,8">
+                <ComboBox.ItemTemplate>
+                  <DataTemplate x:DataType="models:PlaylistRecord">
+                    <TextBlock Text="{Binding Name}" Foreground="White"/>
+                  </DataTemplate>
+                </ComboBox.ItemTemplate>
+              </ComboBox>
+              <Button Grid.Column="2" Content="Set" Click="SetGameTrigger_Click"
+                      Background="MediumSpringGreen" Foreground="Black"
+                      FontWeight="Bold" Padding="16,8" CornerRadius="6" HorizontalContentAlignment="Center"/>
+              <Button Grid.Column="4" Content="Clear" Click="ClearGameTrigger_Click"
+                      Background="IndianRed" Foreground="White"
+                      FontWeight="Bold" Padding="16,8" CornerRadius="6" HorizontalContentAlignment="Center"/>
+            </Grid>
+          </StackPanel>
+        </Border>
+
+        <!-- Trigger: Downloading -->
+        <Border Background="#2D313A" BorderBrush="#3A4050" BorderThickness="2" CornerRadius="10" Padding="24">
+          <StackPanel Spacing="12">
+            <StackPanel Spacing="4">
+              <TextBlock Text="Download Active - Playlist Trigger" FontSize="16" FontWeight="Bold" Foreground="CornflowerBlue"/>
+              <TextBlock Text="The selected playlist will be automatically activated when a Steam download starts, and deactivated when it completes." FontSize="13" Foreground="CornflowerBlue" TextWrapping="Wrap"/>
+            </StackPanel>
+            <TextBlock x:Name="DownloadTriggerLabel" FontSize="13" Foreground="#A0A8B0"/>
+            <Grid ColumnDefinitions="*,12,Auto,8,Auto">
+              <ComboBox x:Name="DownloadPlaylistCombo"
+                        Grid.Column="0"
+                        ItemsSource="{Binding Playlists}"
+                        Background="#3A3F4A"
+                        Foreground="White"
+                        BorderBrush="CornflowerBlue"
+                        BorderThickness="1"
+                        CornerRadius="6"
+                        Padding="10,8">
+                <ComboBox.ItemTemplate>
+                  <DataTemplate x:DataType="models:PlaylistRecord">
+                    <TextBlock Text="{Binding Name}" Foreground="White"/>
+                  </DataTemplate>
+                </ComboBox.ItemTemplate>
+              </ComboBox>
+              <Button Grid.Column="2" Content="Set" Click="SetDownloadTrigger_Click"
+                      Background="CornflowerBlue" Foreground="White"
+                      FontWeight="Bold" Padding="16,8" CornerRadius="6" HorizontalContentAlignment="Center"/>
+              <Button Grid.Column="4" Content="Clear" Click="ClearDownloadTrigger_Click"
+                      Background="IndianRed" Foreground="White"
+                      FontWeight="Bold" Padding="16,8" CornerRadius="6" HorizontalContentAlignment="Center"/>
+            </Grid>
+          </StackPanel>
+        </Border>
+
+      </StackPanel>
+    </StackPanel>
+  </ScrollViewer>
+</UserControl>
