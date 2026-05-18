@@ -43,20 +43,6 @@
 				 LetterSpacing="4"
 				 HorizontalAlignment="Center"
 				 Opacity="0"/>
-
-	  <!-- Subtitle -->
-	  <TextBlock Grid.Row="2"
-				 x:Name="SubtitleText"
-				 Text="sleep well"
-				 FontFamily="Segoe UI"
-				 FontWeight="Light"
-				 FontStyle="Italic"
-				 FontSize="15"
-				 Foreground="#557A8A"
-				 LetterSpacing="6"
-				 HorizontalAlignment="Center"
-				 Margin="0,6,0,0"
-				 Opacity="0"/>
 	</Grid>
   </Border>
 </Window>
