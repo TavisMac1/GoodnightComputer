@@ -28,7 +28,6 @@ public partial class SplashScreen : Window
     {
         var logoBorder   = this.FindControl<Border>("LogoBorder")!;
         var titleText    = this.FindControl<TextBlock>("TitleText")!;
-        var subtitleText = this.FindControl<TextBlock>("SubtitleText")!;
         var skip         = _skipCts.Token;
 
         // ── Initial state ────────────────────────────────────────────────
@@ -36,7 +35,6 @@ public partial class SplashScreen : Window
         logoBorder.RenderTransformOrigin = new Avalonia.RelativePoint(0.5, 0.5, Avalonia.RelativeUnit.Relative);
         logoBorder.RenderTransform = new ScaleTransform(0.55, 0.55);
         SetSlideTransform(titleText,    28);
-        SetSlideTransform(subtitleText, 28);
 
         try
         {
@@ -55,10 +53,6 @@ public partial class SplashScreen : Window
 
             // ── Phase 3: subtitle fades + slides in (0.35s) ──────────────
             await Task.Delay(60, skip);
-            await Task.WhenAll(
-                MakeOpacityAnimation(0, 1, 0.35, new CubicEaseOut()).RunAsync(subtitleText, skip),
-                RunSlideTimer(subtitleText, fromY: 28, toY: 0, durationSec: 0.35, easePow: 3).WaitAsync(skip)
-            );
 
             // ── Hold ──────────────────────────────────────────────────────
             await Task.Delay(TimeSpan.FromSeconds(0.9), skip);
@@ -70,9 +64,7 @@ public partial class SplashScreen : Window
             ((ScaleTransform)logoBorder.RenderTransform).ScaleX = 1;
             ((ScaleTransform)logoBorder.RenderTransform).ScaleY = 1;
             titleText.Opacity    = 1;
-            subtitleText.Opacity = 1;
             ((TranslateTransform)titleText.RenderTransform!).Y    = 0;
-            ((TranslateTransform)subtitleText.RenderTransform!).Y = 0;
         }
 
         // ── Phase 4: fade out (quick when skipped) ────────────────────────
