@@ -43,8 +43,6 @@
               <TextBlock Text="Downloading" FontSize="18" FontWeight="Bold" Foreground="CornflowerBlue"/>
             </StackPanel>
             <TextBlock x:Name="DownloadingGameText" FontSize="15" Foreground="White" TextWrapping="Wrap"/>
-            <ProgressBar x:Name="DownloadBar" Height="14" CornerRadius="7" Foreground="CornflowerBlue" Background="#3A3F4A"/>
-            <TextBlock x:Name="DownloadProgressText" FontSize="13" Foreground="#A0A8B0"/>
           </StackPanel>
         </Border>
 
