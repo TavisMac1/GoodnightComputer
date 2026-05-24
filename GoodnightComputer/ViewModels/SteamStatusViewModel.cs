@@ -117,7 +117,6 @@ public partial class SteamStatusViewModel : UserControl
 
         SetVisible("DownloadingPanel", s.IsDownloading);
         SetText("DownloadingGameText", s.DownloadingGameName ?? string.Empty);
-        SetText("DownloadProgressText", s.DownloadProgressText);
 
         if (this.FindControl<ProgressBar>("DownloadBar") is { } bar && s.TotalBytes > 0)
         {
