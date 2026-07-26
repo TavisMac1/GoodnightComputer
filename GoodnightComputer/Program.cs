@@ -18,6 +18,25 @@ public class Program
     [STAThread]
     public static void Main(string[] args)
     {
+#if STEAMBUILD
+        if (!SteamDRM.EnforceAndInit())
+            return;
+
+        try
+        {
+            RunApp(args);
+        }
+        finally
+        {
+            SteamDRM.Shutdown();
+        }
+#else
+        RunApp(args);
+#endif
+    }
+
+    private static void RunApp(string[] args)
+    {
         // Ensure native libs (e.g. e_sqlite3.dll) extract to a stable location
         // so single-file publish works reliably on any machine
         var extractDir = System.IO.Path.Combine(
@@ -52,7 +71,9 @@ public class Program
         services.AddSingleton<ToastNotificationService>();
         services.AddTransient<CreatePlaylist>();
         services.AddTransient<ViewPlaylistsViewModel>();
+#if RELEASEBETA
         services.AddTransient<SignInViewModel>();
+#endif
         services.AddSingleton<ToastNotificationService>();
     }
 

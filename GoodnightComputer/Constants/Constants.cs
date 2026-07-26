@@ -6,14 +6,6 @@ public static class Constants
 {
     public static readonly string DB_NAME = "GoodnightComputer.db";
 
-    public static readonly string SIGNIN_ENDPOINT = "";
-
-    public static readonly string ENTRA_CLIENT_ID = "8a7b16e4-b435-41f8-85b7-112d570302bb";
-
-    public static readonly string ENTRA_TENANT_ID = "60c8cfc1-ab45-46b6-b062-1f0d815b0ce1";
-
-    public static readonly string ENTRA_REDIRECT_URI = "http://localhost";
-
     public static readonly string DISCORD_URL = "https://discord.gg/8JAzymSXsj";
 
     public static readonly List<string> EXCLUSION_APPS = new()
