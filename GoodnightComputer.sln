@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.12.35707.178
+# Visual Studio Version 18
+VisualStudioVersion = 18.7.12002.237 oobstable
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoodnightComputer", "GoodnightComputer\GoodnightComputer.csproj", "{51BB906B-6D43-4B11-9310-06F5DFE5D03A}"
 EndProject
@@ -14,14 +14,26 @@ Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
+		RELEASE-BETA|Any CPU = RELEASE-BETA|Any CPU
+		RELEASE-BETA-STEAM|Any CPU = RELEASE-BETA-STEAM|Any CPU
+		RELEASE-STEAM|Any CPU = RELEASE-STEAM|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{51BB906B-6D43-4B11-9310-06F5DFE5D03A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{51BB906B-6D43-4B11-9310-06F5DFE5D03A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{51BB906B-6D43-4B11-9310-06F5DFE5D03A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{51BB906B-6D43-4B11-9310-06F5DFE5D03A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{51BB906B-6D43-4B11-9310-06F5DFE5D03A}.RELEASE-BETA|Any CPU.ActiveCfg = RELEASE-BETA|Any CPU
+		{51BB906B-6D43-4B11-9310-06F5DFE5D03A}.RELEASE-BETA|Any CPU.Build.0 = RELEASE-BETA|Any CPU
+		{51BB906B-6D43-4B11-9310-06F5DFE5D03A}.RELEASE-BETA-STEAM|Any CPU.ActiveCfg = RELEASE-BETA-STEAM|Any CPU
+		{51BB906B-6D43-4B11-9310-06F5DFE5D03A}.RELEASE-BETA-STEAM|Any CPU.Build.0 = RELEASE-BETA-STEAM|Any CPU
+		{51BB906B-6D43-4B11-9310-06F5DFE5D03A}.RELEASE-STEAM|Any CPU.ActiveCfg = RELEASE-STEAM|Any CPU
+		{51BB906B-6D43-4B11-9310-06F5DFE5D03A}.RELEASE-STEAM|Any CPU.Build.0 = RELEASE-STEAM|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1F98C25C-8C7D-4623-8DC9-8746B72EF556}
 	EndGlobalSection
 EndGlobal

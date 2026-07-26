@@ -2,11 +2,11 @@ using Avalonia.Controls;
 using Avalonia.Interactivity;
 using AvaloniaToaster;
 using AvaloniaToaster.Themes;
+using GoodnightComputer.Constants;
 using GoodnightComputer.Models;
 using GoodnightComputer.State;
 using Microsoft.Identity.Client;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -23,13 +23,15 @@ public partial class SignInViewModel : UserControl
 
     public SignInViewModel(ToastNotificationService toastService)
     {
+#if RELEASEBETA
         _toastService = toastService;
         InitializeComponent();
         _msalApp = PublicClientApplicationBuilder
-            .Create(Constants.Constants.ENTRA_CLIENT_ID)
-            .WithTenantId(Constants.Constants.ENTRA_TENANT_ID)
-            .WithRedirectUri(Constants.Constants.ENTRA_REDIRECT_URI)
+            .Create(ConstantsAzure.ENTRA_CLIENT_ID)
+            .WithTenantId(ConstantsAzure.ENTRA_TENANT_ID)
+            .WithRedirectUri(ConstantsAzure.ENTRA_REDIRECT_URI)
             .Build();
+#endif
     }
 
     public async void SignIn_Click(object? sender, RoutedEventArgs e)
@@ -70,7 +72,11 @@ public partial class SignInViewModel : UserControl
 
     private async Task<AuthenticationResult?> AcquireTokenAsync()
     {
-        var scopes = new[] { $"{Constants.Constants.ENTRA_CLIENT_ID}/.default" };
+#if RELEASEBETA
+        var scopes = new[] { $"{ConstantsAzure.ENTRA_CLIENT_ID}/.default" };
+#else
+        var scopes = new[] { "user.read" }; // Placeholder for non-beta builds
+#endif
         try
         {
             var account = (await _msalApp.GetAccountsAsync()).FirstOrDefault();
@@ -85,7 +91,11 @@ public partial class SignInViewModel : UserControl
     private static async Task<SignInResult> VerifyTokenAsync(string accessToken)
     {
         using var client = new HttpClient();
-        using var request = new HttpRequestMessage(HttpMethod.Post, Constants.Constants.SIGNIN_ENDPOINT);
+#if RELEASEBETA
+        using var request = new HttpRequestMessage(HttpMethod.Post, ConstantsAzure.SIGNIN_ENDPOINT);
+#else
+        using var request = new HttpRequestMessage(HttpMethod.Post, string.Empty);
+#endif
         request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
         var response = await client.SendAsync(request);
 

@@ -1,7 +1,0 @@
-TODO:
-1. Need to install SQLite on this to store their schedule and load it. - done
-2. Probably need to open a thread for when sleep is happening to not freeze main thread - or do async  - not implemented
-3. A class for each action category for finding their respective controls (returning them)  - done
-4. Make sure the app is not running when the computer is shutting down or sleeping. - not implemented
-5. ** PRIORITY **: List of apps running on the computer - each app has an ADD button to add to process list - done
----- And have a text box for searching for apps by name

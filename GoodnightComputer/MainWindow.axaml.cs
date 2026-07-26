@@ -19,13 +19,16 @@ namespace GoodnightComputer
             InitializeComponent();
             
             WindowState = WindowState.Maximized;
+#if STEAM_BUILD
             SystemState.SetSignedIn(false);
-            
+#endif
+
             this._toastNotificationService = Program.Services.GetRequiredService<ToastNotificationService>();
             var toastContainer = this.FindControl<Panel>("ToastContainer");
             this._toastNotificationService.RegisterMainWindow(toastContainer);
+#if RELEASEBETA
             SystemState.SignedInChanged += OnSignedInChanged;
-
+# endif
             UpdateMainContent();
         }
 
@@ -50,12 +53,13 @@ namespace GoodnightComputer
         {
             try
             {
+#if RELEASEBETA
                 if (!SystemState.IsSignedIn)
                 {
                     UpdateMainContent();
                     return;
                 }
-
+#endif
                 ProcessStartInfo psi = new ProcessStartInfo
                 {
                     FileName = Constants.Constants.DISCORD_URL,
@@ -71,11 +75,13 @@ namespace GoodnightComputer
 
         private void ToggleSidebar_Click(object? sender, RoutedEventArgs e)
         {
+#if RELEASEBETA
             if (!SystemState.IsSignedIn)
             {
                 UpdateMainContent();
                 return;
             }
+#endif
 
             var sidebar = this.FindControl<Border>("Sidebar");
             var toggleButton = this.FindControl<Button>("ToggleSidebarButton");
@@ -109,12 +115,13 @@ namespace GoodnightComputer
             if (mainContent == null)
                 return;
 
+#if RELEASEBETA
             if (!SystemState.IsSignedIn)
             {
                 mainContent.Content = Program.Services.GetRequiredService<SignInViewModel>();
                 return;
             }
-
+#endif
             mainContent.Content = requested ?? new ViewPlaylists();
         }
     }

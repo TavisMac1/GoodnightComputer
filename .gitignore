@@ -415,3 +415,8 @@ GoodnightComputer/obj/Debug/net9.0-windows/refint/Avalonia/GNC.dll
 /GoodnightComputer/bin/Debug/net9.0-windows/win-x64/cs
 /GoodnightComputer/bin/Debug/net9.0-windows/win-x64
 /GoodnightComputer/obj/Release/net9.0-windows/win-x64/GoodnightComputer.AssemblyInfo.cs
+/GoodnightComputer/Todo.txt
+*.dll
+*.exe
+*bin
+*obj

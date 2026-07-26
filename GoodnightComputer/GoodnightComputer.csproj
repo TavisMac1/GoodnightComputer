@@ -10,13 +10,65 @@
     <AssemblyName>GNC</AssemblyName>
     <ApplicationIcon>Assets\favicon.ico</ApplicationIcon>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
-    <Copyright>Copyright Fennec Branta, 2025</Copyright>
+    <Copyright>Copyright Fennec Branta, 2026</Copyright>
     <PublishSingleFile>true</PublishSingleFile>
     <SelfContained>true</SelfContained>
     <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
     <EnableCompressionInSingleFile>false</EnableCompressionInSingleFile>
+    <Configurations>Debug;Release;RELEASE-STEAM;RELEASE-BETA;RELEASE-BETA-STEAM</Configurations>
+    <ErrorReport>none</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RELEASE-STEAM|AnyCPU'">
+    <Optimize>True</Optimize>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RELEASE-BETA|AnyCPU'">
+    <Optimize>True</Optimize>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RELEASE-BETA-STEAM|AnyCPU'">
+    <Optimize>True</Optimize>
   </PropertyGroup>
 
+  <!-- Add constants based on build type -->
+  <PropertyGroup Condition="'$(Configuration)'=='RELEASE-STEAM'">
+    <DefineConstants>$(DefineConstants);STEAMBUILD</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)'=='RELEASE-BETA-STEAM'">
+    <DefineConstants>$(DefineConstants);STEAMBUILD</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)'=='RELEASE-BETA'">
+    <DefineConstants>$(DefineConstants);RELEASEBETA</DefineConstants>
+  </PropertyGroup>
+  
+  
+  <!-- Exclude files from Steam build -->
+  <ItemGroup Condition="'$(Configuration)'=='RELEASE-STEAM'">
+    <Compile Remove="Constants\ConstantsAzure.cs" />
+    <!--<Compile Remove="ViewModels\SignInViewModel.cs" /> -->
+  </ItemGroup>
+
+  <!-- Exclude files from Steam Beta Build -->
+  <ItemGroup Condition="'$(Configuration)'=='RELEASE-BETA-STEAM'">
+    <Compile Remove="Constants\ConstantsAzure.cs" />
+  </ItemGroup>
+
+  <!-- Configure output paths based on build type -->
+  <!-- Steam Based Build Production Release-->
+  <PropertyGroup Condition="'$(Configuration)'=='RELEASE-STEAM'">
+    <OutputPath>bin\STEAMPROD\</OutputPath>
+  </PropertyGroup>
+  
+  <!-- Steam Based Beta Build -->
+  <PropertyGroup Condition="'$(Configuration)'=='RELEASE-BETA-STEAM'">
+    <OutputPath>bin\STEAMBETA\</OutputPath>
+  </PropertyGroup>
+
+  <!-- Normal Non Steam Based Beta Build -->
+  <PropertyGroup Condition="'$(Configuration)'=='RELEASE-BETA'">
+    <OutputPath>bin\BETANORMAL\</OutputPath>
+  </PropertyGroup>
+  
   <ItemGroup>
     <AvaloniaResource Include="Assets\gcfinal.png" />
     <AvaloniaResource Include="Assets\favicon.ico" />
@@ -42,6 +94,11 @@
     </PackageReference>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="9.0.6" />
     <PackageReference Include="Microsoft.Identity.Client" Version="4.67.0" />
+    <PackageReference Include="Obfuscar" Version="2.2.50">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Steamworks.NET" Version="2024.8.0" />
   </ItemGroup>
 
   <ItemGroup>
