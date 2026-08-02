@@ -104,4 +104,12 @@
   <ItemGroup>
     <Folder Include="Models\ValidationModels\" />
   </ItemGroup>
+
+  <!-- Copy native Steamworks DLL to output for Steam builds -->
+  <ItemGroup Condition="'$(Configuration)'=='RELEASE-STEAM' Or '$(Configuration)'=='RELEASE-BETA-STEAM'">
+    <None Include="$(MSBuildProjectDirectory)\steam_api64.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Link>steam_api64.dll</Link>
+    </None>
+  </ItemGroup>
 </Project>

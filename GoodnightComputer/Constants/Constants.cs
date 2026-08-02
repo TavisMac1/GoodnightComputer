@@ -4,6 +4,8 @@ namespace GoodnightComputer.Constants;
 
 public static class Constants
 {
+    public static readonly uint STEAM_APP_ID = 5043890;
+
     public static readonly string DB_NAME = "GoodnightComputer.db";
 
     public static readonly string DISCORD_URL = "https://discord.gg/8JAzymSXsj";
@@ -35,26 +37,29 @@ public static class Constants
         "msmpeng",             // Windows Defender
         "securityhealthservice",
         "nissrv",              // Network Inspection Service
-    
-        // Your Application
-        "goodnightcomputer",    // Protect your own application
-    
-        // Critical UI Components
-        "shellexperiencehost",
-        "startmenuexperiencehost",
-        "taskmgr",             // Task Manager
-    
-        // Device Related
-        "audiodg",             // Audio Device Graph
-        "dasHost",             // Device Association Framework
-    
-        // System Utilities
-        "conhost",             // Console Window Host
-        "dllhost",             // COM Surrogate
-        "wmiprvse",             // WMI Provider Host,
-         
-        "GNC" // this application
-    };
+
+            // Your Application
+            "goodnightcomputer",    // Protect your own application
+
+            // Critical UI Components
+            "shellexperiencehost",
+            "startmenuexperiencehost",
+            "taskmgr",             // Task Manager
+
+            // Device Related
+            "audiodg",             // Audio Device Graph
+            "dasHost",             // Device Association Framework
+
+            // System Utilities
+            "conhost",             // Console Window Host
+            "dllhost",             // COM Surrogate
+            "wmiprvse",             // WMI Provider Host,
+
+            "GNC", // this application
+
+            // Gaming Platforms
+            "steam"                 // Steam client
+        };
 
     public static int SCORE_THRESHOLD = 70;
 }

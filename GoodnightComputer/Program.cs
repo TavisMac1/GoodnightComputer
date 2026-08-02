@@ -1,6 +1,5 @@
 ﻿using Avalonia;
 using AvaloniaToaster;
-using GoodnightComputer.Models;
 using GoodnightComputer.State;
 using GoodnightComputer.Utils;
 using GoodnightComputer.ViewModels;
@@ -44,6 +43,16 @@ public class Program
             "GoodnightComputer", "runtime");
         System.IO.Directory.CreateDirectory(extractDir);
         Environment.SetEnvironmentVariable("DOTNET_BUNDLE_EXTRACT_BASE_DIR", extractDir);
+
+        // Fix database schema issue
+        try
+        {
+            DatabaseFix.DropApplicationsListColumn();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Database fix failed (non-critical): {ex.Message}");
+        }
 
         // Configure DI
         var serviceCollection = new ServiceCollection();

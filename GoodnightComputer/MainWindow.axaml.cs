@@ -19,7 +19,7 @@ namespace GoodnightComputer
             InitializeComponent();
             
             WindowState = WindowState.Maximized;
-#if STEAM_BUILD
+#if STEAMBUILD
             SystemState.SetSignedIn(false);
 #endif
 
