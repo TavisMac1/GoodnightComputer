@@ -1,1 +1,160 @@
-﻿<UserControl xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:viewmodels="clr-namespace:GoodnightComputer.ViewModels" x:Class="GoodnightComputer.ViewModels.SettingsViewModel" x:DataType="viewmodels:SettingsViewModel" Background="Transparent"><ScrollViewer><StackPanel Spacing="24" Margin="32"><TextBlock Text="Settings" FontSize="26" FontWeight="Bold" Foreground="MediumSpringGreen"/><Border Background="#2D313A" BorderBrush="MediumSpringGreen" BorderThickness="2" CornerRadius="10" Padding="24"><StackPanel Spacing="16"><TextBlock Text="Performance Scanner — CPU Threshold" FontSize="18" FontWeight="Bold" Foreground="MediumSpringGreen"/><TextBlock Text="When auto-creating a playlist from a scan, only apps whose average CPU usage exceeds this threshold (%) will be included. Raise the value to catch only heavy hitters; lower it to cast a wider net." FontSize="13" Foreground="CornflowerBlue" TextWrapping="Wrap"/><Grid ColumnDefinitions="*,12,Auto"><TextBox x:Name="ThresholdInput" Grid.Column="0" Watermark="e.g. 5" Background="#3A3F4A" Foreground="White" BorderBrush="MediumSpringGreen" BorderThickness="1" CornerRadius="6" Padding="10,8"/><Button Grid.Column="2" Content="Save" Click="SaveThreshold_Click" Background="MediumSpringGreen" Foreground="Black" FontWeight="Bold" Padding="16,8" CornerRadius="6" HorizontalContentAlignment="Center"/></Grid></StackPanel></Border><Border Background="#2D313A" BorderBrush="MediumSpringGreen" BorderThickness="2" CornerRadius="10" Padding="24"><StackPanel Spacing="16"><TextBlock Text="App Exclusions" FontSize="18" FontWeight="Bold" Foreground="MediumSpringGreen"/><TextBlock Text="Apps added here will not appear in the app picker when creating a playlist." FontSize="13" Foreground="CornflowerBlue" TextWrapping="Wrap"/><Grid ColumnDefinitions="*,12,Auto"><TextBox x:Name="ExclusionInput" Grid.Column="0" Watermark="Enter process name (e.g. discord)" Background="#3A3F4A" Foreground="White" BorderBrush="MediumSpringGreen" BorderThickness="1" CornerRadius="6" Padding="10,8"/><Button Grid.Column="2" Content="Add" Click="AddExclusion_Click" Background="MediumSpringGreen" Foreground="Black" FontWeight="Bold" Padding="16,8" CornerRadius="6" HorizontalContentAlignment="Center"/></Grid><ListBox x:Name="ExclusionsList" ItemsSource="{Binding UserExclusions}" Background="#3A3F4A" Height="200" ScrollViewer.VerticalScrollBarVisibility="Auto"><ListBox.Styles><Style Selector="ListBoxItem:selected /template/ ContentPresenter"><Setter Property="Background" Value="#4A5260"/></Style><Style Selector="ListBoxItem"><Setter Property="Foreground" Value="White"/></Style></ListBox.Styles></ListBox><Button Content="Remove Selected" Click="RemoveExclusion_Click" Background="IndianRed" Foreground="White" FontWeight="Bold" Padding="14,8" CornerRadius="6" HorizontalAlignment="Left" HorizontalContentAlignment="Center"/></StackPanel></Border></StackPanel></ScrollViewer></UserControl>
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:viewmodels="clr-namespace:GoodnightComputer.ViewModels"
+             xmlns:services="clr-namespace:GoodnightComputer.Services"
+             x:Class="GoodnightComputer.ViewModels.SettingsViewModel"
+             x:DataType="viewmodels:SettingsViewModel"
+             x:CompileBindings="False"
+             Background="Transparent">
+  <ScrollViewer>
+    <StackPanel Spacing="24" Margin="32">
+
+      <!-- Title -->
+      <TextBlock Text="{Binding Source={x:Static services:LocalizationService.Instance}, Path=[Settings_Title]}"
+                 FontSize="26"
+                 FontWeight="Bold"
+                 Foreground="MediumSpringGreen"/>
+
+      <!-- Language Selection -->
+      <Border Background="#2D313A"
+              BorderBrush="MediumSpringGreen"
+              BorderThickness="2"
+              CornerRadius="10"
+              Padding="24">
+        <StackPanel Spacing="16">
+          <TextBlock Text="{Binding Source={x:Static services:LocalizationService.Instance}, Path=[Settings_LanguageSection]}"
+                     FontSize="18"
+                     FontWeight="Bold"
+                     Foreground="MediumSpringGreen"/>
+          <TextBlock Text="{Binding Source={x:Static services:LocalizationService.Instance}, Path=[Settings_LanguageDescription]}"
+                     FontSize="13"
+                     Foreground="CornflowerBlue"
+                     TextWrapping="Wrap"/>
+          <StackPanel Spacing="8">
+            <TextBlock Text="{Binding Source={x:Static services:LocalizationService.Instance}, Path=[Settings_LanguageLabel]}"
+                       FontSize="14"
+                       Foreground="White"/>
+            <ComboBox x:Name="LanguageComboBox"
+                      ItemsSource="{Binding Source={x:Static services:LocalizationService.Instance}, Path=AvailableLanguages}"
+                      Background="#3A3F4A"
+                      Foreground="White"
+                      BorderBrush="MediumSpringGreen"
+                      BorderThickness="1"
+                      CornerRadius="6"
+                      Padding="10,8"
+                      HorizontalAlignment="Stretch"
+                      MinWidth="300"
+                      SelectionChanged="LanguageComboBox_SelectionChanged">
+              <ComboBox.ItemTemplate>
+                <DataTemplate>
+                  <TextBlock Text="{Binding Value}"/>
+                </DataTemplate>
+              </ComboBox.ItemTemplate>
+            </ComboBox>
+          </StackPanel>
+        </StackPanel>
+      </Border>
+
+      <!-- CPU Threshold -->
+      <Border Background="#2D313A"
+              BorderBrush="MediumSpringGreen"
+              BorderThickness="2"
+              CornerRadius="10"
+              Padding="24">
+        <StackPanel Spacing="16">
+          <TextBlock Text="{Binding Source={x:Static services:LocalizationService.Instance}, Path=[Settings_CPUThresholdSection]}"
+                     FontSize="18"
+                     FontWeight="Bold"
+                     Foreground="MediumSpringGreen"/>
+          <TextBlock Text="{Binding Source={x:Static services:LocalizationService.Instance}, Path=[Settings_CPUThresholdDescription]}"
+                     FontSize="13"
+                     Foreground="CornflowerBlue"
+                     TextWrapping="Wrap"/>
+          <Grid ColumnDefinitions="*,12,Auto">
+            <TextBox x:Name="ThresholdInput"
+                     Grid.Column="0"
+                     Watermark="{Binding Source={x:Static services:LocalizationService.Instance}, Path=[Settings_CPUThresholdPlaceholder]}"
+                     Background="#3A3F4A"
+                     Foreground="White"
+                     BorderBrush="MediumSpringGreen"
+                     BorderThickness="1"
+                     CornerRadius="6"
+                     Padding="10,8"/>
+            <Button Grid.Column="2"
+                    Content="{Binding Source={x:Static services:LocalizationService.Instance}, Path=[Common_Save]}"
+                    Click="SaveThreshold_Click"
+                    Background="MediumSpringGreen"
+                    Foreground="Black"
+                    FontWeight="Bold"
+                    Padding="16,8"
+                    CornerRadius="6"
+                    HorizontalContentAlignment="Center"/>
+          </Grid>
+        </StackPanel>
+      </Border>
+
+      <!-- App Exclusions -->
+      <Border Background="#2D313A"
+              BorderBrush="MediumSpringGreen"
+              BorderThickness="2"
+              CornerRadius="10"
+              Padding="24">
+        <StackPanel Spacing="16">
+          <TextBlock Text="{Binding Source={x:Static services:LocalizationService.Instance}, Path=[Settings_ExclusionsSection]}"
+                     FontSize="18"
+                     FontWeight="Bold"
+                     Foreground="MediumSpringGreen"/>
+          <TextBlock Text="{Binding Source={x:Static services:LocalizationService.Instance}, Path=[Settings_ExclusionsDescription]}"
+                     FontSize="13"
+                     Foreground="CornflowerBlue"
+                     TextWrapping="Wrap"/>
+          <Grid ColumnDefinitions="*,12,Auto">
+            <TextBox x:Name="ExclusionInput"
+                     Grid.Column="0"
+                     Watermark="{Binding Source={x:Static services:LocalizationService.Instance}, Path=[Settings_ExclusionsPlaceholder]}"
+                     Background="#3A3F4A"
+                     Foreground="White"
+                     BorderBrush="MediumSpringGreen"
+                     BorderThickness="1"
+                     CornerRadius="6"
+                     Padding="10,8"/>
+            <Button Grid.Column="2"
+                    Content="{Binding Source={x:Static services:LocalizationService.Instance}, Path=[Common_Add]}"
+                    Click="AddExclusion_Click"
+                    Background="MediumSpringGreen"
+                    Foreground="Black"
+                    FontWeight="Bold"
+                    Padding="16,8"
+                    CornerRadius="6"
+                    HorizontalContentAlignment="Center"/>
+          </Grid>
+          <ListBox x:Name="ExclusionsList"
+                   ItemsSource="{Binding UserExclusions}"
+                   Background="#3A3F4A"
+                   Height="200"
+                   ScrollViewer.VerticalScrollBarVisibility="Auto">
+            <ListBox.Styles>
+              <Style Selector="ListBoxItem:selected /template/ ContentPresenter">
+                <Setter Property="Background" Value="#4A5260"/>
+              </Style>
+              <Style Selector="ListBoxItem">
+                <Setter Property="Foreground" Value="White"/>
+              </Style>
+            </ListBox.Styles>
+          </ListBox>
+          <Button Content="{Binding Source={x:Static services:LocalizationService.Instance}, Path=[Settings_RemoveSelectedButton]}"
+                  Click="RemoveExclusion_Click"
+                  Background="IndianRed"
+                  Foreground="White"
+                  FontWeight="Bold"
+                  Padding="14,8"
+                  CornerRadius="6"
+                  HorizontalAlignment="Left"
+                  HorizontalContentAlignment="Center"/>
+        </StackPanel>
+      </Border>
+
+    </StackPanel>
+  </ScrollViewer>
+</UserControl>
+

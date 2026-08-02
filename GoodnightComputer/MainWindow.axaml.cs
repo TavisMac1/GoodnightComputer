@@ -1,11 +1,13 @@
 ﻿using Avalonia.Controls;
 using Avalonia.Interactivity;
 using AvaloniaToaster;
+using GoodnightComputer.Services;
 using GoodnightComputer.State;
 using GoodnightComputer.ViewModels;
 using GoodnightComputer.Views;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 
 namespace GoodnightComputer
@@ -13,11 +15,18 @@ namespace GoodnightComputer
     public partial class MainWindow : Window
     {
         private bool _isSidebarCollapsed = false;
+        private UserControl? _currentView = null;
 
         public MainWindow()
         {
             InitializeComponent();
-            
+
+            // Set DataContext to LocalizationService for language binding support
+            DataContext = LocalizationService.Instance;
+
+            // Subscribe to language changes to refresh the current view
+            LocalizationService.Instance.PropertyChanged += OnLocalizationChanged;
+
             WindowState = WindowState.Maximized;
 #if STEAMBUILD
             SystemState.SetSignedIn(false);
@@ -109,6 +118,70 @@ namespace GoodnightComputer
 
         private void OnSignedInChanged(bool isSignedIn) => UpdateMainContent();
 
+        private void OnLocalizationChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            // When language changes, refresh the current view
+            if (e.PropertyName == "CurrentLanguage" || e.PropertyName == string.Empty)
+            {
+                RefreshCurrentView();
+                RefreshNavigationButtons();
+                RefreshWindowTitle();
+            }
+        }
+
+        private void RefreshWindowTitle()
+        {
+            // Update window title from localization service
+            Title = LocalizationService.Instance["AppTitle"];
+        }
+
+        private void RefreshNavigationButtons()
+        {
+            // Update navigation button content directly from localization service
+            var loc = LocalizationService.Instance;
+
+            var viewPlaylistsButton = this.FindControl<Button>("ViewPlaylistsButton");
+            if (viewPlaylistsButton != null)
+                viewPlaylistsButton.Content = loc["Nav_ViewPlaylists"];
+
+            var playlistButton = this.FindControl<Button>("PlaylistButton");
+            if (playlistButton != null)
+                playlistButton.Content = loc["Nav_CreatePlaylist"];
+
+            var performanceScanButton = this.FindControl<Button>("PerformanceScanButton");
+            if (performanceScanButton != null)
+                performanceScanButton.Content = loc["Nav_PerformanceScan"];
+
+            var steamStatusButton = this.FindControl<Button>("SteamStatusButton");
+            if (steamStatusButton != null)
+                steamStatusButton.Content = loc["Nav_Steam"];
+        }
+
+        private void RefreshCurrentView()
+        {
+            if (_currentView == null)
+                return;
+
+            // Recreate the current view to pick up new translations
+            UserControl? newView = _currentView switch
+            {
+                ViewPlaylists => new ViewPlaylists(),
+                CreatePlaylist => Program.Services.GetRequiredService<CreatePlaylist>(),
+                GoodnightComputer.ViewModels.SettingsViewModel => new GoodnightComputer.ViewModels.SettingsViewModel(),
+                GoodnightComputer.ViewModels.PerformanceScanViewModel => new GoodnightComputer.ViewModels.PerformanceScanViewModel(),
+                GoodnightComputer.ViewModels.SteamStatusViewModel => new GoodnightComputer.ViewModels.SteamStatusViewModel(),
+#if RELEASEBETA
+                GoodnightComputer.ViewModels.SignInViewModel => Program.Services.GetRequiredService<SignInViewModel>(),
+#endif
+                _ => _currentView
+            };
+
+            if (newView != null)
+            {
+                UpdateMainContent(newView);
+            }
+        }
+
         private void UpdateMainContent(UserControl? requested = null)
         {
             var mainContent = this.FindControl<ContentControl>("MainContent");
@@ -118,11 +191,15 @@ namespace GoodnightComputer
 #if RELEASEBETA
             if (!SystemState.IsSignedIn)
             {
-                mainContent.Content = Program.Services.GetRequiredService<SignInViewModel>();
+                var signInView = Program.Services.GetRequiredService<SignInViewModel>();
+                mainContent.Content = signInView;
+                _currentView = signInView;
                 return;
             }
 #endif
-            mainContent.Content = requested ?? new ViewPlaylists();
+            var view = requested ?? new ViewPlaylists();
+            mainContent.Content = view;
+            _currentView = view;
         }
     }
 }

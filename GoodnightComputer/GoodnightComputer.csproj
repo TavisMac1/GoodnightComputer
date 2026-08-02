@@ -75,6 +75,15 @@
     <AvaloniaResource Include="Assets\gnc_art_cropped.PNG" />
   </ItemGroup>
 
+  <!-- Include localization JSON files -->
+  <ItemGroup>
+    <LocalizationFiles Include="Resources\Localization\*.json" />
+  </ItemGroup>
+
+  <Target Name="CopyLocalizationFiles" AfterTargets="Build">
+    <Copy SourceFiles="@(LocalizationFiles)" DestinationFolder="$(TargetDir)Resources\Localization\" SkipUnchangedFiles="true" />
+  </Target>
+
   <ItemGroup>
     <PackageReference Include="Avalonia" Version="11.2.1" />
     <PackageReference Include="Avalonia.Controls.ItemsRepeater" Version="11.1.5" />
