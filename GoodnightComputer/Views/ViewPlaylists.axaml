@@ -105,7 +105,8 @@
                             <ListBox x:Name="EditAvailableAppsListBox"
                                      ItemsSource="{Binding ModalAvailableApps}"
                                      Height="260"
-                                     SelectionMode="Multiple">
+                                     SelectionMode="Multiple"
+                                     Padding="0,0,0,12">
                                 <ListBox.ItemTemplate>
                                     <DataTemplate x:DataType="models:ApplicationRecord">
                                         <TextBlock Text="{Binding Name}" FontWeight="Bold"/>
@@ -135,7 +136,8 @@
                             <ListBox x:Name="EditSelectedAppsListBox"
                                      ItemsSource="{Binding ModalSelectedApps}"
                                      Height="260"
-                                     SelectionMode="Single">
+                                     SelectionMode="Single"
+                                     Padding="0,0,0,12">
                                 <ListBox.ItemTemplate>
                                     <DataTemplate x:DataType="models:ApplicationRecord">
                                         <TextBlock Text="{Binding Name}" FontWeight="Bold"/>

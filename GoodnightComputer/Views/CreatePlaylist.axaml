@@ -78,7 +78,7 @@
                            FontWeight="Bold"
                            Foreground="MediumSpringGreen"
                            Margin="0,0,0,8"/>
-                <ListBox x:Name="AppsListBox" ItemsSource="{Binding ApplicationList}" Height="380">
+                <ListBox x:Name="AppsListBox" ItemsSource="{Binding ApplicationList}" Height="380" Padding="0,0,0,12">
                   <ListBox.ItemTemplate>
                     <DataTemplate x:DataType="Models:ApplicationRecord">
                       <StackPanel Orientation="Horizontal">
@@ -114,7 +114,7 @@
                            FontWeight="Bold"
                            Foreground="MediumSpringGreen"
                            Margin="0,0,0,8"/>
-                <ListBox x:Name="SelectedAppsListBox" ItemsSource="{Binding SelectedApps}" Height="380">
+                <ListBox x:Name="SelectedAppsListBox" ItemsSource="{Binding SelectedApps}" Height="380" Padding="0,0,0,12">
                   <ListBox.ItemTemplate>
                     <DataTemplate x:DataType="Models:ApplicationRecord">
                       <StackPanel Orientation="Horizontal">

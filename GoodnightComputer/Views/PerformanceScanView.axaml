@@ -26,7 +26,7 @@
               <TextBlock Grid.Column="2" Text="Avg Memory" FontWeight="Bold" FontSize="13" Foreground="MediumSpringGreen" HorizontalAlignment="Right"/>
             </Grid>
           </Border>
-          <ListBox ItemsSource="{Binding Results}" Background="Transparent" MaxHeight="520" ScrollViewer.VerticalScrollBarVisibility="Auto">
+          <ListBox ItemsSource="{Binding Results}" Background="Transparent" MaxHeight="520" ScrollViewer.VerticalScrollBarVisibility="Auto" Padding="0,0,0,12">
             <ListBox.Styles>
               <Style Selector="ListBoxItem"><Setter Property="Padding" Value="0"/><Setter Property="Background" Value="Transparent"/></Style>
               <Style Selector="ListBoxItem:nth-child(odd) /template/ ContentPresenter"><Setter Property="Background" Value="#262A32"/></Style>
