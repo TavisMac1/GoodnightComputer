@@ -1,5 +1,6 @@
 ﻿using Avalonia;
 using AvaloniaToaster;
+using GoodnightComputer.Services;
 using GoodnightComputer.State;
 using GoodnightComputer.Utils;
 using GoodnightComputer.ViewModels;
@@ -76,6 +77,9 @@ public class Program
         services.AddDbContext<AppDbContext>(options =>
             options.UseSqlite($"Data Source={dbPath}")
         );
+
+        // Register LocalizationService as singleton
+        services.AddSingleton(LocalizationService.Instance);
 
         services.AddSingleton<ToastNotificationService>();
         services.AddTransient<CreatePlaylist>();

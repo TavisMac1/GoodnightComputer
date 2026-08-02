@@ -1,7 +1,9 @@
 ﻿<Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:services="clr-namespace:GoodnightComputer.Services"
         x:Class="GoodnightComputer.MainWindow"
-        Title="Goodnight Computer"
+        x:CompileBindings="False"
+        Title="{Binding [AppTitle]}"
         Width="1920"
         Height="1080"
         TransparencyLevelHint="Mica,AcrylicBlur,Blur"
@@ -36,7 +38,7 @@
 
           <Button x:Name="ViewPlaylistsButton"
                   Click="NewViewPlaylistsView_Click"
-                  Content="View Playlists"
+                  Content="{Binding [Nav_ViewPlaylists]}"
                   Background="SlateGray"
                   Foreground="MediumSpringGreen"
                   FontSize="16"
@@ -50,7 +52,7 @@
 
           <Button x:Name="PlaylistButton"
                   Click="NewPlaylistView_Click"
-                  Content="Create Playlist"
+                  Content="{Binding [Nav_CreatePlaylist]}"
                   Background="SlateGray"
                   Foreground="MediumSpringGreen"
                   FontSize="16"
@@ -64,7 +66,7 @@
 
           <Button x:Name="PerformanceScanButton"
                   Click="OpenPerformanceScan_Click"
-                  Content="Performance Scan"
+                  Content="{Binding [Nav_PerformanceScan]}"
                   Background="SlateGray"
                   Foreground="MediumSpringGreen"
                   FontSize="16"
@@ -78,7 +80,7 @@
 
           <Button x:Name="SteamStatusButton"
                   Click="OpenSteamStatus_Click"
-                  Content="Steam"
+                  Content="{Binding [Nav_Steam]}"
                   Background="SlateGray"
                   Foreground="MediumSpringGreen"
                   FontSize="16"
@@ -108,7 +110,7 @@
                   Margin="8,0">
             <StackPanel Orientation="Horizontal" Spacing="12">
               <TextBlock Text="⚙️" FontSize="16" VerticalAlignment="Center"/>
-              <TextBlock Text="Settings" VerticalAlignment="Center"/>
+              <TextBlock Text="{Binding [Nav_Settings]}" VerticalAlignment="Center"/>
             </StackPanel>
           </Button>
           <Button Click="OpenDiscord_Click"
@@ -124,7 +126,7 @@
                   Margin="8,0">
             <StackPanel Orientation="Horizontal" Spacing="12">
               <TextBlock Text="💬" FontSize="16" VerticalAlignment="Center"/>
-              <TextBlock Text="Discord" VerticalAlignment="Center"/>
+              <TextBlock Text="{Binding [Nav_Discord]}" VerticalAlignment="Center"/>
             </StackPanel>
           </Button>
         </StackPanel>
@@ -148,7 +150,7 @@
             FontWeight="Bold"
             FontSize="14"
             Content="◀"
-            ToolTip.Tip="Toggle Sidebar"/>
+            ToolTip.Tip="{Binding [Nav_ToggleSidebar]}"/>
 
     <!-- Main Content Area -->
     <Border Grid.Column="2" Background="Transparent" CornerRadius="12,0,0,12" Margin="0,0,0,0">
@@ -163,7 +165,7 @@
             ZIndex="100">
       <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
         <ProgressBar IsIndeterminate="True" Width="100" Height="8"/>
-        <TextBlock Text="Loading..." 
+        <TextBlock Text="{Binding [Common_Loading]}" 
                    Foreground="MediumSpringGreen" 
                    FontWeight="Bold"
                    Margin="0,12,0,0" 
@@ -178,3 +180,5 @@
     />
   </Grid>
 </Window>
+
+

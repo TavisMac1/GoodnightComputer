@@ -1,7 +1,10 @@
 using Avalonia.Controls;
 using Avalonia.Interactivity;
+using GoodnightComputer.Services;
 using GoodnightComputer.State;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace GoodnightComputer.ViewModels;
 
@@ -19,6 +22,16 @@ public partial class SettingsViewModel : UserControl
             var input = this.FindControl<TextBox>("ThresholdInput");
             if (input != null)
                 input.Text = ScannerSettings.CpuThreshold.ToString();
+        }
+
+        // Set the initial language selection
+        var languageComboBox = this.FindControl<ComboBox>("LanguageComboBox");
+        if (languageComboBox != null)
+        {
+            var currentLanguage = LocalizationService.Instance.CurrentLanguage;
+            var selectedItem = LocalizationService.Instance.AvailableLanguages
+                .FirstOrDefault(kvp => kvp.Key == currentLanguage);
+            languageComboBox.SelectedItem = selectedItem;
         }
     }
 
@@ -51,6 +64,14 @@ public partial class SettingsViewModel : UserControl
         {
             UserExclusionState.Remove(selected);
             UserExclusions.Remove(selected);
+        }
+    }
+
+    private void LanguageComboBox_SelectionChanged(object? sender, SelectionChangedEventArgs e)
+    {
+        if (sender is ComboBox comboBox && comboBox.SelectedItem is KeyValuePair<string, string> selected)
+        {
+            LocalizationService.Instance.CurrentLanguage = selected.Key;
         }
     }
 }
