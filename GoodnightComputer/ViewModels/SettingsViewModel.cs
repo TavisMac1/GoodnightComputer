@@ -17,12 +17,27 @@ public partial class SettingsViewModel : UserControl
         InitializeComponent();
         DataContext = this;
 
+        // Load CPU threshold if user-defined
         if (ScannerSettings.IsUserDefined)
         {
-            var input = this.FindControl<TextBox>("ThresholdInput");
-            if (input != null)
-                input.Text = ScannerSettings.CpuThreshold.ToString();
+            var cpuInput = this.FindControl<TextBox>("CpuThresholdInput");
+            if (cpuInput != null)
+                cpuInput.Text = ScannerSettings.CpuThreshold.ToString();
         }
+
+        // Load RAM threshold
+        var ramInput = this.FindControl<TextBox>("RamThresholdInput");
+        if (ramInput != null)
+            ramInput.Text = ScannerSettings.RamThresholdMB.ToString();
+
+        // Load metric toggles
+        var useCpuCheckBox = this.FindControl<CheckBox>("UseCpuCheckBox");
+        if (useCpuCheckBox != null)
+            useCpuCheckBox.IsChecked = ScannerSettings.UseCpuMetric;
+
+        var useRamCheckBox = this.FindControl<CheckBox>("UseRamCheckBox");
+        if (useRamCheckBox != null)
+            useRamCheckBox.IsChecked = ScannerSettings.UseRamMetric;
 
         // Set the initial language selection
         var languageComboBox = this.FindControl<ComboBox>("LanguageComboBox");
@@ -35,13 +50,34 @@ public partial class SettingsViewModel : UserControl
         }
     }
 
-    private void SaveThreshold_Click(object? sender, RoutedEventArgs e)
+    private void SaveCpuThreshold_Click(object? sender, RoutedEventArgs e)
     {
-        var input = this.FindControl<TextBox>("ThresholdInput");
+        var input = this.FindControl<TextBox>("CpuThresholdInput");
         if (input == null || string.IsNullOrWhiteSpace(input.Text)) return;
 
         if (double.TryParse(input.Text.Trim(), out double value) && value >= 0 && value <= 100)
             ScannerSettings.CpuThreshold = value;
+    }
+
+    private void SaveRamThreshold_Click(object? sender, RoutedEventArgs e)
+    {
+        var input = this.FindControl<TextBox>("RamThresholdInput");
+        if (input == null || string.IsNullOrWhiteSpace(input.Text)) return;
+
+        if (double.TryParse(input.Text.Trim(), out double value) && value >= 0)
+            ScannerSettings.RamThresholdMB = value;
+    }
+
+    private void MetricToggle_Changed(object? sender, RoutedEventArgs e)
+    {
+        var useCpuCheckBox = this.FindControl<CheckBox>("UseCpuCheckBox");
+        var useRamCheckBox = this.FindControl<CheckBox>("UseRamCheckBox");
+
+        if (useCpuCheckBox != null)
+            ScannerSettings.UseCpuMetric = useCpuCheckBox.IsChecked ?? true;
+
+        if (useRamCheckBox != null)
+            ScannerSettings.UseRamMetric = useRamCheckBox.IsChecked ?? false;
     }
 
     private void AddExclusion_Click(object? sender, RoutedEventArgs e)

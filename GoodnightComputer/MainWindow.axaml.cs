@@ -155,6 +155,15 @@ namespace GoodnightComputer
             var steamStatusButton = this.FindControl<Button>("SteamStatusButton");
             if (steamStatusButton != null)
                 steamStatusButton.Content = loc["Nav_Steam"];
+
+            // Update Settings and Discord text (they use nested TextBlocks)
+            var settingsText = this.FindControl<TextBlock>("SettingsText");
+            if (settingsText != null)
+                settingsText.Text = loc["Nav_Settings"];
+
+            var discordText = this.FindControl<TextBlock>("DiscordText");
+            if (discordText != null)
+                discordText.Text = loc["Nav_Discord"];
         }
 
         private void RefreshCurrentView()

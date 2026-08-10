@@ -97,7 +97,8 @@
         <!-- Settings pinned to bottom -->
         <StackPanel DockPanel.Dock="Bottom" Spacing="4" HorizontalAlignment="Stretch">
           <Separator Margin="16,0,16,8" Background="#3AFFFFFF"/>
-          <Button Click="OpenSettings_Click"
+          <Button x:Name="SettingsButton"
+                  Click="OpenSettings_Click"
                   Background="Transparent"
                   Foreground="White"
                   FontSize="14"
@@ -110,10 +111,11 @@
                   Margin="8,0">
             <StackPanel Orientation="Horizontal" Spacing="12">
               <TextBlock Text="⚙️" FontSize="16" VerticalAlignment="Center"/>
-              <TextBlock Text="{Binding [Nav_Settings]}" VerticalAlignment="Center"/>
+              <TextBlock x:Name="SettingsText" Text="{Binding [Nav_Settings]}" VerticalAlignment="Center"/>
             </StackPanel>
           </Button>
-          <Button Click="OpenDiscord_Click"
+          <Button x:Name="DiscordButton"
+                  Click="OpenDiscord_Click"
                   Background="Transparent"
                   Foreground="White"
                   FontSize="14"
@@ -126,7 +128,7 @@
                   Margin="8,0">
             <StackPanel Orientation="Horizontal" Spacing="12">
               <TextBlock Text="💬" FontSize="16" VerticalAlignment="Center"/>
-              <TextBlock Text="{Binding [Nav_Discord]}" VerticalAlignment="Center"/>
+              <TextBlock x:Name="DiscordText" Text="{Binding [Nav_Discord]}" VerticalAlignment="Center"/>
             </StackPanel>
           </Button>
         </StackPanel>
