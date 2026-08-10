@@ -55,41 +55,91 @@
         </StackPanel>
       </Border>
 
-      <!-- CPU Threshold -->
+      <!-- Performance Metrics -->
       <Border Background="#2D313A"
               BorderBrush="MediumSpringGreen"
               BorderThickness="2"
               CornerRadius="10"
               Padding="24">
         <StackPanel Spacing="16">
-          <TextBlock Text="{Binding Source={x:Static services:LocalizationService.Instance}, Path=[Settings_CPUThresholdSection]}"
+          <TextBlock Text="{Binding Source={x:Static services:LocalizationService.Instance}, Path=[Settings_PerformanceMetricsSection]}"
                      FontSize="18"
                      FontWeight="Bold"
                      Foreground="MediumSpringGreen"/>
-          <TextBlock Text="{Binding Source={x:Static services:LocalizationService.Instance}, Path=[Settings_CPUThresholdDescription]}"
+          <TextBlock Text="{Binding Source={x:Static services:LocalizationService.Instance}, Path=[Settings_PerformanceMetricsDescription]}"
                      FontSize="13"
                      Foreground="CornflowerBlue"
                      TextWrapping="Wrap"/>
-          <Grid ColumnDefinitions="*,12,Auto">
-            <TextBox x:Name="ThresholdInput"
-                     Grid.Column="0"
-                     Watermark="{Binding Source={x:Static services:LocalizationService.Instance}, Path=[Settings_CPUThresholdPlaceholder]}"
-                     Background="#3A3F4A"
-                     Foreground="White"
-                     BorderBrush="MediumSpringGreen"
-                     BorderThickness="1"
-                     CornerRadius="6"
-                     Padding="10,8"/>
-            <Button Grid.Column="2"
-                    Content="{Binding Source={x:Static services:LocalizationService.Instance}, Path=[Common_Save]}"
-                    Click="SaveThreshold_Click"
-                    Background="MediumSpringGreen"
-                    Foreground="Black"
-                    FontWeight="Bold"
-                    Padding="16,8"
-                    CornerRadius="6"
-                    HorizontalContentAlignment="Center"/>
-          </Grid>
+
+          <!-- Metric Toggles -->
+          <StackPanel Orientation="Horizontal" Spacing="24">
+            <CheckBox x:Name="UseCpuCheckBox"
+                      Content="{Binding Source={x:Static services:LocalizationService.Instance}, Path=[Settings_UseCPUMetric]}"
+                      Foreground="White"
+                      FontSize="14"
+                      Checked="MetricToggle_Changed"
+                      Unchecked="MetricToggle_Changed"/>
+            <CheckBox x:Name="UseRamCheckBox"
+                      Content="{Binding Source={x:Static services:LocalizationService.Instance}, Path=[Settings_UseRAMMetric]}"
+                      Foreground="White"
+                      FontSize="14"
+                      Checked="MetricToggle_Changed"
+                      Unchecked="MetricToggle_Changed"/>
+          </StackPanel>
+
+          <!-- CPU Threshold -->
+          <StackPanel Spacing="8">
+            <TextBlock Text="{Binding Source={x:Static services:LocalizationService.Instance}, Path=[Settings_CPUThresholdLabel]}"
+                       FontSize="14"
+                       Foreground="White"/>
+            <Grid ColumnDefinitions="*,12,Auto">
+              <TextBox x:Name="CpuThresholdInput"
+                       Grid.Column="0"
+                       Watermark="{Binding Source={x:Static services:LocalizationService.Instance}, Path=[Settings_CPUThresholdPlaceholder]}"
+                       Background="#3A3F4A"
+                       Foreground="White"
+                       BorderBrush="MediumSpringGreen"
+                       BorderThickness="1"
+                       CornerRadius="6"
+                       Padding="10,8"/>
+              <Button Grid.Column="2"
+                      Content="{Binding Source={x:Static services:LocalizationService.Instance}, Path=[Common_Save]}"
+                      Click="SaveCpuThreshold_Click"
+                      Background="MediumSpringGreen"
+                      Foreground="Black"
+                      FontWeight="Bold"
+                      Padding="16,8"
+                      CornerRadius="6"
+                      HorizontalContentAlignment="Center"/>
+            </Grid>
+          </StackPanel>
+
+          <!-- RAM Threshold -->
+          <StackPanel Spacing="8">
+            <TextBlock Text="{Binding Source={x:Static services:LocalizationService.Instance}, Path=[Settings_RAMThresholdLabel]}"
+                       FontSize="14"
+                       Foreground="White"/>
+            <Grid ColumnDefinitions="*,12,Auto">
+              <TextBox x:Name="RamThresholdInput"
+                       Grid.Column="0"
+                       Watermark="{Binding Source={x:Static services:LocalizationService.Instance}, Path=[Settings_RAMThresholdPlaceholder]}"
+                       Background="#3A3F4A"
+                       Foreground="White"
+                       BorderBrush="MediumSpringGreen"
+                       BorderThickness="1"
+                       CornerRadius="6"
+                       Padding="10,8"/>
+              <Button Grid.Column="2"
+                      Content="{Binding Source={x:Static services:LocalizationService.Instance}, Path=[Common_Save]}"
+                      Click="SaveRamThreshold_Click"
+                      Background="MediumSpringGreen"
+                      Foreground="Black"
+                      FontWeight="Bold"
+                      Padding="16,8"
+                      CornerRadius="6"
+                      HorizontalContentAlignment="Center"/>
+            </Grid>
+          </StackPanel>
         </StackPanel>
       </Border>
 
