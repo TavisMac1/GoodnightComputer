@@ -31,10 +31,12 @@
   <!-- Add constants based on build type -->
   <PropertyGroup Condition="'$(Configuration)'=='RELEASE-STEAM'">
     <DefineConstants>$(DefineConstants);STEAMBUILD</DefineConstants>
+    <PublishSingleFile>false</PublishSingleFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)'=='RELEASE-BETA-STEAM'">
     <DefineConstants>$(DefineConstants);STEAMBUILD</DefineConstants>
+    <PublishSingleFile>false</PublishSingleFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)'=='RELEASE-BETA'">
@@ -80,8 +82,14 @@
     <LocalizationFiles Include="Resources\Localization\*.json" />
   </ItemGroup>
 
-  <Target Name="CopyLocalizationFiles" AfterTargets="Build">
+  <!-- Copy localization files after Build AND Publish -->
+  <Target Name="CopyLocalizationFiles" AfterTargets="Build;Publish">
     <Copy SourceFiles="@(LocalizationFiles)" DestinationFolder="$(TargetDir)Resources\Localization\" SkipUnchangedFiles="true" />
+  </Target>
+
+  <!-- For publish, also copy to publish directory -->
+  <Target Name="CopyLocalizationFilesOnPublish" AfterTargets="Publish">
+    <Copy SourceFiles="@(LocalizationFiles)" DestinationFolder="$(PublishDir)Resources\Localization\" SkipUnchangedFiles="true" />
   </Target>
 
   <ItemGroup>

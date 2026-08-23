@@ -2,29 +2,31 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:viewmodels="clr-namespace:GoodnightComputer.ViewModels"
              xmlns:models="clr-namespace:GoodnightComputer.Models"
+             xmlns:services="clr-namespace:GoodnightComputer.Services"
              x:Class="GoodnightComputer.ViewModels.PerformanceScanViewModel"
              x:DataType="viewmodels:PerformanceScanViewModel"
+             x:CompileBindings="False"
              Background="Transparent">
   <ScrollViewer>
     <StackPanel Spacing="24" Margin="32">
       <StackPanel Spacing="4">
-        <TextBlock Text="Performance Scanner" FontSize="26" FontWeight="Bold" Foreground="MediumSpringGreen"/>
-        <TextBlock Text="Measures average CPU and memory usage of running apps over a 5-second window." FontSize="13" Foreground="CornflowerBlue" TextWrapping="Wrap"/>
-        <TextBlock Text="It is important you do not interact with other applications during this scan to keep results accurate." FontSize="13" Foreground="#FFA040" TextWrapping="Wrap"/>
-        <TextBlock Text="You can auto-create a playlist from results using the button below. Apps are filtered based on your configured thresholds - adjust CPU/RAM thresholds and enable/disable metrics in Settings." FontSize="13" Foreground="#A0A8B0" TextWrapping="Wrap"/>
+        <TextBlock Text="{Binding Source={x:Static services:LocalizationService.Instance}, Path=[PerformanceScan_Title]}" FontSize="26" FontWeight="Bold" Foreground="MediumSpringGreen"/>
+        <TextBlock Text="{Binding Source={x:Static services:LocalizationService.Instance}, Path=[PerformanceScan_Description]}" FontSize="13" Foreground="CornflowerBlue" TextWrapping="Wrap"/>
+        <TextBlock Text="{Binding Source={x:Static services:LocalizationService.Instance}, Path=[PerformanceScan_Warning]}" FontSize="13" Foreground="#FFA040" TextWrapping="Wrap"/>
+        <TextBlock Text="{Binding Source={x:Static services:LocalizationService.Instance}, Path=[PerformanceScan_PlaylistInfo]}" FontSize="13" Foreground="#A0A8B0" TextWrapping="Wrap"/>
       </StackPanel>
       <StackPanel Orientation="Horizontal" Spacing="16" VerticalAlignment="Center">
-        <Button x:Name="ScanButton" Content="&#x25B6;  Start Scan" Click="StartScan_Click" Background="MediumSpringGreen" Foreground="Black" FontWeight="Bold" FontSize="14" Padding="18,10" CornerRadius="8" HorizontalContentAlignment="Center"/>
-        <Button Content="&#x2795; Create Playlist from Scan" Click="CreatePlaylistFromScan_Click" Background="#3A4050" Foreground="MediumSpringGreen" FontWeight="Bold" FontSize="14" Padding="18,10" CornerRadius="8" HorizontalContentAlignment="Center"/><ProgressBar x:Name="ScanProgress" IsIndeterminate="True" IsVisible="False" Width="200" Height="14" VerticalAlignment="Center" Foreground="MediumSpringGreen" Background="#3A3F4A" CornerRadius="7"/>
-        <TextBlock x:Name="StatusText" Text="Press Start Scan to begin." FontSize="13" Foreground="#A0A8B0" VerticalAlignment="Center"/>
+        <Button x:Name="ScanButton" Content="{Binding Source={x:Static services:LocalizationService.Instance}, Path=[PerformanceScan_StartButton]}" Click="StartScan_Click" Background="MediumSpringGreen" Foreground="Black" FontWeight="Bold" FontSize="14" Padding="18,10" CornerRadius="8" HorizontalContentAlignment="Center"/>
+        <Button Content="{Binding Source={x:Static services:LocalizationService.Instance}, Path=[PerformanceScan_CreatePlaylistButton]}" Click="CreatePlaylistFromScan_Click" Background="#3A4050" Foreground="MediumSpringGreen" FontWeight="Bold" FontSize="14" Padding="18,10" CornerRadius="8" HorizontalContentAlignment="Center"/><ProgressBar x:Name="ScanProgress" IsIndeterminate="True" IsVisible="False" Width="200" Height="14" VerticalAlignment="Center" Foreground="MediumSpringGreen" Background="#3A3F4A" CornerRadius="7"/>
+        <TextBlock x:Name="StatusText" Text="{Binding Source={x:Static services:LocalizationService.Instance}, Path=[PerformanceScan_StatusReady]}" FontSize="13" Foreground="#A0A8B0" VerticalAlignment="Center"/>
       </StackPanel>
       <Border Background="#2D313A" BorderBrush="MediumSpringGreen" BorderThickness="2" CornerRadius="10" Padding="0">
         <StackPanel>
           <Border Background="#1E2128" CornerRadius="8,8,0,0" Padding="16,10">
             <Grid ColumnDefinitions="*,160,160">
-              <TextBlock Grid.Column="0" Text="Application" FontWeight="Bold" FontSize="13" Foreground="MediumSpringGreen"/>
-              <TextBlock Grid.Column="1" Text="Avg CPU %" FontWeight="Bold" FontSize="13" Foreground="MediumSpringGreen" HorizontalAlignment="Right"/>
-              <TextBlock Grid.Column="2" Text="Avg Memory" FontWeight="Bold" FontSize="13" Foreground="MediumSpringGreen" HorizontalAlignment="Right"/>
+              <TextBlock Grid.Column="0" Text="{Binding Source={x:Static services:LocalizationService.Instance}, Path=[PerformanceScan_HeaderApp]}" FontWeight="Bold" FontSize="13" Foreground="MediumSpringGreen"/>
+              <TextBlock Grid.Column="1" Text="{Binding Source={x:Static services:LocalizationService.Instance}, Path=[PerformanceScan_HeaderCPU]}" FontWeight="Bold" FontSize="13" Foreground="MediumSpringGreen" HorizontalAlignment="Right"/>
+              <TextBlock Grid.Column="2" Text="{Binding Source={x:Static services:LocalizationService.Instance}, Path=[PerformanceScan_HeaderMemory]}" FontWeight="Bold" FontSize="13" Foreground="MediumSpringGreen" HorizontalAlignment="Right"/>
             </Grid>
           </Border>
           <ListBox ItemsSource="{Binding Results}" Background="Transparent" MaxHeight="520" ScrollViewer.VerticalScrollBarVisibility="Auto" Padding="0,0,0,12">

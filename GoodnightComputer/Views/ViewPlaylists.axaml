@@ -3,8 +3,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:views="clr-namespace:GoodnightComputer.Views"
              xmlns:viewmodels="clr-namespace:GoodnightComputer.ViewModels"
+             xmlns:services="clr-namespace:GoodnightComputer.Services"
              x:Class="GoodnightComputer.Views.ViewPlaylists"
              x:DataType="viewmodels:ViewPlaylistsViewModel"
+             x:CompileBindings="False"
              Background="Transparent"
              Padding="24">
 
@@ -21,7 +23,7 @@
         
         <!-- Main Content -->
         <StackPanel Spacing="24">
-            <TextBlock Text="Your Playlists"
+            <TextBlock Text="{Binding Source={x:Static services:LocalizationService.Instance}, Path=[ViewPlaylists_Title]}"
                        FontSize="22"
                        FontWeight="Bold"
                        Foreground="MediumSpringGreen"
@@ -62,7 +64,7 @@
                     VerticalAlignment="Center"
                     HorizontalAlignment="Center">
                 <StackPanel Spacing="12">
-                    <TextBlock Text="Edit Playlist"
+                    <TextBlock Text="{Binding Source={x:Static services:LocalizationService.Instance}, Path=[ViewPlaylists_EditTitle]}"
                                FontSize="20"
                                FontWeight="Bold"
                                Foreground="MediumSpringGreen"/>
@@ -76,28 +78,28 @@
                     <StackPanel Orientation="Horizontal" Spacing="8">
                         <TextBox x:Name="EditSearchTextBox"
                                  Width="220"
-                                 Watermark="Search applications..."/>
+                                  Watermark="{Binding Source={x:Static services:LocalizationService.Instance}, Path=[Common_Search]}"/>
                         <Button x:Name="EditSearchButton"
                                 Background="MediumSpringGreen"
                                 Foreground="Black"
                                 MinWidth="60"
                                 Height="30"
                                 FontWeight="Bold"
-                                Content="Search"/>
+                                Content="{Binding Source={x:Static services:LocalizationService.Instance}, Path=[Common_Search]}"/>
                         <Button x:Name="EditRefreshButton"
                                 Background="SlateGray"
                                 Foreground="MediumSpringGreen"
                                 MinWidth="60"
                                 Height="30"
                                 FontWeight="Bold"
-                                Content="↻ Refresh"/>
+                                Content="{Binding Source={x:Static services:LocalizationService.Instance}, Path=[Common_Refresh]}"/>
                     </StackPanel>
 
                     <!-- Two-column app lists -->
                     <Grid ColumnDefinitions="*,8,*" Height="320">
                         <!-- Available Apps -->
                         <StackPanel Grid.Column="0">
-                            <TextBlock Text="Available Apps"
+                            <TextBlock Text="{Binding Source={x:Static services:LocalizationService.Instance}, Path=[ViewPlaylists_AvailableApps]}"
                                        FontSize="13"
                                        FontWeight="Bold"
                                        Foreground="MediumSpringGreen"
@@ -114,7 +116,7 @@
                                 </ListBox.ItemTemplate>
                             </ListBox>
                             <Button x:Name="EditAddAppButton"
-                                    Content="Add"
+                                    Content="{Binding Source={x:Static services:LocalizationService.Instance}, Path=[ViewPlaylists_AddButton]}"
                                     Background="MediumSpringGreen"
                                     Foreground="Black"
                                     FontWeight="Bold"
@@ -128,7 +130,7 @@
 
                         <!-- Selected Apps -->
                         <StackPanel Grid.Column="2">
-                            <TextBlock Text="Apps in Playlist"
+                            <TextBlock Text="{Binding Source={x:Static services:LocalizationService.Instance}, Path=[ViewPlaylists_PlaylistApps]}"
                                        FontSize="13"
                                        FontWeight="Bold"
                                        Foreground="MediumSpringGreen"
@@ -145,7 +147,7 @@
                                 </ListBox.ItemTemplate>
                             </ListBox>
                             <Button x:Name="EditRemoveAppButton"
-                                    Content="Remove"
+                                    Content="{Binding Source={x:Static services:LocalizationService.Instance}, Path=[ViewPlaylists_RemoveButton]}"
                                     Background="DarkRed"
                                     Foreground="White"
                                     FontWeight="Bold"
@@ -163,7 +165,7 @@
                     <!-- Action Buttons -->
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Spacing="10">
                         <Button x:Name="EditCancelButton"
-                                Content="Cancel"
+                                Content="{Binding Source={x:Static services:LocalizationService.Instance}, Path=[ViewPlaylists_CancelButton]}"
                                 Command="{Binding CloseEditModalCommand}"
                                 Background="SlateGray"
                                 Foreground="White"
@@ -173,7 +175,7 @@
                                 HorizontalContentAlignment="Center"
                                 VerticalContentAlignment="Center"/>
                         <Button x:Name="EditSaveButton"
-                                Content="Save"
+                                Content="{Binding Source={x:Static services:LocalizationService.Instance}, Path=[ViewPlaylists_SaveButton]}"
                                 Background="MediumSpringGreen"
                                 Foreground="Black"
                                 FontWeight="Bold"
