@@ -1,4 +1,5 @@
 using GoodnightComputer.Models;
+using AppConstants = GoodnightComputer.Constants.Constants;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
@@ -23,13 +24,17 @@ public static class SteamUtils
             return new SteamStatus { IsSteamInstalled = false };
 
         int runningAppId = GetRunningAppId();
+        if (runningAppId == (int)AppConstants.STEAM_APP_ID)
+            runningAppId = 0;
+
         var manifests = ReadAllManifests(steamPath);
 
         string? runningGameName = runningAppId > 0
             ? manifests.GetValueOrDefault(runningAppId)?.Name
             : null;
 
-        var downloading = manifests.Values.FirstOrDefault(m => m.IsDownloading);
+        var downloading = manifests.Values.FirstOrDefault(m =>
+            m.IsDownloading && m.AppId != (int)AppConstants.STEAM_APP_ID);
 
         return new SteamStatus
         {

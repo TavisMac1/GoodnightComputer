@@ -1,9 +1,11 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:Models="using:GoodnightComputer.Models"
+             xmlns:services="clr-namespace:GoodnightComputer.Services"
              xmlns:viewmodels="clr-namespace:GoodnightComputer.ViewModels"
              x:Class="GoodnightComputer.Views.SubViewItem"
              x:DataType="Models:PlaylistRecord"
+             x:CompileBindings="False"
              Background="#2D313A"
              Padding="16"
              Margin="8">
@@ -35,7 +37,7 @@
         <Grid ColumnDefinitions="*,8,*">
           <!-- Available Apps -->
           <StackPanel Grid.Column="0">
-            <TextBlock Text="Apps in Playlist"
+          <TextBlock Text="{Binding Source={x:Static services:LocalizationService.Instance}, Path=[ViewPlaylists_PlaylistApps]}"
                        FontSize="14"
                        FontWeight="Bold"
                        Foreground="MediumSpringGreen"
@@ -59,7 +61,7 @@
         </Grid>
       </ScrollViewer>
       <!-- Delete Button -->
-      <Button Content="Delete Playlist"
+       <Button Content="{Binding Source={x:Static services:LocalizationService.Instance}, Path=[PlaylistItem_DeleteButton]}"
             Command="{Binding DeleteFromDb}"
             Background="DarkRed"
             Foreground="White"
@@ -70,7 +72,7 @@
             Width="140"
             Height="32"
             FontWeight="Bold"/>
-      <Button Content="Edit Playlist"
+       <Button Content="{Binding Source={x:Static services:LocalizationService.Instance}, Path=[PlaylistItem_EditButton]}"
             Command="{Binding EditPlaylist}"
             Background="SteelBlue"
             Foreground="White"
@@ -81,7 +83,7 @@
             Width="140"
             Height="32"
             FontWeight="Bold"/>
-      <Button Content="Sleep Apps"
+       <Button Content="{Binding Source={x:Static services:LocalizationService.Instance}, Path=[PlaylistItem_SleepButton]}"
             Command="{Binding SleepPlaylistApplications}"
             Background="MediumSpringGreen"
             Foreground="Black"
