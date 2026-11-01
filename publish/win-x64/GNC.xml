@@ -1,0 +1,163 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>GNC</name>
+    </assembly>
+    <members>
+        <member name="M:GoodnightComputer.MainWindow.InitializeComponent(System.Boolean)">
+            <summary>
+            Wires up the controls and optionally loads XAML markup and attaches dev tools (if Avalonia.Diagnostics package is referenced).
+            </summary>
+            <param name="loadXaml">Should the XAML be loaded into the component.</param>
+        </member>
+        <member name="T:GoodnightComputer.Migrations.InitialCreate">
+            <inheritdoc />
+        </member>
+        <member name="M:GoodnightComputer.Migrations.InitialCreate.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:GoodnightComputer.Migrations.InitialCreate.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:GoodnightComputer.Migrations.InitialCreate.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:GoodnightComputer.Migrations.AddNewColumnPlayListRecordsList">
+            <inheritdoc />
+        </member>
+        <member name="M:GoodnightComputer.Migrations.AddNewColumnPlayListRecordsList.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:GoodnightComputer.Migrations.AddNewColumnPlayListRecordsList.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:GoodnightComputer.Migrations.AddNewColumnPlayListRecordsList.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:GoodnightComputer.Migrations.makedescriptornullable">
+            <inheritdoc />
+        </member>
+        <member name="M:GoodnightComputer.Migrations.makedescriptornullable.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:GoodnightComputer.Migrations.makedescriptornullable.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:GoodnightComputer.Migrations.makedescriptornullable.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:GoodnightComputer.Services.LocalizationService">
+            <summary>
+            Service for managing application localization and language switching
+            </summary>
+        </member>
+        <member name="P:GoodnightComputer.Services.LocalizationService.AvailableLanguages">
+            <summary>
+            Available languages with their display names
+            </summary>
+        </member>
+        <member name="P:GoodnightComputer.Services.LocalizationService.Item(System.String)">
+            <summary>
+            Indexer for accessing translations in XAML: {Binding [KeyName]}
+            </summary>
+        </member>
+        <member name="P:GoodnightComputer.State.ScannerSettings.CpuThreshold">
+            <summary>
+            Minimum average CPU % an app must exceed to be included in an auto-generated playlist.
+            </summary>
+        </member>
+        <member name="P:GoodnightComputer.State.ScannerSettings.RamThresholdMB">
+            <summary>
+            Minimum average RAM (MB) an app must exceed to be included in an auto-generated playlist.
+            </summary>
+        </member>
+        <member name="P:GoodnightComputer.State.ScannerSettings.UseCpuMetric">
+            <summary>
+            Whether to use CPU metric when filtering scan results for playlist creation.
+            </summary>
+        </member>
+        <member name="P:GoodnightComputer.State.ScannerSettings.UseRamMetric">
+            <summary>
+            Whether to use RAM metric when filtering scan results for playlist creation.
+            </summary>
+        </member>
+        <member name="P:GoodnightComputer.State.ScannerSettings.IsUserDefined">
+            <summary>
+            True if the user has explicitly saved a threshold; false if still on the default.
+            </summary>
+        </member>
+        <member name="P:GoodnightComputer.State.SteamTriggerState.GameRunningPlaylistId">
+            <summary>Playlist ID to activate when a Steam game is running. Null = no trigger.</summary>
+        </member>
+        <member name="P:GoodnightComputer.State.SteamTriggerState.DownloadingPlaylistId">
+            <summary>Playlist ID to activate when a Steam download is in progress. Null = no trigger.</summary>
+        </member>
+        <member name="M:GoodnightComputer.Utils.PerformanceScanner.ScanAsync(System.Int32,System.Int32,System.IProgress{System.String},System.Threading.CancellationToken)">
+            <summary>
+            Samples all non-excluded processes over <paramref name="durationSeconds"/> seconds
+            (polling every <paramref name="intervalMs"/> ms) and returns averaged CPU % and memory (MB)
+            for each app, sorted by descending average CPU then memory.
+            </summary>
+        </member>
+        <member name="M:GoodnightComputer.Utils.ProcessClassifier.IsSystemOrHardwareProcess(System.Diagnostics.Process)">
+            <summary>
+            Returns <c>true</c> when the process is an OS or hardware-driver process
+            that should always be hidden from the user.
+            </summary>
+        </member>
+        <member name="M:GoodnightComputer.Utils.SteamUtils.GetStatus">
+            <summary>
+            Reads the local Steam installation to determine whether a game is running
+            or a download is in progress. No network calls or API keys required.
+            </summary>
+        </member>
+        <member name="M:GoodnightComputer.ViewModels.CreatePlaylist.InitializeComponent(System.Boolean)">
+            <summary>
+            Wires up the controls and optionally loads XAML markup and attaches dev tools (if Avalonia.Diagnostics package is referenced).
+            </summary>
+            <param name="loadXaml">Should the XAML be loaded into the component.</param>
+        </member>
+        <member name="M:GoodnightComputer.ViewModels.PerformanceScanViewModel.InitializeComponent(System.Boolean)">
+            <summary>
+            Wires up the controls and optionally loads XAML markup and attaches dev tools (if Avalonia.Diagnostics package is referenced).
+            </summary>
+            <param name="loadXaml">Should the XAML be loaded into the component.</param>
+        </member>
+        <member name="M:GoodnightComputer.ViewModels.SettingsViewModel.InitializeComponent(System.Boolean)">
+            <summary>
+            Wires up the controls and optionally loads XAML markup and attaches dev tools (if Avalonia.Diagnostics package is referenced).
+            </summary>
+            <param name="loadXaml">Should the XAML be loaded into the component.</param>
+        </member>
+        <member name="M:GoodnightComputer.ViewModels.SignInViewModel.InitializeComponent(System.Boolean)">
+            <summary>
+            Wires up the controls and optionally loads XAML markup and attaches dev tools (if Avalonia.Diagnostics package is referenced).
+            </summary>
+            <param name="loadXaml">Should the XAML be loaded into the component.</param>
+        </member>
+        <member name="M:GoodnightComputer.ViewModels.SteamStatusViewModel.InitializeComponent(System.Boolean)">
+            <summary>
+            Wires up the controls and optionally loads XAML markup and attaches dev tools (if Avalonia.Diagnostics package is referenced).
+            </summary>
+            <param name="loadXaml">Should the XAML be loaded into the component.</param>
+        </member>
+        <member name="M:GoodnightComputer.Views.SplashScreen.InitializeComponent(System.Boolean)">
+            <summary>
+            Wires up the controls and optionally loads XAML markup and attaches dev tools (if Avalonia.Diagnostics package is referenced).
+            </summary>
+            <param name="loadXaml">Should the XAML be loaded into the component.</param>
+        </member>
+        <member name="M:GoodnightComputer.Views.SubViewItem.InitializeComponent(System.Boolean)">
+            <summary>
+            Wires up the controls and optionally loads XAML markup and attaches dev tools (if Avalonia.Diagnostics package is referenced).
+            </summary>
+            <param name="loadXaml">Should the XAML be loaded into the component.</param>
+        </member>
+        <member name="M:GoodnightComputer.Views.ViewPlaylists.InitializeComponent(System.Boolean)">
+            <summary>
+            Wires up the controls and optionally loads XAML markup and attaches dev tools (if Avalonia.Diagnostics package is referenced).
+            </summary>
+            <param name="loadXaml">Should the XAML be loaded into the component.</param>
+        </member>
+    </members>
+</doc>
