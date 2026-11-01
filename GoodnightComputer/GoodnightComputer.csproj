@@ -122,6 +122,18 @@
     <Folder Include="Models\ValidationModels\" />
   </ItemGroup>
 
+  <!-- Obfuscate GNC.dll for release configurations (config template: obfuscar.xml) -->
+  <Target Name="ObfuscateAssembly" AfterTargets="Build" Condition="'$(Configuration)' != 'Debug'">
+    <PropertyGroup>
+      <ObfOutDir>$([System.IO.Path]::GetFullPath('$(OutDir)'))</ObfOutDir>
+      <ObfConfigPath>$(MSBuildProjectDirectory)\obj\obfuscar.$(Configuration).xml</ObfConfigPath>
+    </PropertyGroup>
+    <WriteLinesToFile File="$(ObfConfigPath)" Lines="$([System.IO.File]::ReadAllText('$(MSBuildProjectDirectory)\obfuscar.xml').Replace('@OUTDIR@', '$(ObfOutDir)'))" Overwrite="true" />
+    <Exec Command="&quot;$(Obfuscar)&quot; &quot;$(ObfConfigPath)&quot;" />
+    <Copy SourceFiles="$(ObfOutDir)Obfuscated\GNC.dll" DestinationFiles="$(ObfOutDir)GNC.dll" />
+    <Copy SourceFiles="$(ObfOutDir)Obfuscated\GNC.dll" DestinationFiles="@(IntermediateAssembly->'%(FullPath)')" />
+  </Target>
+
   <!-- Copy native Steamworks DLL to output for Steam builds -->
   <ItemGroup Condition="'$(Configuration)'=='RELEASE-STEAM' Or '$(Configuration)'=='RELEASE-BETA-STEAM'">
     <None Include="$(MSBuildProjectDirectory)\steam_api64.dll">
